@@ -85,7 +85,7 @@ namespace KryptonEngine.Manager
             mRessourcen.Clear();
         }
 
-        public Dictionary<String, Texture2D> GetAllEntities()
+        public Dictionary<String, Texture2D> GetAllGameEntities()
         {
             Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
 

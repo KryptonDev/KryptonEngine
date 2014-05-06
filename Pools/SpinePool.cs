@@ -12,16 +12,6 @@ namespace KryptonEngine.Pools
 {
     public class SpinePool : Pool<SpineObject>
     {
-        #region Singleton
-
-        private static SpinePool mFluffy;
-        private static SpinePool mNextDummySkeleton;
-
-        public static SpinePool Fluffy { get { if (mFluffy == null) mFluffy = new SpinePool("fluffy"); return mFluffy; } }
-        public static SpinePool NextDummySkeleton { get { if (mNextDummySkeleton == null) mNextDummySkeleton = new SpinePool("skeleton"); return mNextDummySkeleton; } }
-
-        #endregion
-
         #region Properties
 
         private string mName;

@@ -22,7 +22,7 @@ namespace KryptonEngine
             EngineSettings.Content = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
 
-            //SpineSettings.Setup();
+            SpineSettings.Setup();
         }
 
         protected override void Initialize()
@@ -39,7 +39,7 @@ namespace KryptonEngine
             InteractiveObjectDataManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
-            //SpineManager.Instance.LoadContent();
+            SpineManager.Instance.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)

@@ -24,8 +24,9 @@ namespace KryptonEngine.Entities
 
         private string mName;
         private Vector2 mInitPosition;
-        private Vector2 mMovePosition;
         private float mScale;
+
+        protected Color mDebugColor = Color.Yellow;
 
         #region Getter & Setter
 
@@ -102,9 +103,9 @@ namespace KryptonEngine.Entities
             mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
 
-            // mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
+            mSkeleton = SpineManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-            // mAnimationState = SpineManager.Instance.NewAnimationState(mSkeleton.Data);
+            mAnimationState = SpineManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
         }
@@ -124,46 +125,27 @@ namespace KryptonEngine.Entities
             //skeleton.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
             mAnimationState.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mAnimationState.Apply(mSkeleton);
-          // Gehört UpdateWorldTransform zu SetPosition? Da dort die Position verändert wird?  
-          //mSkeleton.UpdateWorldTransform();
-        }
-
-      // Muss bei jedem Update gesetzt werden damit die Position zum zeichnen berechnet wird.
-      public void SetPosition(Matrix pTranslation, Vector2 pPosition)
-        {
-          mMovePosition += pPosition;
-          mSkeleton.X = mMovePosition.X + mInitPosition.X + pTranslation.Translation.X;
-          mSkeleton.Y = mMovePosition.Y + mInitPosition.Y + pTranslation.Translation.Y;
-          mSkeleton.UpdateWorldTransform();
+            mSkeleton.UpdateWorldTransform();
         }
 
         #endregion
 
-      public override void Draw(SpriteBatch spriteBatch)
-      {
-        mSkeletonRenderer.Begin();
-        mSkeletonRenderer.Draw(mSkeleton);
-        mSkeletonRenderer.End();
+        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
+        {
+            Draw(pSpriteBatch, pCamera, Vector2.Zero);
+        }
 
-        if (EngineSettings.IsDebug)
-          spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, PositionY , 10, 10), mDebugColor);
-      }
-        //public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
-        //{
-        //    Draw(pSpriteBatch, pCamera, Vector2.Zero);
-        //}
-
-        //public void Draw(SpriteBatch pSpriteBatch, Camera pCamera, Vector2 pOffset)
-        //{
-        //    Vector2 TmpPosition = Position;
-        //    Position -= pCamera.Position - pOffset;
-        //    mSkeletonRenderer.Begin();
-        //    mSkeletonRenderer.Draw(mSkeleton);
-        //    mSkeletonRenderer.End();
-        //    Position = TmpPosition;
-        //    if (EngineSettings.IsDebug)
-        //        pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
-        //}
+        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera, Vector2 pOffset)
+        {
+            Vector2 TmpPosition = Position;
+            Position -= pCamera.Position - pOffset;
+            mSkeletonRenderer.Begin();
+            mSkeletonRenderer.Draw(mSkeleton);
+            mSkeletonRenderer.End();
+            Position = TmpPosition;
+            if (EngineSettings.IsDebug)
+                pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
+        }
 
         private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert
         {

@@ -47,9 +47,8 @@ namespace KryptonEngine.Entities
 
         public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
         {
-          foreach (SpineObject TmpSpineObject in mTiles)
-            //                TmpSpineObject.Draw(pSpriteBatch, pCamera, Position);
-            TmpSpineObject.Draw(pSpriteBatch);
+            foreach (SpineObject TmpSpineObject in mTiles)
+                TmpSpineObject.Draw(pSpriteBatch, pCamera, Position);
         }
 
         #endregion

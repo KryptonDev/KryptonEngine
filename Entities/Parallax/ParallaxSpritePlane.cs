@@ -38,13 +38,11 @@ namespace KryptonEngine.Entities
             }
         }
 
-      
         public void Draw(SpriteBatch pSpriteBatch)
         {
-          foreach (Sprite TmpSprite in mTiles)
-            TmpSprite.Draw(pSpriteBatch); //, Position); //Sprite.Draw braucht Überladung mit Offset um gezeichnet werden zu können.
-        }                                 // Draw befehl wird mit einerm Spritebatch.Begin(...) aufgerufen welches eine Camera translations Matritze besitzt weswegen kein offset benötigt wird. 
-
+			foreach (Sprite TmpSprite in mTiles)
+				TmpSprite.Draw(pSpriteBatch); //, Position); Das Offset wird benötigt da die ParallaxEbene ein Offset zur Kamera hat.
+        }
 
         #endregion
 

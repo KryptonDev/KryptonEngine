@@ -10,8 +10,6 @@ namespace KryptonEngine.Interface
     public class Box : InterfaceObject
     {
         #region Properties
-
-        protected Rectangle mBoxDimension;
         #endregion
 
         #region Getter & Setter
@@ -21,7 +19,7 @@ namespace KryptonEngine.Interface
         public Box(Vector2 pPosition, Rectangle pRectangle)
             : base(pPosition, pRectangle)
         {
-            mBoxDimension = pRectangle;
+            mCollisionBox = pRectangle;
         }
         #endregion
 
