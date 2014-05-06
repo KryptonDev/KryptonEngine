@@ -98,7 +98,6 @@
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="SceneManagement\SceneManager.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
-    <Compile Include="Settings\PlayerSettings.cs" />
     <Compile Include="Settings\SpineSettings.cs" />
     <Compile Include="Spine\csharp\Animation.cs" />
     <Compile Include="Spine\csharp\AnimationState.cs" />
