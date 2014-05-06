@@ -21,7 +21,7 @@ namespace KryptonEngine.SceneManagement
         protected Texture2D mBackgroundTexture;
         protected SpriteBatch mSpriteBatch;
         protected RenderTarget2D mRenderTarget;
-        protected Camera mCamera;
+        protected CameraEditor mCamera;
 
         protected Color mClearColor = Color.YellowGreen;
 

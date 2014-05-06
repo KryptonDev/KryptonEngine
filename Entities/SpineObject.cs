@@ -130,12 +130,12 @@ namespace KryptonEngine.Entities
 
         #endregion
 
-        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
+        public void Draw(SpriteBatch pSpriteBatch, CameraGame pCamera)
         {
             Draw(pSpriteBatch, pCamera, Vector2.Zero);
         }
 
-        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera, Vector2 pOffset)
+        public void Draw(SpriteBatch pSpriteBatch, CameraGame pCamera, Vector2 pOffset)
         {
             Vector2 TmpPosition = Position;
             Position -= pCamera.Position - pOffset;

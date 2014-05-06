@@ -38,14 +38,14 @@ namespace KryptonEngine.Entities
             }
         }
 
-        public override void Update(Camera pCamera)
+        public override void Update(CameraGame pCamera)
         {
             base.Update(pCamera);
             foreach (SpineObject TmpSpineObject in mTiles)
                 TmpSpineObject.Update();
         }
 
-        public void Draw(SpriteBatch pSpriteBatch, Camera pCamera)
+        public void Draw(SpriteBatch pSpriteBatch, CameraGame pCamera)
         {
             foreach (SpineObject TmpSpineObject in mTiles)
                 TmpSpineObject.Draw(pSpriteBatch, pCamera, Position);

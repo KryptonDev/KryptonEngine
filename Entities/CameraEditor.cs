@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KryptonEngine.Entities
 {
-    public class Camera : BaseObject
+    public class CameraEditor : BaseObject
     {
         #region Properties
 
@@ -28,19 +28,19 @@ namespace KryptonEngine.Entities
 
         #region Constructor
 
-        public Camera()
+        public CameraEditor()
         {
             mCameraOffset = Vector2.Zero;
             Initialize();
         }
 
-        public Camera(Vector2 pOffset)
+        public CameraEditor(Vector2 pOffset)
         {
             mCameraOffset = pOffset;
             Initialize();
         }
 
-        public Camera(Vector2 pPosition, Rectangle pGameScreen)
+        public CameraEditor(Vector2 pPosition, Rectangle pGameScreen)
         {
             mGameScreen = pGameScreen;
             Initialize();

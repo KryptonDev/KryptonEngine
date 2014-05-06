@@ -55,15 +55,15 @@ namespace KryptonEngine.Entities
         /// Updated die Ebenenverschiebung anhand der übergebenen Kamera, relativ zu Viewport und Viewarea.
         /// </summary>
         /// <param name="pCamera">Zu verwendende Kamera.</param>
-        public virtual void Update(Camera pCamera)
+        public virtual void Update(CameraGame pCamera)
         {
           if (mSpeed != null && mSpeed != 0)
           {
             Position = pCamera.Position * mSpeed;
             return;
           }
-          //PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.VirtualMoveRestriction.X) / (float)(pCamera.VirtualMoveRestriction.Width - pCamera.Width)));
-          //PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.VirtualMoveRestriction.Y) / (float)(pCamera.VirtualMoveRestriction.Height - pCamera.Height)));
+          PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.VirtualMoveRestriction.X) / (float)(pCamera.VirtualMoveRestriction.Width - pCamera.Width)));
+          PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.VirtualMoveRestriction.Y) / (float)(pCamera.VirtualMoveRestriction.Height - pCamera.Height)));
         }
 
         #endregion
