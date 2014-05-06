@@ -32,8 +32,8 @@ namespace KryptonEngine.Controls
 
         #region Getter & Setter
 
-        public static Vector2 Position { get { return mousePosition * new Vector2(EngineSettings.AspectRatioX, EngineSettings.AspectRatioY); } }
-        public static Point PositionPoint { get { return new Point((int)(mousePosition.X * EngineSettings.AspectRatioX), (int)(mousePosition.Y * EngineSettings.AspectRatioY)); } }
+        public static Vector2 Position { get { return mousePosition * new Vector2(EngineSettings.RatioWidth, EngineSettings.RatioHeight); } }
+		public static Point PositionPoint { get { return new Point((int)(mousePosition.X * EngineSettings.RatioWidth), (int)(mousePosition.Y * EngineSettings.RatioHeight)); } }
 		public static Vector2 RawPosition { get { return mousePosition; } }
         public bool IsClickedLeft
         {
