@@ -45,10 +45,10 @@ namespace KryptonEngine.Entities
                 TmpSpineObject.Update();
         }
 
-        public void Draw(SpriteBatch pSpriteBatch, CameraGame pCamera)
+        public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
         {
             foreach (SpineObject TmpSpineObject in mTiles)
-                TmpSpineObject.Draw(pSpriteBatch, pCamera, Position);
+                TmpSpineObject.Draw(pSpriteBatch, pCameraPosition, Position);
         }
 
         #endregion
