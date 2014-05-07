@@ -16,40 +16,9 @@ using System.Xml.Serialization;
 
 namespace KryptonEngine.Manager
 {
-	public class SpineDataManager : Manager<RawSpineData>
+	public class SpineDataManager : Manager<SpineData>
 	{
-		private struct AnimationMix
-		{
-			#region Properties
-
-			private string from;
-			private string to;
-			private float fading;
-
-			public string From { get { return from; } set { from = value; } }
-			public string To { get { return to; } set { to = value; } }
-			public float Fading { get { return fading; } set { fading = Math.Abs(value); } }
-
-			#endregion
-
-			#region Constructor
-
-			public AnimationMix(string pFrom, string pTo)
-			{
-				from = pFrom;
-				to = pTo;
-				fading = DefaultFading;
-			}
-
-			public AnimationMix(string pFrom, string pTo, float pFading)
-			{
-				from = pFrom;
-				to = pTo;
-				fading = pFading;
-			}
-
-			#endregion
-		}
+		
 
 	#region Singleton
 
@@ -59,13 +28,6 @@ namespace KryptonEngine.Manager
 	#endregion
 
 	#region Properties
-
-	private static Dictionary<String, List<AnimationMix>> AnimationFading = new Dictionary<string, List<AnimationMix>>();
-	private static Dictionary<String, float> Scaling = new Dictionary<string, float>();
-
-	public static float DefaultFading = 0.2f;
-	public static bool PremultipliedAlphaRendering = true;
-	public static string DefaultDataPath = "Content/spine/";
 
 	#endregion
 
@@ -81,65 +43,25 @@ namespace KryptonEngine.Manager
 
 	public override void LoadContent()
 	{
-		InteractiveObject iObj = new InteractiveObject();
+		//Setup Serializer
 		XmlSerializer xml = new XmlSerializer(typeof(InteractiveObject));
 		TextReader reader;
-
-		DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\iObj\");
-		if (!environmentPath.Exists)
+		//Goto SpineDirectory
+		DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\spine\");
+		if (!environmentPath.Exists) //Checken ob das Directory existiert
 			return;
-		foreach (FileInfo f in environmentPath.GetFiles())
+		foreach (FileInfo f in environmentPath.GetFiles()) //Enthaltene Files durchgehen
 		{
-			if (f.Name.EndsWith(".iObj"))
+			if (f.Name.EndsWith(".settings")) //.sData Files heraus filtern
 			{
 				reader = new StreamReader(f.FullName);
-				iObj = (InteractiveObject)xml.Deserialize(reader);
-				iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
+				SpineData.SpineDataSettings settings = (SpineData.SpineDataSettings)xml.Deserialize(reader); //sData File in SpineData Object umwandeln
 				reader.Close();
 
-				mRessourcen.Add(iObj.TextureName, iObj);
+				string TmpSkeletonName = f.Name.Remove(f.Name.Length - ".settings".Length);
+				mRessourcen.Add(TmpSkeletonName, new SpineData(TmpSkeletonName, settings));
 			}
 		}
-		Add("fluffy");
-
-
-		List<AnimationMix> AnimationFadingList; //Zu bearbeitende Liste, damit die nicht immer neu im Dictionary nachgeschlagen werden muss
-
-		#region Fluffy
-		Scaling.Add("fluffy", 1.0f);
-		AnimationFading.Add("fluffy", new List<AnimationMix>());
-		AnimationFadingList = AnimationFading["fluffy"];
-
-		AnimationFadingList.Add(new AnimationMix("attack", "die"));
-		AnimationFadingList.Add(new AnimationMix("attack", "die"));
-		AnimationFadingList.Add(new AnimationMix("attack", "smash_die"));
-		AnimationFadingList.Add(new AnimationMix("attack", "idle"));
-		AnimationFadingList.Add(new AnimationMix("attack", "walk"));
-
-		AnimationFadingList.Add(new AnimationMix("idle", "die"));
-		AnimationFadingList.Add(new AnimationMix("idle", "smash_die"));
-		AnimationFadingList.Add(new AnimationMix("idle", "attack"));
-		AnimationFadingList.Add(new AnimationMix("idle", "walk"));
-
-		AnimationFadingList.Add(new AnimationMix("walk", "die"));
-		AnimationFadingList.Add(new AnimationMix("walk", "smash_die"));
-		AnimationFadingList.Add(new AnimationMix("walk", "attack"));
-		AnimationFadingList.Add(new AnimationMix("walk", "idle"));
-		#endregion
-
-		#region Skeleton XY
-		//Scaling.Add("skeleton", 1.0f);
-		//AnimationFading.Add("skeleton", new List<AnimationMix>());
-		//AnimationFadingList = AnimationFading["skeleton"];
-
-		//AnimationFadingList.Add(new AnimationMix("attack", "die"));
-		//AnimationFadingList.Add(new AnimationMix("attack", "die"));
-		//AnimationFadingList.Add(new AnimationMix("attack", "smash_die"));
-		//AnimationFadingList.Add(new AnimationMix("attack", "idle"));
-		//AnimationFadingList.Add(new AnimationMix("attack", "walk"));
-		//usw...
-		#endregion
-
 	}
 
 	public override void Unload()
@@ -147,42 +69,28 @@ namespace KryptonEngine.Manager
 		mRessourcen.Clear();
 	}
 
-	/// <summary>
-	/// Fügt ein neues Element in mRessourcenManager ein.
-	/// </summary>
-	/// <param name="pName">Name des Skeletons.</param>
-	/// <param name="pPath">Pfad zu den Skeleton-Daten.</param>
-	public override RawSpineData Add(String pName, String pPath)
+	public override SpineData Add(string pName, string pPath)
 	{
-		if (!mRessourcen.ContainsKey(pName))
-		{
-		RawSpineData data = new RawSpineData(pPath, pName);
-
-		mRessourcen.Add(pName, data);
-
-		return data;
-		}
-    
-		return (RawSpineData)mRessourcen[pName];
+		throw new NotImplementedException();
 	}
 
 	/// <summary>
 	/// Fügt ein neues Element in mRessourcenManager ein.
 	/// </summary>
 	/// <param name="pName">Name des Skeletons.</param>
-	public void Add(String pName)
-	{
-		if (!mRessourcen.ContainsKey(pName))
-		{
-		RawSpineData data = new RawSpineData(pName);
-		mRessourcen.Add(pName, data);
-		}
-	}
+	//public void Add(String pName)
+	//{
+	//	if (!mRessourcen.ContainsKey(pName))
+	//	{
+	//	SpineData data = new SpineData(pName);
+	//	mRessourcen.Add(pName, data);
+	//	}
+	//}
 
 	/// <summary>
 	/// Gibt RawSpineData zurück.
 	/// </summary>
-	public override RawSpineData GetElementByString(string pElementName)
+	public override SpineData GetElementByString(string pElementName)
 	{
 		if (mRessourcen.ContainsKey(pElementName))
 		return mRessourcen[pElementName];
@@ -192,9 +100,9 @@ namespace KryptonEngine.Manager
 
 	public Skeleton NewSkeleton(string pName, float pScale)
 	{
-		RawSpineData TmpSpineData = this.GetElementByString(pName);
-		TmpSpineData.json.Scale = Scaling[pName]; //Set Scaling
-		SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(DefaultDataPath + pName + ".json"); //Apply Json with Scaling to get skelData
+		SpineData TmpSpineData = this.GetElementByString(pName);
+		TmpSpineData.json.Scale = TmpSpineData.settings.Scaling; //Set Scaling
+		SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(EngineSettings.DefaultPathSpine + pName + ".json"); //Apply Json with Scaling to get skelData
 		return new Skeleton(TmpSkeletonData);
 	}
 
@@ -210,12 +118,10 @@ namespace KryptonEngine.Manager
 	/// <summary>
 	/// Wendet alle zum Skeleton passenden AnimationMixes auf animationStateData an.
 	/// </summary>
-	private static void SetFadingSettings(AnimationStateData pAnimationStateData)
+	private void SetFadingSettings(AnimationStateData pAnimationStateData)
 	{
-		List<AnimationMix> AnimationFadingList;
-		AnimationFadingList = AnimationFading[pAnimationStateData.SkeletonData.Name];
-
-		foreach (AnimationMix animMix in AnimationFadingList)
+		List<SpineData.AnimationMix> AnimationFadingList = this.GetElementByString(pAnimationStateData.SkeletonData.Name).settings.AnimationFading;
+		foreach (SpineData.AnimationMix animMix in this.GetElementByString(pAnimationStateData.SkeletonData.Name).settings.AnimationFading)
 		{
 			pAnimationStateData.SetMix(animMix.From, animMix.To, animMix.Fading);
 		}

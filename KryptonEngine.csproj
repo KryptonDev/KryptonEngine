@@ -71,7 +71,7 @@
     <Compile Include="Entities\Parallax\ParallaxPlane.cs" />
     <Compile Include="Entities\Parallax\ParallaxSpinePlane.cs" />
     <Compile Include="Entities\Parallax\ParallaxSpritePlane.cs" />
-    <Compile Include="Entities\RawSpineData.cs" />
+    <Compile Include="Entities\SpineData.cs" />
     <Compile Include="Entities\SpineObject.cs" />
     <Compile Include="Entities\Sprite.cs" />
     <Compile Include="Entities\Thumbnail.cs" />

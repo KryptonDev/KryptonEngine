@@ -101,11 +101,19 @@ namespace KryptonEngine
 
         #endregion
 
-        #endregion
+		#region DefaultDataPaths
 
-        #region Methods
+		public static string DefaultPathSpine = @"\Content\spine\";
+		public static string DefaultPathTexture = @"\Content\gfx\";
+		public static string DefaultPathFont = @"\Content\font\";
 
-        /// <summary>
+		#endregion
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
         /// Setzt die Auflösung wie sie gewünscht ist.
         /// </summary>
         public static void SetResolution()

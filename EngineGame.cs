@@ -21,8 +21,6 @@ namespace KryptonEngine
             Content.RootDirectory = "Content";
             EngineSettings.Content = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
-
-            SpineSettings.Setup();
         }
 
         protected override void Initialize()
