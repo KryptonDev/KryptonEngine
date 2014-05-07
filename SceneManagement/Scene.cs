@@ -69,8 +69,8 @@ namespace KryptonEngine.SceneManagement
 
         public virtual void Draw()
         {
+			EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
             DrawBackground();
-
             DrawOnScene();
         }
 
