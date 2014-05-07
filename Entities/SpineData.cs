@@ -24,6 +24,10 @@ namespace KryptonEngine.Entities
 			#endregion
 
 			#region Constructor
+			public AnimationMix()
+			{
+
+			}
 
 			public AnimationMix(string pFrom, string pTo)
 			{

@@ -12,6 +12,7 @@ using Spine;
 using KryptonEngine.Entities;
 using System.IO;
 using System.Xml.Serialization;
+using KryptonEngine.Pools;
 
 
 namespace KryptonEngine.Manager
@@ -44,8 +45,8 @@ namespace KryptonEngine.Manager
 	public override void LoadContent()
 	{
 		//Setup Serializer
-		XmlSerializer xml = new XmlSerializer(typeof(InteractiveObject));
-		TextReader reader;
+		XmlSerializer xml = new XmlSerializer(typeof(SpineData.SpineDataSettings));
+		StreamReader reader;
 		//Goto SpineDirectory
 		DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\spine\");
 		if (!environmentPath.Exists) //Checken ob das Directory existiert
@@ -60,6 +61,7 @@ namespace KryptonEngine.Manager
 
 				string TmpSkeletonName = f.Name.Remove(f.Name.Length - ".settings".Length);
 				mRessourcen.Add(TmpSkeletonName, new SpineData(TmpSkeletonName, settings));
+				SpinePool.Pools.Add(TmpSkeletonName, new SpinePool(TmpSkeletonName)); //Legt für das SpineObject einen Pool in SpinePool.Pools an.
 			}
 		}
 	}
