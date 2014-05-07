@@ -32,6 +32,8 @@ namespace KryptonEngine.Manager
           TextReader reader;
 
           DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\iObj\");
+		  if (!environmentPath.Exists)
+			  return;
           foreach (FileInfo f in environmentPath.GetFiles())
           {
             if (f.Name.EndsWith(".iObj"))
