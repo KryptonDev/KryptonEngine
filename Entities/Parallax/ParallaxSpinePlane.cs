@@ -38,7 +38,7 @@ namespace KryptonEngine.Entities
             }
         }
 
-        public override void Update(CameraGame pCamera)
+        public override void Update(Camera pCamera)
         {
             base.Update(pCamera);
             foreach (SpineObject TmpSpineObject in mTiles)

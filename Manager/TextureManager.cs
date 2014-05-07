@@ -42,6 +42,10 @@ namespace KryptonEngine.Manager
           }
 
           DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\gfx\");
+
+		  if (!environmentPath.Exists)
+			  return;
+
           foreach (FileInfo f in environmentPath.GetFiles())
           {
             string fileName = f.Name.Substring(0, f.Name.Length - 4);

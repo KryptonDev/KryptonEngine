@@ -16,6 +16,8 @@ namespace KryptonEngine.Entities
 
         protected Vector2 mSize;
         protected float mSpeed;
+		protected Matrix mTranslation;
+		protected List<GameObject> mObjects = new List<GameObject>();
 
         #region Get & Set
 
@@ -55,17 +57,24 @@ namespace KryptonEngine.Entities
         /// Updated die Ebenenverschiebung anhand der übergebenen Kamera, relativ zu Viewport und Viewarea.
         /// </summary>
         /// <param name="pCamera">Zu verwendende Kamera.</param>
-        public virtual void Update(CameraGame pCamera)
+        public virtual void Update(Camera pCamera)
         {
           if (mSpeed != null && mSpeed != 0)
           {
             Position = pCamera.Position * mSpeed;
+			mTranslation = Matrix.CreateTranslation(new Vector3(Position, 0));
             return;
           }
-          PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.VirtualMoveRestriction.X) / (float)(pCamera.VirtualMoveRestriction.Width - pCamera.Width)));
-          PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.VirtualMoveRestriction.Y) / (float)(pCamera.VirtualMoveRestriction.Height - pCamera.Height)));
+          //PositionX = pCamera.PositionX - (int)((float)(Width - pCamera.Width) * ((float)(pCamera.PositionX - pCamera.VirtualMoveRestriction.X) / (float)(pCamera.VirtualMoveRestriction.Width - pCamera.Width)));
+          //PositionY = pCamera.PositionY - (int)((float)(Height - pCamera.Height) * ((float)(pCamera.PositionY - pCamera.VirtualMoveRestriction.Y) / (float)(pCamera.VirtualMoveRestriction.Height - pCamera.Height)));
         }
 
+		public virtual void Draw(SpriteBatch spriteBatch)
+		{
+			//spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, SpriteEffects.None, mTranslation);
+			mObjects[0].Draw(spriteBatch);
+			//spriteBatch.End();
+		}
         #endregion
 
 

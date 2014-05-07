@@ -21,7 +21,7 @@ namespace KryptonEngine.SceneManagement
         protected Texture2D mBackgroundTexture;
         protected SpriteBatch mSpriteBatch;
         protected RenderTarget2D mRenderTarget;
-        protected CameraEditor mCamera;
+        protected Camera mCamera;
 
         protected Color mClearColor = Color.YellowGreen;
 
@@ -49,6 +49,8 @@ namespace KryptonEngine.SceneManagement
             this.mName = pSceneName;
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
             mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mBackgroundName = "pixel";
+			mBackgroundTexture = TextureManager.Instance.GetElementByString(mBackgroundName);
         }
 
         #endregion
@@ -69,7 +71,6 @@ namespace KryptonEngine.SceneManagement
 
         public virtual void Draw()
         {
-			EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mRenderTarget);
             DrawBackground();
             DrawOnScene();
         }
