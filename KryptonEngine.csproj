@@ -85,7 +85,7 @@
     <Compile Include="Manager\FontManager.cs" />
     <Compile Include="Manager\InteractiveObjectDataManager.cs" />
     <Compile Include="Manager\Manager.cs" />
-    <Compile Include="Manager\SpineManager.cs" />
+    <Compile Include="Manager\SpineDataManager.cs" />
     <Compile Include="Manager\TextureManager.cs" />
     <Compile Include="Parser\PixelMap.cs" />
     <Compile Include="Particle\Emitter.cs" />
@@ -99,7 +99,6 @@
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="SceneManagement\SceneManager.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
-    <Compile Include="Settings\SpineSettings.cs" />
     <Compile Include="Spine\csharp\Animation.cs" />
     <Compile Include="Spine\csharp\AnimationState.cs" />
     <Compile Include="Spine\csharp\AnimationStateData.cs" />
