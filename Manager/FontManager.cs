@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace KryptonEngine.Manager
 {
@@ -28,7 +29,19 @@ namespace KryptonEngine.Manager
 
         public override void LoadContent()
         {
+			SpriteFont font;
 
+			DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\font\");
+
+			if (!environmentPath.Exists)
+				return;
+
+			foreach (FileInfo f in environmentPath.GetFiles())
+			{
+				string fileName = f.Name.Substring(0, f.Name.Length - 4);
+				font = EngineSettings.Content.Load<SpriteFont>(@"font\" + fileName);
+				mRessourcen.Add(fileName, font);
+			}
         }
 
         /// <summary>

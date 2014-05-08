@@ -49,8 +49,6 @@ namespace KryptonEngine.SceneManagement
             this.mName = pSceneName;
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
             mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
-			mBackgroundName = "pixel";
-			mBackgroundTexture = TextureManager.Instance.GetElementByString(mBackgroundName);
         }
 
         #endregion

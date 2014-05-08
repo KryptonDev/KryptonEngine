@@ -71,6 +71,21 @@ namespace KryptonEngine.Entities
             return Matrix.CreateTranslation(new Vector3(mCameraOffset + Position, 0));
         }
 
+		/// <summary>
+		/// Erstellt eine Translations/ Scalierungs Matrix wenn sich 2 Spieler bewegen.
+		/// </summary>
+		/// <param name="pos1">Spieler 1 Origin</param>
+		/// <param name="pos2">Spieler 2 Origin</param>
+		public void MoveCamera(Vector2 pos1, Vector2 pos2)
+		{
+			//Vector2 bigDistance = Vector2.Max(pos1, pos2);
+			//Vector2 smallDistance = Vector2.Min(pos1, pos2);
+
+			Vector2 Distance = (pos1 - pos2) / 2;
+			Position = (pos1 - new Vector2(EngineSettings.VirtualResWidth / 2, EngineSettings.VirtualResHeight / 2) - Distance);
+			Position = Position * -1 ;
+		}
+
         public void MoveCamera(Vector2 mSpeed)
         {
             // Links Bewegung

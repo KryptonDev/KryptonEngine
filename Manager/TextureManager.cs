@@ -32,26 +32,26 @@ namespace KryptonEngine.Manager
 
         public override void LoadContent()
         {
-          Texture2D tex;
+			Texture2D tex;
 
-          if (!mRessourcen.ContainsKey("pixel"))
-          {
-            tex = new Texture2D(EngineSettings.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            tex.SetData<Color>(new Color[] { Color.White });
-            mRessourcen.Add("pixel", tex);
-          }
+			if (!mRessourcen.ContainsKey("pixel"))
+			{
+				tex = new Texture2D(EngineSettings.Graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+				tex.SetData<Color>(new Color[] { Color.White });
+				mRessourcen.Add("pixel", tex);
+			}
 
-          DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\gfx\");
+			DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\gfx\");
 
-		  if (!environmentPath.Exists)
-			  return;
+			if (!environmentPath.Exists)
+				return;
 
-          foreach (FileInfo f in environmentPath.GetFiles())
-          {
-            string fileName = f.Name.Substring(0, f.Name.Length - 4);
-            tex = EngineSettings.Content.Load<Texture2D>(@"gfx\" + fileName);
-              mRessourcen.Add(fileName, tex);
-            }
+			foreach (FileInfo f in environmentPath.GetFiles())
+			{
+				string fileName = f.Name.Substring(0, f.Name.Length - 4);
+				tex = EngineSettings.Content.Load<Texture2D>(@"gfx\" + fileName);
+				mRessourcen.Add(fileName, tex);
+			}
         }
 
         /// <summary>

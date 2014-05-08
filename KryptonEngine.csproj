@@ -86,10 +86,6 @@
     <Compile Include="Manager\Manager.cs" />
     <Compile Include="Manager\SpineDataManager.cs" />
     <Compile Include="Manager\TextureManager.cs" />
-    <Compile Include="Parser\PixelMap.cs" />
-    <Compile Include="Particle\Emitter.cs" />
-    <Compile Include="Particle\Modifier\Modifier.cs" />
-    <Compile Include="Particle\Particle.cs" />
     <Compile Include="Physics\Collision.cs" />
     <Compile Include="Pools\Pool.cs" />
     <Compile Include="Pools\SpinePool.cs" />

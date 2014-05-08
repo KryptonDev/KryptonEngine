@@ -36,8 +36,8 @@ namespace KryptonEngine
             TextureManager.Instance.LoadContent();
             InteractiveObjectDataManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();
-            SceneManager.Instance.LoadContent();
             SpineDataManager.Instance.LoadContent();
+            SceneManager.Instance.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
