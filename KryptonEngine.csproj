@@ -65,6 +65,7 @@
     <Compile Include="Entities\BaseObject.cs" />
     <Compile Include="Entities\CameraGame.cs" />
     <Compile Include="Entities\CameraEditor.cs" />
+    <Compile Include="Entities\DrawPackage.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\InteractiveObject.cs" />
     <Compile Include="Entities\InterfaceObject.cs" />
