@@ -17,7 +17,6 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        private SkeletonRenderer mSkeletonRenderer;
         private Skeleton mSkeleton;
         private AnimationState mAnimationState;
         private SkeletonBounds mBounds;
@@ -99,7 +98,6 @@ namespace KryptonEngine.Entities
 
         public void Load()
         {
-            mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
 
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
@@ -138,9 +136,9 @@ namespace KryptonEngine.Entities
         {
             Vector2 TmpPosition = Position;
             Position -= pCameraPosition - pOffset;
-            mSkeletonRenderer.Begin();
-            mSkeletonRenderer.Draw(mSkeleton);
-            mSkeletonRenderer.End();
+            EngineSettings.SpineRenderer.Begin();
+			EngineSettings.SpineRenderer.Draw(mSkeleton);
+			EngineSettings.SpineRenderer.End();
             Position = TmpPosition;
             if (EngineSettings.IsDebug)
                 pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);

@@ -8,6 +8,7 @@ using KryptonEngine.SceneManagement;
 using KryptonEngine.Controls;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Spine;
 
 namespace KryptonEngine
 {
@@ -26,6 +27,7 @@ namespace KryptonEngine
         protected override void Initialize()
         {
             base.Initialize();
+			EngineSettings.SpineRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             SceneManager.Instance.Initialize();
         }
 
