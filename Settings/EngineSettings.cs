@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Spine;
 
 namespace KryptonEngine
 {
@@ -88,6 +89,8 @@ namespace KryptonEngine
 
         public static Keys Exitkey = Keys.F12;
 
+		public static SkeletonRenderer SpineRenderer;
+
         #region Resolution
 
         public static int VirtualResHeight = 720;
@@ -103,7 +106,7 @@ namespace KryptonEngine
 
 		#region DefaultDataPaths
 
-		public static string DefaultPathSpine = @"\Content\spine\";
+		public static string DefaultPathSpine = Environment.CurrentDirectory + @"\Content\spine";
 		public static string DefaultPathTexture = @"\Content\gfx\";
 		public static string DefaultPathFont = @"\Content\font\";
 

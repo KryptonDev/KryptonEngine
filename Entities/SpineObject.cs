@@ -17,7 +17,6 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        private SkeletonRenderer mSkeletonRenderer;
         private Skeleton mSkeleton;
         private AnimationState mAnimationState;
         private SkeletonBounds mBounds;
@@ -34,7 +33,6 @@ namespace KryptonEngine.Entities
         new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
 		new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
 		new public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
-        public float Scale { get { return mScale; } }
         public bool Flip { get { return mSkeleton.FlipX; } set { mSkeleton.FlipX = value; } }
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
         public Skeleton Skeleton { get { return mSkeleton; } }
@@ -100,7 +98,6 @@ namespace KryptonEngine.Entities
 
         public void Load()
         {
-            mSkeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             mBounds = new SkeletonBounds();
 
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
@@ -139,9 +136,9 @@ namespace KryptonEngine.Entities
         {
             Vector2 TmpPosition = Position;
             Position -= pCameraPosition - pOffset;
-            mSkeletonRenderer.Begin();
-            mSkeletonRenderer.Draw(mSkeleton);
-            mSkeletonRenderer.End();
+            EngineSettings.SpineRenderer.Begin();
+			EngineSettings.SpineRenderer.Draw(mSkeleton);
+			EngineSettings.SpineRenderer.End();
             Position = TmpPosition;
             if (EngineSettings.IsDebug)
                 pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
@@ -171,6 +168,13 @@ namespace KryptonEngine.Entities
 		//	}
 		//	return collision;
 		//}
+
+		public void ChangeDrawScaling(float pScale)
+		{
+			Bone TmpRootBone = mSkeleton.FindBone("root");
+			TmpRootBone.scaleX = pScale;
+			TmpRootBone.scaleY = pScale;
+		}
 
         #endregion
     }

@@ -11,10 +11,12 @@ using KryptonEngine.Entities;
 namespace KryptonEngine.Pools
 {
     public class SpinePool : Pool<SpineObject>
-    {
-        #region Properties
+	{
+		public static Dictionary<String, SpinePool> Pools = new Dictionary<string, SpinePool>(); //Wird vom SpineDataManager.LoadContent() gefüllt.
 
-        private string mName;
+		#region Properties
+
+		private string mName;
 
         #endregion
 

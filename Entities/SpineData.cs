@@ -24,6 +24,10 @@ namespace KryptonEngine.Entities
 			#endregion
 
 			#region Constructor
+			public AnimationMix()
+			{
+
+			}
 
 			public AnimationMix(string pFrom, string pTo)
 			{
@@ -63,7 +67,7 @@ namespace KryptonEngine.Entities
         {
 			Initialize();
 			settings = pSettings;
-			atlas = new Atlas(EngineSettings.DefaultPathSpine + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
+			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
             json = new SkeletonJson(atlas);
         }
 
