@@ -17,13 +17,16 @@ namespace KryptonEngine.Entities
 
         private Vector2 mCameraOffset;
         private Vector2 mPositionCamera;
+		private float mScale;
         private int mBoundSize = 100;
         private Rectangle mGameScreen;
+		private Matrix mTransform;
         #endregion
 
         #region Getter & Setter
         public Vector2 Position { get { return mPositionCamera; } set { mPositionCamera = value; } }
         public Rectangle GameScreen { get { return mGameScreen; } set { mGameScreen = value; } }
+		public Matrix Transform { get { return mTransform; } }
 		public int BoundSize { get { return mBoundSize; } set { mBoundSize = value; } }
         #endregion
 
@@ -55,6 +58,7 @@ namespace KryptonEngine.Entities
         {
             Position = Vector2.Zero;
             mCameraOffset = Vector2.Zero;
+			mScale = 1.0f;
         }
 
         public override void Update()
@@ -68,8 +72,13 @@ namespace KryptonEngine.Entities
 
         public Matrix GetTranslationMatrix()
         {
-            return Matrix.CreateTranslation(new Vector3(mCameraOffset + Position, 0));
+			return mTransform;
         }
+
+		public void Zoom(float f)
+		{
+			mScale += f;
+		}
 
 		/// <summary>
 		/// Erstellt eine Translations/ Scalierungs Matrix wenn sich 2 Spieler bewegen.
@@ -78,12 +87,13 @@ namespace KryptonEngine.Entities
 		/// <param name="pos2">Spieler 2 Origin</param>
 		public void MoveCamera(Vector2 pos1, Vector2 pos2)
 		{
-			//Vector2 bigDistance = Vector2.Max(pos1, pos2);
-			//Vector2 smallDistance = Vector2.Min(pos1, pos2);
 
 			Vector2 Distance = (pos1 - pos2) / 2;
-			Position = (pos1 - new Vector2(EngineSettings.VirtualResWidth / 2, EngineSettings.VirtualResHeight / 2) - Distance);
-			Position = Position * -1 ;
+			Position = (pos2 + Distance);
+
+			mTransform = Matrix.CreateTranslation(new Vector3(-Position, 0)) 
+				* Matrix.CreateScale(mScale, mScale, 1.0f) 
+				* Matrix.CreateTranslation(EngineSettings.VirtualResWidth / 2, EngineSettings.VirtualResHeight / 2, 0);
 		}
 
         public void MoveCamera(Vector2 mSpeed)
