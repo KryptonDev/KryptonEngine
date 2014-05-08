@@ -173,7 +173,7 @@ namespace KryptonEngine.Entities
 
 		public void ChangeDrawScaling(float pScale)
 		{
-			BoneData TmpRootBone = mSkeleton.data.FindBone("root");
+			Bone TmpRootBone = mSkeleton.FindBone("root");
 			TmpRootBone.scaleX = pScale;
 			TmpRootBone.scaleY = pScale;
 		}

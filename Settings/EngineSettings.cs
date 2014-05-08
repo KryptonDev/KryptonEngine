@@ -103,7 +103,7 @@ namespace KryptonEngine
 
 		#region DefaultDataPaths
 
-		public static string DefaultPathSpine = @"\Content\spine\";
+		public static string DefaultPathSpine = Environment.CurrentDirectory + @"\Content\spine";
 		public static string DefaultPathTexture = @"\Content\gfx\";
 		public static string DefaultPathFont = @"\Content\font\";
 

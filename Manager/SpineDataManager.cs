@@ -48,7 +48,7 @@ namespace KryptonEngine.Manager
 		XmlSerializer xml = new XmlSerializer(typeof(SpineData.SpineDataSettings));
 		StreamReader reader;
 		//Goto SpineDirectory
-		DirectoryInfo environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\spine\");
+		DirectoryInfo environmentPath = new DirectoryInfo(EngineSettings.DefaultPathSpine);
 		if (!environmentPath.Exists) //Checken ob das Directory existiert
 			return;
 		foreach (FileInfo f in environmentPath.GetFiles()) //Enthaltene Files durchgehen
@@ -61,7 +61,8 @@ namespace KryptonEngine.Manager
 
 				string TmpSkeletonName = f.Name.Remove(f.Name.Length - ".settings".Length);
 				mRessourcen.Add(TmpSkeletonName, new SpineData(TmpSkeletonName, settings));
-				SpinePool.Pools.Add(TmpSkeletonName, new SpinePool(TmpSkeletonName)); //Legt für das SpineObject einen Pool in SpinePool.Pools an.
+				if (!SpinePool.Pools.ContainsKey(TmpSkeletonName))
+					SpinePool.Pools.Add(TmpSkeletonName, new SpinePool(TmpSkeletonName)); //Legt für das SpineObject einen Pool in SpinePool.Pools an.
 			}
 		}
 	}
@@ -104,7 +105,7 @@ namespace KryptonEngine.Manager
 	{
 		SpineData TmpSpineData = this.GetElementByString(pName);
 		TmpSpineData.json.Scale = TmpSpineData.settings.Scaling; //Set Scaling
-		SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(EngineSettings.DefaultPathSpine + pName + ".json"); //Apply Json with Scaling to get skelData
+		SkeletonData TmpSkeletonData = TmpSpineData.json.ReadSkeletonData(EngineSettings.DefaultPathSpine + "\\" + pName + ".json"); //Apply Json with Scaling to get skelData
 		return new Skeleton(TmpSkeletonData);
 	}
 
