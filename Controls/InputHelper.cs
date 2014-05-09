@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace KryptonEngine.Controls
 {
-	class InputHelper
+	public class InputHelper
 	{
 		private class Input //Input um Mapping zu Button & Keys  zu speichern
 		{
