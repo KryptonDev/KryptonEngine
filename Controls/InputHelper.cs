@@ -202,8 +202,8 @@ namespace KryptonEngine.Controls
 		public static void Update()
 		{
 			//Update Gamepad
-			mPlayer1.UpdateInstance();
-			mPlayer2.UpdateInstance();
+			Player1.UpdateInstance();
+			Player2.UpdateInstance();
 			//Update Keyboard
 			mKeyboardStateBefore = mKeyboardStateCurrent;
 			mKeyboardStateCurrent = Keyboard.GetState();
