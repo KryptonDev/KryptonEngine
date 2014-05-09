@@ -59,6 +59,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\InputHelper.cs" />
     <Compile Include="Controls\MouseHelper.cs" />
     <Compile Include="EngineGame.cs" />
     <Compile Include="Entities\AnimatedSprite.cs" />

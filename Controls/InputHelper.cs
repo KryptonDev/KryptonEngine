@@ -182,7 +182,7 @@ namespace KryptonEngine.Controls
 
 		#endregion
 
-		public Keys PlayerMappedKey(Input pInput) //Map Input.pKey to mPlayer
+		private Keys PlayerMappedKey(Input pInput) //Map Input.pKey to mPlayer
 		{
 			if (mPlayer == PlayerIndex.Two)
 				return pInput.KeyPlayer2;
