@@ -56,6 +56,8 @@ namespace KryptonEngine.Controls
 		private static KeyboardState mKeyboardStateCurrent;
 		private static KeyboardState mKeyboardStateBefore;
 
+		private static Input mDebug = new Input(Buttons.RightStick, Keys.F7, Keys.None);
+
 		private static Input mPause = new Input(Buttons.Start, Keys.Escape, Keys.Escape);
 		private static Input mAction = new Input(Buttons.X, Keys.Space, Keys.RightControl);
 
@@ -207,6 +209,10 @@ namespace KryptonEngine.Controls
 			//Update Keyboard
 			mKeyboardStateBefore = mKeyboardStateCurrent;
 			mKeyboardStateCurrent = Keyboard.GetState();
+
+			//Switch DebugMode
+			if (mPlayer1.InputJustPressed(mDebug))
+				EngineSettings.IsDebug = !EngineSettings.IsDebug;
 		}
 		
 		#endregion

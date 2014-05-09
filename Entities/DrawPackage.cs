@@ -25,6 +25,16 @@ namespace KryptonEngine.Entities
 
 		#region Constructor
 
+		public DrawPackage(Vector2 pPosition, int pPositionZ, Rectangle pCollisionBox, Color pDebugColor)
+		{
+			mPosition = pPosition;
+			mPositionZ = pPositionZ;
+			mCollisionBox = pCollisionBox;
+			mDebugColor = pDebugColor;
+			mTexture = TextureManager.Instance.GetElementByString("pixel");
+			Spine = false;
+		}
+
 		public DrawPackage(Vector2 pPosition, int pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture)
 		{
 			mPosition = pPosition;
@@ -49,6 +59,11 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
+		/// <summary>
+		/// Drawed den Package-Inhalt
+		/// </summary>
+		/// <param name="pSpriteBatch">SpriteBatch zum drawen von Texturen</param>
+		/// <param name="pCameraPosition">Kameraposition für Versatz von Skeletons</param>
 		public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
 		{
 			if (!Spine)
