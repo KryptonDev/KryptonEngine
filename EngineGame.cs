@@ -51,8 +51,11 @@ namespace KryptonEngine
             if (EngineSettings.OnWindows)
                 if (Keyboard.GetState().IsKeyDown(EngineSettings.Exitkey)) Exit();
 
-            if(EngineSettings.OnWindows)
-                MouseHelper.Update();
+			if (EngineSettings.OnWindows)
+			{
+				MouseHelper.Update();
+				InputHelper.Update();
+			}
             SceneManager.Instance.Update();
 
             base.Update(gameTime);
