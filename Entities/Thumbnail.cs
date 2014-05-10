@@ -12,8 +12,8 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        private const int THUMBNAIL_WIDTH = 64;
-        private const int THUMBNAIL_HEIGHT = 64;
+        public const int THUMBNAIL_WIDTH = 64;
+        public const int THUMBNAIL_HEIGHT = 64;
         #endregion
 
         #region Getter & Setter

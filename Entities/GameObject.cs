@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using KryptonEngine.Interface;
 
 namespace KryptonEngine.Entities
 {
@@ -16,7 +17,6 @@ namespace KryptonEngine.Entities
 
         private Vector2 mPosition;
         protected Rectangle mCollisionBox = new Rectangle();
-
         protected Color mDebugColor = Color.Yellow;
         protected bool mVisible;
         #endregion
@@ -51,7 +51,7 @@ namespace KryptonEngine.Entities
             }
             get { return (int)mPosition.Y; } 
         }
-        public Rectangle CollisionBox { get { return mCollisionBox; } }
+		public Rectangle CollisionBox { get { return mCollisionBox; } set { mCollisionBox = value; } }
         public bool IsVisible { get { return mVisible; } set { mVisible = value; } }
         #endregion
         #region Constructor

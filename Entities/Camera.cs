@@ -19,7 +19,7 @@ namespace KryptonEngine.Entities
         private Vector2 mPositionCamera;
 		private float mScale;
 		private float mScaleMax;
-        private int mBoundSize = 100;
+		private int mBoundSize;
         private Rectangle mGameScreen;
 		private Matrix mTransform;
         #endregion
@@ -38,24 +38,29 @@ namespace KryptonEngine.Entities
 		}
 		public Matrix Transform { get { return mTransform; } }
 		public int BoundSize { get { return mBoundSize; } set { mBoundSize = value; } }
+		public float Scale { get { return mScale; } }
         #endregion
 
         #region Constructor
 
         public Camera()
         {
+			Position = Vector2.Zero;
             mCameraOffset = Vector2.Zero;
             Initialize();
         }
 
         public Camera(Vector2 pOffset)
         {
+			Position = Vector2.Zero;
             mCameraOffset = pOffset;
             Initialize();
         }
 
         public Camera(Vector2 pPosition, Rectangle pGameScreen)
         {
+			Position = Vector2.Zero;
+			mCameraOffset = Vector2.Zero;
             mGameScreen = pGameScreen;
             Initialize();
         }
@@ -66,8 +71,6 @@ namespace KryptonEngine.Entities
 
         public override void Initialize()
         {
-            Position = Vector2.Zero;
-            mCameraOffset = Vector2.Zero;
 			mScale = 1.0f;
         }
 
@@ -146,8 +149,8 @@ namespace KryptonEngine.Entities
                   mPositionCamera.X = mBoundSize;
             // Rechts Bewegung
             else if (mSpeed.X < 0)
-              if (mPositionCamera.X <= (-GameScreen.Width + mBoundSize))
-                  mPositionCamera.X = (-GameScreen.Width + mBoundSize );
+              if (mPositionCamera.X < (-GameScreen.Width + EngineSettings.VirtualResWidth / 2 - mBoundSize * 2))
+				  mPositionCamera.X = (int)(-GameScreen.Width + EngineSettings.VirtualResWidth / 2 - mBoundSize * 2);
                 else
                     mPositionCamera.X += mSpeed.X;
 
@@ -163,7 +166,7 @@ namespace KryptonEngine.Entities
                 mPositionCamera.Y = (-mGameScreen.Height + EngineSettings.VirtualResHeight - mBoundSize);
                 else
                     mPositionCamera.Y += mSpeed.Y;
-
+			mTransform = Matrix.CreateTranslation(new Vector3(mPositionCamera, 0));
         }
         #endregion
 

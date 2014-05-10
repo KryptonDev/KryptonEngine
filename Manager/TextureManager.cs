@@ -13,25 +13,25 @@ using System.IO;
 
 namespace KryptonEngine.Manager
 {
-    public class TextureManager : Manager<Texture2D>
-    {
-        #region Singleton
+	public class TextureManager : Manager<Texture2D>
+	{
+		#region Singleton
 
-        private static TextureManager mInstance;
-        public static TextureManager Instance { get { if (mInstance == null) mInstance = new TextureManager(); return mInstance; } }
+		private static TextureManager mInstance;
+		public static TextureManager Instance { get { if (mInstance == null) mInstance = new TextureManager(); return mInstance; } }
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        TextureManager() { }
+		TextureManager() { }
 
-        #endregion
+		#endregion
 
-        #region Methods
+		#region Methods
 
-        public override void LoadContent()
-        {
+		public override void LoadContent()
+		{
 			Texture2D tex;
 
 			if (!mRessourcen.ContainsKey("pixel"))
@@ -52,57 +52,69 @@ namespace KryptonEngine.Manager
 				tex = EngineSettings.Content.Load<Texture2D>(@"gfx\" + fileName);
 				mRessourcen.Add(fileName, tex);
 			}
-        }
+		}
 
-        /// <summary>
-        /// Fügt ein neues Element in mRessourcenManager ein.
-        /// </summary>
-        /// 
-        /// <param name="pName">ID der Texture für den Zugriff.</param>
-        /// <param name="pPath">Pfad zur Texture.</param>
-        public override Texture2D Add(String pName, String pPath)
-        {
-            if (!mRessourcen.ContainsKey(pName))
-            {
-                Texture2D tex = EngineSettings.Content.Load<Texture2D>(pPath);
-                mRessourcen.Add(pName, tex);
+		/// <summary>
+		/// Fügt ein neues Element in mRessourcenManager ein.
+		/// </summary>
+		/// 
+		/// <param name="pName">ID der Texture für den Zugriff.</param>
+		/// <param name="pPath">Pfad zur Texture.</param>
+		public override Texture2D Add(String pName, String pPath)
+		{
+			if (!mRessourcen.ContainsKey(pName))
+			{
+				Texture2D tex = EngineSettings.Content.Load<Texture2D>(pPath);
+				mRessourcen.Add(pName, tex);
 
-                return tex;
-            }
+				return tex;
+			}
 
-            return (Texture2D)mRessourcen[pName];
-        }
+			return (Texture2D)mRessourcen[pName];
+		}
 
-        /// <summary>
-        /// Gibt eine Texture2D zurück.
-        /// </summary>
-        public override Texture2D GetElementByString(string pElementName)
-        {
-            if (mRessourcen.ContainsKey(pElementName))
-                return mRessourcen[pElementName];
+		/// <summary>
+		/// Gibt eine Texture2D zurück.
+		/// </summary>
+		public override Texture2D GetElementByString(string pElementName)
+		{
+			if (mRessourcen.ContainsKey(pElementName))
+				return mRessourcen[pElementName];
 
-            throw new ArgumentException("Element not found!");
-        }
+			throw new ArgumentException("Element not found!");
+		}
 
-        public override void Unload()
-        {
-            mRessourcen.Clear();
-        }
+		public override void Unload()
+		{
+			mRessourcen.Clear();
+		}
 
-        public Dictionary<String, Texture2D> GetAllGameEntities()
-        {
-            Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
+		public Dictionary<String, Texture2D> GetAllGameEntities()
+		{
+			Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
 
-            foreach(string num in this.mRessourcen.Keys)
-            {
-              if(num.IndexOf("Engine") == -1)
-                result.Add(num, this.mRessourcen[num]);
+			foreach (string num in this.mRessourcen.Keys)
+			{
+				if (num.IndexOf("Engine") == -1)
+					result.Add(num, this.mRessourcen[num]);
 
-            }
+			}
+			return result;
+		}
 
-            return result;
-        }
+		public Dictionary<String, Texture2D> GetAllEntitiesByName(String pName)
+		{
+			Dictionary<String, Texture2D> result = new Dictionary<String, Texture2D>();
 
-        #endregion
-    }
+			foreach (string num in this.mRessourcen.Keys)
+			{
+				if (num.IndexOf(pName) != -1)
+					result.Add(num, this.mRessourcen[num]);
+
+			}
+			return result;
+		}
+
+		#endregion
+	}
 }
