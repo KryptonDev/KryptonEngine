@@ -88,11 +88,13 @@ namespace KryptonEngine.Entities
 		/// </summary>
 		/// <param name="pos1">Spieler 1 Origin</param>
 		/// <param name="pos2">Spieler 2 Origin</param>
-		public void MoveCamera(Vector2 pos1, Vector2 pos2)
+		public void MoveCamera(Rectangle pos1, Rectangle pos2)
 		{
 
-			Vector2 Distance = (pos1 - pos2);
-			Position = (pos2 + Distance / 2);
+			Vector2 origin1 = new Vector2(pos1.Center.X, pos1.Center.Y);
+			Vector2 origin2 = new Vector2(pos2.Center.X, pos2.Center.Y);
+			Vector2 Distance = (origin1 - origin2);
+			Position = (origin2 + Distance / 2);
 
 			SetScale(Distance);
 			CheckBounds();
