@@ -26,9 +26,10 @@ namespace KryptonEngine
 
         protected override void Initialize()
         {
-            base.Initialize();
+			
 			EngineSettings.SpineRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             SceneManager.Instance.Initialize();
+			base.Initialize();
         }
 
         protected override void LoadContent()
