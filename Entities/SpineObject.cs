@@ -110,6 +110,8 @@ namespace KryptonEngine.Entities
             mAnimationState = SpineDataManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
+
+            mNormalConverter.convertNormalMap(mSkeleton, normalMap);
         }
 
         #region Update
