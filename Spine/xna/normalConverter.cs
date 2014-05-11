@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace Spine
 {
-    class NormalConverter
+   public class NormalConverter
     {
         GraphicsDevice device;
         NormalBatcher batcher;
@@ -21,11 +21,11 @@ namespace Spine
             batcher = new NormalBatcher();
         }
 
-        public void convertNormalMap(Skeleton skeleton,Texture2D normalMap)
+        public Texture2D convertNormalMap(Skeleton skeleton,Texture2D normalMap)
         {
             List<Slot> drawOrder = skeleton.DrawOrder;
             float rotateRad;
-
+            Texture2D map = normalMap;
             for (int i = 0, n = drawOrder.Count; i < n; i++) 
             {
                 Slot slot = drawOrder[i];
@@ -37,6 +37,7 @@ namespace Spine
                     NormalBatchItem item = batcher.CreateBatchItem();
                     AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
                     item.Texture = normalMap;
+                    device.Textures[2] = map;
 
                     float[] uvs = regionAttachment.UVs;
 					item.vertexTL.TextureCoordinate.X = uvs[RegionAttachment.X1];
@@ -59,6 +60,8 @@ namespace Spine
 
             normalConvertShader.CurrentTechnique.Passes[0].Apply();
             batcher.Draw(device);
+
+            return map;
         }
     }
 }

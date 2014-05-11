@@ -26,7 +26,7 @@ namespace KryptonEngine.Entities
         private float mScale;
 
         private Effect mCShader;
-        private NormalConverter mNormalConverter;
+        public NormalConverter mNormalConverter;
 
         public Texture2D normalMap; // Test
 
@@ -54,6 +54,8 @@ namespace KryptonEngine.Entities
             mName = pName;
             mInitPosition = Vector2.Zero;
             mScale = 1.0f;
+            mNormalConverter = new NormalConverter(KryptonEngine.EngineSettings.Graphics.GraphicsDevice);
+            mNormalConverter.normalConvertShader = KryptonEngine.EngineSettings.Content.Load<Effect>("fixNormal");
         }
 
         //public SpineObject(string pName)
@@ -111,7 +113,7 @@ namespace KryptonEngine.Entities
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
 
-            mNormalConverter.convertNormalMap(mSkeleton, normalMap);
+            
         }
 
         #region Update
