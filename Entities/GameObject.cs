@@ -15,7 +15,7 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        private Vector2 mPosition;
+        protected Vector2 mPosition;
         protected Rectangle mCollisionBox = new Rectangle();
         protected Color mDebugColor = Color.Yellow;
         protected bool mVisible;

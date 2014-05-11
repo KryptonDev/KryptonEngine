@@ -17,6 +17,7 @@ namespace KryptonEngine.Entities
 
         private Vector2 mCameraOffset;
         private Vector2 mPositionCamera;
+		private Vector2 mViewportDimension;
 		private float mScale;
 		private float mScaleMax;
 		private int mBoundSize;
@@ -34,11 +35,13 @@ namespace KryptonEngine.Entities
 				int y = mGameScreen.Height / EngineSettings.VirtualResHeight;
 
 				mScaleMax = (x <= y) ? x : y;
+				mViewportDimension = new Vector2(EngineSettings.VirtualResWidth * mScaleMax, EngineSettings.VirtualResHeight * mScaleMax);
 			} 
 		}
 		public Matrix Transform { get { return mTransform; } }
 		public int BoundSize { get { return mBoundSize; } set { mBoundSize = value; } }
 		public float Scale { get { return mScale; } }
+		public Vector2 ViewportDimension { get { return mViewportDimension; } }
         #endregion
 
         #region Constructor
