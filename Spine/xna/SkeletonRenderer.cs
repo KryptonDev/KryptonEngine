@@ -31,108 +31,121 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Spine {
-	public class SkeletonRenderer {
-		GraphicsDevice device;
-		SpriteBatcher batcher;
-		RasterizerState rasterizerState;
-		float[] vertices = new float[8];
-		BlendState defaultBlendState;
+namespace Spine
+{
+    public class SkeletonRenderer
+    {
+        GraphicsDevice device;
+        SpriteBatcher batcher;
+        RasterizerState rasterizerState;
+        float[] vertices = new float[8];
+        BlendState defaultBlendState;
 
-		BasicEffect effect;
-		public BasicEffect Effect { get { return effect; } set { effect = value; } }
+        BasicEffect effect;
+        public BasicEffect Effect { get { return effect; } set { effect = value; } }
 
-		private bool premultipliedAlpha;
-		public bool PremultipliedAlpha { get { return premultipliedAlpha; } set { premultipliedAlpha = value; } }
+        public Effect e;
+        private bool premultipliedAlpha;
+        public bool PremultipliedAlpha { get { return premultipliedAlpha; } set { premultipliedAlpha = value; } }
 
-		public SkeletonRenderer (GraphicsDevice device) {
-			this.device = device;
+        public SkeletonRenderer(GraphicsDevice device)
+        {
+            this.device = device;
 
-			batcher = new SpriteBatcher();
+            batcher = new SpriteBatcher();
 
-			effect = new BasicEffect(device);
-			effect.World = Matrix.Identity;
-			effect.View = Matrix.CreateLookAt(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Zero, Vector3.Up);
-			effect.TextureEnabled = true;
-			effect.VertexColorEnabled = true;
+            effect = new BasicEffect(device);
+            effect.World = Matrix.Identity;
+            effect.View = Matrix.CreateLookAt(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Zero, Vector3.Up);
+            effect.TextureEnabled = true;
+            effect.VertexColorEnabled = true;
 
-			rasterizerState = new RasterizerState();
-			rasterizerState.CullMode = CullMode.None;
 
-			Bone.yDown = true;
-		}
 
-		public void Begin () {
-			defaultBlendState = premultipliedAlpha ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
+            rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
 
-			device.RasterizerState = rasterizerState;
-			device.BlendState = defaultBlendState;
+            Bone.yDown = true;
+        }
 
-			effect.Projection = Matrix.CreateOrthographicOffCenter(0, device.Viewport.Width, device.Viewport.Height, 0, 1, 0);
-		}
+        public void Begin()
+        {
+            defaultBlendState = premultipliedAlpha ? BlendState.AlphaBlend : BlendState.NonPremultiplied;
 
-		public void End () {
-			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
-				pass.Apply();
-				batcher.Draw(device);
-			}
-		}
+            device.RasterizerState = rasterizerState;
+            device.BlendState = defaultBlendState;
 
-		public void Draw (Skeleton skeleton) {
-			List<Slot> drawOrder = skeleton.DrawOrder;
-			float x = skeleton.X, y = skeleton.Y;
-			float skeletonR = skeleton.R, skeletonG = skeleton.G, skeletonB = skeleton.B, skeletonA = skeleton.A;
-			for (int i = 0, n = drawOrder.Count; i < n; i++) {
-				Slot slot = drawOrder[i];
-				RegionAttachment regionAttachment = slot.Attachment as RegionAttachment;
-				if (regionAttachment != null) {
-					BlendState blend = slot.Data.AdditiveBlending ? BlendState.Additive : defaultBlendState;
-					if (device.BlendState != blend) {
-						End();
-						device.BlendState = blend;
-					}
+            effect.Projection = Matrix.CreateOrthographicOffCenter(0, device.Viewport.Width, device.Viewport.Height, 0, 1, 0);
+        }
 
-					SpriteBatchItem item = batcher.CreateBatchItem();
-					AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
-					item.Texture = (Texture2D)region.page.rendererObject;
+        public void End()
+        {
+            foreach (EffectPass pass in e.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                batcher.Draw(device);
+            }
+        }
 
-					Color color;
-					float a = skeletonA * slot.A;
-					if (premultipliedAlpha)
-						color = new Color(skeletonR * slot.R * a, skeletonG * slot.G * a, skeletonB * slot.B * a, a);
-					else
-						color = new Color(skeletonR * slot.R, skeletonG * slot.G, skeletonB * slot.B, a);
-					item.vertexTL.Color = color;
-					item.vertexBL.Color = color;
-					item.vertexBR.Color = color;
-					item.vertexTR.Color = color;
+        public void Draw(Skeleton skeleton)
+        {
+            List<Slot> drawOrder = skeleton.DrawOrder;
+            float x = skeleton.X, y = skeleton.Y;
+            float skeletonR = skeleton.R, skeletonG = skeleton.G, skeletonB = skeleton.B, skeletonA = skeleton.A;
+            for (int i = 0, n = drawOrder.Count; i < n; i++)
+            {
+                Slot slot = drawOrder[i];
+                RegionAttachment regionAttachment = slot.Attachment as RegionAttachment;
+                if (regionAttachment != null)
+                {
+                    BlendState blend = slot.Data.AdditiveBlending ? BlendState.Additive : defaultBlendState;
+                    if (device.BlendState != blend)
+                    {
+                        End();
+                        device.BlendState = blend;
+                    }
 
-					float[] vertices = this.vertices;
-					regionAttachment.ComputeWorldVertices(x, y, slot.Bone, vertices);
-					item.vertexTL.Position.X = vertices[RegionAttachment.X1];
-					item.vertexTL.Position.Y = vertices[RegionAttachment.Y1];
-					item.vertexTL.Position.Z = 0;
-					item.vertexBL.Position.X = vertices[RegionAttachment.X2];
-					item.vertexBL.Position.Y = vertices[RegionAttachment.Y2];
-					item.vertexBL.Position.Z = 0;
-					item.vertexBR.Position.X = vertices[RegionAttachment.X3];
-					item.vertexBR.Position.Y = vertices[RegionAttachment.Y3];
-					item.vertexBR.Position.Z = 0;
-					item.vertexTR.Position.X = vertices[RegionAttachment.X4];
-					item.vertexTR.Position.Y = vertices[RegionAttachment.Y4];
-					item.vertexTR.Position.Z = 0;
+                    SpriteBatchItem item = batcher.CreateBatchItem();
+                    AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
+                    item.Texture = (Texture2D)region.page.rendererObject;
 
-					float[] uvs = regionAttachment.UVs;
-					item.vertexTL.TextureCoordinate.X = uvs[RegionAttachment.X1];
-					item.vertexTL.TextureCoordinate.Y = uvs[RegionAttachment.Y1];
-					item.vertexBL.TextureCoordinate.X = uvs[RegionAttachment.X2];
-					item.vertexBL.TextureCoordinate.Y = uvs[RegionAttachment.Y2];
-					item.vertexBR.TextureCoordinate.X = uvs[RegionAttachment.X3];
-					item.vertexBR.TextureCoordinate.Y = uvs[RegionAttachment.Y3];
-					item.vertexTR.TextureCoordinate.X = uvs[RegionAttachment.X4];
-					item.vertexTR.TextureCoordinate.Y = uvs[RegionAttachment.Y4];
-				}
-			}
-		}
-	}
+                    Color color;
+                    float a = skeletonA * slot.A;
+                    if (premultipliedAlpha)
+                        color = new Color(skeletonR * slot.R * a, skeletonG * slot.G * a, skeletonB * slot.B * a, a);
+                    else
+                        color = new Color(skeletonR * slot.R, skeletonG * slot.G, skeletonB * slot.B, a);
+                    item.vertexTL.Color = color;
+                    item.vertexBL.Color = color;
+                    item.vertexBR.Color = color;
+                    item.vertexTR.Color = color;
+
+                    float[] vertices = this.vertices;
+                    regionAttachment.ComputeWorldVertices(x, y, slot.Bone, vertices);
+                    item.vertexTL.Position.X = vertices[RegionAttachment.X1];
+                    item.vertexTL.Position.Y = vertices[RegionAttachment.Y1];
+                    item.vertexTL.Position.Z = 0;
+                    item.vertexBL.Position.X = vertices[RegionAttachment.X2];
+                    item.vertexBL.Position.Y = vertices[RegionAttachment.Y2];
+                    item.vertexBL.Position.Z = 0;
+                    item.vertexBR.Position.X = vertices[RegionAttachment.X3];
+                    item.vertexBR.Position.Y = vertices[RegionAttachment.Y3];
+                    item.vertexBR.Position.Z = 0;
+                    item.vertexTR.Position.X = vertices[RegionAttachment.X4];
+                    item.vertexTR.Position.Y = vertices[RegionAttachment.Y4];
+                    item.vertexTR.Position.Z = 0;
+
+                    float[] uvs = regionAttachment.UVs;
+                    item.vertexTL.TextureCoordinate.X = uvs[RegionAttachment.X1];
+                    item.vertexTL.TextureCoordinate.Y = uvs[RegionAttachment.Y1];
+                    item.vertexBL.TextureCoordinate.X = uvs[RegionAttachment.X2];
+                    item.vertexBL.TextureCoordinate.Y = uvs[RegionAttachment.Y2];
+                    item.vertexBR.TextureCoordinate.X = uvs[RegionAttachment.X3];
+                    item.vertexBR.TextureCoordinate.Y = uvs[RegionAttachment.Y3];
+                    item.vertexTR.TextureCoordinate.X = uvs[RegionAttachment.X4];
+                    item.vertexTR.TextureCoordinate.Y = uvs[RegionAttachment.Y4];
+                }
+            }
+        }
+    }
 }

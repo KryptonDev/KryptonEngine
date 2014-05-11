@@ -25,6 +25,11 @@ namespace KryptonEngine.Entities
         private Vector2 mInitPosition;
         private float mScale;
 
+        private Effect mCShader;
+        private NormalConverter mNormalConverter;
+
+        public Texture2D normalMap; // Test
+
 		new protected Color mDebugColor = Color.Yellow;
 
         #region Getter & Setter
@@ -37,7 +42,7 @@ namespace KryptonEngine.Entities
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
         public Skeleton Skeleton { get { return mSkeleton; } }
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
-
+        public Effect cShader { set { this.mCShader = value; } }
         #endregion
 
         #endregion
@@ -134,6 +139,14 @@ namespace KryptonEngine.Entities
 
         public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition, Vector2 pOffset)
         {
+            EngineSettings.SpineRenderer.e = mCShader;
+            EngineSettings.SpineRenderer.e.Parameters["World"].SetValue(Matrix.Identity);
+            EngineSettings.SpineRenderer.e.Parameters["View"].SetValue(Matrix.Identity);
+            EngineSettings.SpineRenderer.e.Parameters["Projection"].SetValue(Matrix.CreateOrthographicOffCenter(0, KryptonEngine.EngineSettings.VirtualResWidth, KryptonEngine.EngineSettings.VirtualResHeight, 0, 1, 0));
+
+            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = normalMap;
+
+
             Vector2 TmpPosition = Position;
             Position -= pCameraPosition - pOffset;
             EngineSettings.SpineRenderer.Begin();

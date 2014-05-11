@@ -118,6 +118,8 @@
     <Compile Include="Spine\csharp\Skin.cs" />
     <Compile Include="Spine\csharp\Slot.cs" />
     <Compile Include="Spine\csharp\SlotData.cs" />
+    <Compile Include="Spine\xna\NormalBatcher.cs" />
+    <Compile Include="Spine\xna\normalConverter.cs" />
     <Compile Include="Spine\xna\SkeletonRenderer.cs" />
     <Compile Include="Spine\xna\SpriteBatcher.cs" />
     <Compile Include="Spine\xna\Util.cs" />
