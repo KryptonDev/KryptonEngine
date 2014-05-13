@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using KryptonEngine.Manager;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
@@ -28,15 +29,17 @@ namespace KryptonEngine.Entities
         #region Getter & Setter
 
         public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
+		[XmlIgnoreAttribute]
         public Color Tint { set { mTint = value; } }
-        public int Width { get { return mWidth; } }
-        public int Height { get { return mHeight; } }
+		public int Width { get { return mWidth; } set { mWidth = value; } }
+		public int Height { get { return mHeight; } set { mHeight = value; } }
 
         public Vector2 Origin { get { return mOrigin; } }
         public int Rotation { get { return mRotation; } set { mRotation = value; } }
+		[XmlIgnoreAttribute]
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
 
-        public Texture2D Texture { get { return mTexture; } }
+		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 
         #endregion
 

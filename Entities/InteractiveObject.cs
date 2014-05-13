@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KryptonEngine.Manager;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -51,8 +52,19 @@ namespace KryptonEngine.Entities
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-      if(mTexture != null)
-        spriteBatch.Draw(mTexture, Position, Color.White);
+		if (mTexture != null)
+		{
+			spriteBatch.Draw(mTexture, Position, Color.White);
+			if (EngineSettings.IsDebug)
+			{
+				foreach (Rectangle r in ActionRectList)
+					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
+				foreach (Rectangle r in CollisionRectList)
+					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
+				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
+
+			}
+		}
     }
     #endregion
 
@@ -65,6 +77,20 @@ namespace KryptonEngine.Entities
 
       return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
     }
+
+	public void CopyFrom(InteractiveObject io)
+	{
+		this.ActionRectList = new List<Rectangle>(io.ActionRectList);
+		this.CollisionRectList = new List<Rectangle>(io.CollisionRectList);
+		this.ActionPosition1 = io.ActionPosition1;
+		this.ActionPosition2 = io.ActionPosition2;
+		this.DrawZ = io.DrawZ;
+		this.ActionId = io.ActionId;
+		this.mTexture = io.Texture;
+		this.mTextureName = io.TextureName;
+
+		this.Position = io.Position;
+	}
     #endregion
   }
 }

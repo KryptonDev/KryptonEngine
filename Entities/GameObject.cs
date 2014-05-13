@@ -8,9 +8,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using KryptonEngine.Interface;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
+	[Serializable, XmlInclude(typeof(Sprite)), XmlInclude(typeof(InteractiveObject))]
     public class GameObject : BaseObject
     {
         #region Properties

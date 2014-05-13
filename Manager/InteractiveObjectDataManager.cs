@@ -72,8 +72,12 @@ namespace KryptonEngine.Manager
         /// </summary>
         public override InteractiveObject GetElementByString(string pElementName)
         {
-            if (mRessourcen.ContainsKey(pElementName))
-                return mRessourcen[pElementName];
+			if (mRessourcen.ContainsKey(pElementName))
+			{
+				InteractiveObject io = new InteractiveObject();
+				io.CopyFrom(mRessourcen[pElementName]);
+				return io;
+			}
 
             throw new ArgumentException("Element not found!");
         }
@@ -82,6 +86,14 @@ namespace KryptonEngine.Manager
         {
             mRessourcen.Clear();
         }
+
+		public bool HasElement(String pElementName)
+		{
+			if (mRessourcen.ContainsKey(pElementName))
+				return true;
+			else
+				return false;
+		}
         #endregion
     }
 }

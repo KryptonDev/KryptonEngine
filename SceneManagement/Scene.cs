@@ -34,7 +34,6 @@ namespace KryptonEngine.SceneManagement
             { 
                 mBackgroundName = value;
                 mBackgroundTexture = TextureManager.Instance.GetElementByString(value);
-                mClearColor = Color.White; 
             } 
         }
 
