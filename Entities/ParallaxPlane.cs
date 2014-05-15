@@ -14,16 +14,14 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        protected Vector2 mSize;
         protected float mSpeed;
 		protected List<Sprite> mTiles = new List<Sprite>();
 
-        #region Get & Set
+		#endregion
+		
+		#region Get & Set
 
-        public Vector2 Size { get { return mSize; } }
-        public int Width { get { return (int)mSize.X; } }
-        public int Height { get { return (int)mSize.Y; } }
-
+		public List<Sprite> Tiles { get { return mTiles; } set { mTiles = value; } }
 		public List<DrawPackage> DrawPackages { get
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
@@ -36,25 +34,29 @@ namespace KryptonEngine.Entities
 
         #endregion
 
-        #endregion
-
         #region Constructor
 
         public ParallaxPlane()
             : base()
-        {  
-
+        {
+			Initialize();
         }
 
         public ParallaxPlane(float pSpeed)
           : base()
         {
+			Initialize();
           mSpeed = pSpeed;
         }
 
         #endregion
 
         #region Methods
+
+		public override void Initialize()
+		{
+			mDebugColor = Color.Tomato;
+		}
 
         /// <summary>
         /// Updated die Ebenenverschiebung anhand der übergebenen Kamera, relativ zu Viewport und Viewarea.
