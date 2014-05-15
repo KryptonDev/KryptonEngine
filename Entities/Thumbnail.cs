@@ -46,8 +46,8 @@ namespace KryptonEngine.Entities
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT), Color.White);
-            if (EngineSettings.IsDebug)
-                spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
+			//if (EngineSettings.IsDebug)
+			//	spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
         }
         #endregion
     }

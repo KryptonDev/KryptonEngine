@@ -19,7 +19,7 @@ namespace KryptonEngine.Entities
     protected Vector2 mActionPosition2;
 
     protected int mActionId;
-    protected int mDrawZ;
+    //protected int mDrawZ;
     //protected GameObject mDrawObject;
     protected Texture2D mTexture;
     protected String mTextureName;
@@ -32,7 +32,7 @@ namespace KryptonEngine.Entities
     public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
     public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
     public int ActionId { get { return mActionId; } set { mActionId = value; } }
-    public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
+    //public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
     //public GameObject DrawObject { get { return mDrawObject; } set { mDrawObject = value; } }
     public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
     public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
@@ -62,7 +62,6 @@ namespace KryptonEngine.Entities
 				foreach (Rectangle r in CollisionRectList)
 					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
 				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
-
 			}
 		}
     }

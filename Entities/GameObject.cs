@@ -21,6 +21,7 @@ namespace KryptonEngine.Entities
         protected Rectangle mCollisionBox = new Rectangle();
         protected Color mDebugColor = Color.Yellow;
         protected bool mVisible;
+		protected int mDrawZ;
         #endregion
 
         #region Getter & Setter
@@ -55,6 +56,7 @@ namespace KryptonEngine.Entities
         }
 		public Rectangle CollisionBox { get { return mCollisionBox; } set { mCollisionBox = value; } }
         public bool IsVisible { get { return mVisible; } set { mVisible = value; } }
+		public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
         #endregion
         #region Constructor
 
