@@ -41,6 +41,8 @@ namespace KryptonEngine.Entities
 
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTexture); } }
+
         #endregion
 
         #endregion
