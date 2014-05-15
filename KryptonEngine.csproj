@@ -70,7 +70,6 @@
     <Compile Include="Entities\InteractiveObject.cs" />
     <Compile Include="Entities\InterfaceObject.cs" />
     <Compile Include="Entities\Parallax\ParallaxPlane.cs" />
-    <Compile Include="Entities\Parallax\ParallaxSpinePlane.cs" />
     <Compile Include="Entities\Parallax\ParallaxSpritePlane.cs" />
     <Compile Include="Entities\SpineData.cs" />
     <Compile Include="Entities\SpineObject.cs" />
