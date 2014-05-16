@@ -15,13 +15,13 @@ namespace KryptonEngine.Entities
         #region Properties
 
         protected float mSpeed;
-		protected List<Sprite> mTiles = new List<Sprite>();
+        protected List<GameObject> mTiles = new List<GameObject>();
 
 		#endregion
 		
 		#region Get & Set
 
-		public List<Sprite> Tiles { get { return mTiles; } set { mTiles = value; } }
+        public List<GameObject> Tiles { get { return mTiles; } set { mTiles = value; } }
 		public List<DrawPackage> DrawPackages { get
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
@@ -65,6 +65,11 @@ namespace KryptonEngine.Entities
         public virtual void Update(Camera pCamera)
         {
 			Position = pCamera.Position * mSpeed - pCamera.Position;
+        }
+
+        public virtual void Add(GameObject go)
+        {
+            mTiles.Add(go);
         }
 
         #endregion
