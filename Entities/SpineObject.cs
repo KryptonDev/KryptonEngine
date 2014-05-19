@@ -116,12 +116,9 @@ namespace KryptonEngine.Entities
 
         protected void UpdateAnimation()
         {
-            //Player -> Drawposition
-            //skeleton.X = position.X - camera.viewport.X;
-            //skeleton.Y = position.Y - camera.viewport.Y;
-            //skeleton.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
             mAnimationState.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mAnimationState.Apply(mSkeleton);
+			Skeleton.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mSkeleton.UpdateWorldTransform();
         }
 
@@ -168,13 +165,6 @@ namespace KryptonEngine.Entities
 		//	}
 		//	return collision;
 		//}
-
-		public void ChangeDrawScaling(float pScale)
-		{
-			Bone TmpRootBone = mSkeleton.FindBone("root");
-			TmpRootBone.scaleX = pScale;
-			TmpRootBone.scaleY = pScale;
-		}
 
         #endregion
     }

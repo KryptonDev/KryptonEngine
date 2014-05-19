@@ -63,8 +63,8 @@ namespace KryptonEngine.Entities
 		/// Drawed den Package-Inhalt
 		/// </summary>
 		/// <param name="pSpriteBatch">SpriteBatch zum drawen von Texturen</param>
-		/// <param name="pCameraPosition">Kameraposition für Versatz von Skeletons</param>
-		public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
+		/// <param name="pSkeletonRenderer">SkeletonRenderer zum drawen von Texturen</param>
+		public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
 		{
 			if (!Spine)
 			{
@@ -72,11 +72,9 @@ namespace KryptonEngine.Entities
 			}
 			else
 			{
-				mSkeleton.X = mPosition.X - pCameraPosition.X;
-				mSkeleton.Y = mPosition.Y - pCameraPosition.X;
-				EngineSettings.SpineRenderer.Begin();
-				EngineSettings.SpineRenderer.Draw(mSkeleton);
-				EngineSettings.SpineRenderer.End();
+				pSkeletonRenderer.Begin();
+				pSkeletonRenderer.Draw(mSkeleton);
+				pSkeletonRenderer.End();
 			}
 			if (EngineSettings.IsDebug)
 				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
