@@ -63,7 +63,7 @@ namespace KryptonEngine.Entities
 					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
 				foreach (Rectangle r in CollisionRectList)
 					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
-				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
+				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, CollisionBox.Width, 1), Color.Red);
 			}
 		}
 		#endregion
