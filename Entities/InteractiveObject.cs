@@ -8,53 +8,55 @@ using System.Text;
 
 namespace KryptonEngine.Entities
 {
-  public class InteractiveObject : GameObject
-  {
-    #region Properties
+	public class InteractiveObject : GameObject
+	{
+		#region Properties
 
-    protected List<Rectangle> mActionRectList = new List<Rectangle>();
-    protected List<Rectangle> mCollisionRectList = new List<Rectangle>();
-    
-    protected Vector2 mActionPosition1;
-    protected Vector2 mActionPosition2;
+		protected List<Rectangle> mActionRectList;
+		protected List<Rectangle> mCollisionRectList;
 
-    protected int mActionId;
-    //protected int mDrawZ;
-    //protected GameObject mDrawObject;
-    protected Texture2D mTexture;
-    protected String mTextureName;
-    #endregion
+		protected Vector2 mActionPosition1;
+		protected Vector2 mActionPosition2;
 
-    #region Getter & Setter
+		protected int mActionId;
+		#endregion
 
-    public List<Rectangle> ActionRectList { get { return mActionRectList; } set { mActionRectList = value; } }
-    public List<Rectangle> CollisionRectList { get { return mCollisionRectList; } set { mCollisionRectList = value; } }
-    public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
-    public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
-    public int ActionId { get { return mActionId; } set { mActionId = value; } }
-    //public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
-    //public GameObject DrawObject { get { return mDrawObject; } set { mDrawObject = value; } }
-    public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
-    public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-    #endregion
+		#region Getter & Setter
 
-    #region Constructor
+		public List<Rectangle> ActionRectList { get { return mActionRectList; } set { mActionRectList = value; } }
+		public List<Rectangle> CollisionRectList { get { return mCollisionRectList; } set { mCollisionRectList = value; } }
+		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
+		public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
+		public int ActionId { get { return mActionId; } set { mActionId = value; } }
 
-    public InteractiveObject() { }
-    #endregion
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor); } }
 
-    #region Override Methods
+		#endregion
 
-    public override void Update()
-    {
-      
-    }
+		#region Constructor
 
-    public override void Draw(SpriteBatch spriteBatch)
-    {
-		if (mTexture != null)
+		public InteractiveObject()
+			: base()
 		{
-			spriteBatch.Draw(mTexture, Position, Color.White);
+			Initialize();
+		}
+		#endregion
+
+		#region Override Methods
+
+		public override void Initialize()
+		{
+			mActionRectList = new List<Rectangle>();
+			mCollisionRectList = new List<Rectangle>();
+		}
+
+		public override void Update()
+		{
+
+		}
+
+		public virtual void Draw(SpriteBatch spriteBatch)
+		{
 			if (EngineSettings.IsDebug)
 			{
 				foreach (Rectangle r in ActionRectList)
@@ -64,32 +66,31 @@ namespace KryptonEngine.Entities
 				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
 			}
 		}
-    }
-    #endregion
+		#endregion
 
-    #region Methods
+		#region Methods
 
-    public Vector2 GetNearestStartPosition(Vector2 PlayerPosition)
-    {
-      float Distance1 = Vector2.Distance(PlayerPosition, mActionPosition1);
-      float Distance2 = Vector2.Distance(PlayerPosition, mActionPosition2);
+		public Vector2 GetNearestStartPosition(Vector2 PlayerPosition)
+		{
+			float Distance1 = Vector2.Distance(PlayerPosition, mActionPosition1);
+			float Distance2 = Vector2.Distance(PlayerPosition, mActionPosition2);
 
-      return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
-    }
+			return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
+		}
 
-	public void CopyFrom(InteractiveObject io)
-	{
-		this.ActionRectList = new List<Rectangle>(io.ActionRectList);
-		this.CollisionRectList = new List<Rectangle>(io.CollisionRectList);
-		this.ActionPosition1 = io.ActionPosition1;
-		this.ActionPosition2 = io.ActionPosition2;
-		this.DrawZ = io.DrawZ;
-		this.ActionId = io.ActionId;
-		this.mTexture = io.Texture;
-		this.mTextureName = io.TextureName;
+		public void CopyFrom(InteractiveObject io)
+		{
+			this.ActionRectList = new List<Rectangle>(io.ActionRectList);
+			this.CollisionRectList = new List<Rectangle>(io.CollisionRectList);
+			this.ActionPosition1 = io.ActionPosition1;
+			this.ActionPosition2 = io.ActionPosition2;
+			this.DrawZ = io.DrawZ;
+			this.ActionId = io.ActionId;
+			//this.mTexture = io.Texture;
+			//this.mTextureName = io.TextureName;
 
-		this.Position = io.Position;
+			this.Position = io.Position;
+		}
+		#endregion
 	}
-    #endregion
-  }
 }
