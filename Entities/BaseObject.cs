@@ -14,11 +14,12 @@ namespace KryptonEngine.Entities
         #region Properties
 
         protected int mId;
-        protected static int mIdAll = 0;
         #endregion
 
         #region Getter & Setter
-        
+
+        public static int mIdAll = 0;
+		public int ObjectId { get { return mId; } set { mId = value; } }
         #endregion
 
         #region Constructor
