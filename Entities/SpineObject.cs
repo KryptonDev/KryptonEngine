@@ -141,30 +141,24 @@ namespace KryptonEngine.Entities
                 pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
         }
 
-		//private bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit bb-Attachement (z.B. Keule) kollidiert
-		//{
-		//	mBounds.Update(mSkeleton, true);
-		//	bool collision = false;
-		//	if (mBounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
-		//		|| mBounds.AabbIntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-		//		|| mBounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y)
-		//		|| mBounds.AabbIntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height)
-		//		)
-		//	{
-		//		if (mBounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height) != null
-		//			||
-		//			mBounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-		//			||
-		//			mBounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y) != null
-		//			||
-		//			mBounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
-		//			)
-		//		{
-		//			collision = true;
-		//		}
-		//	}
-		//	return collision;
-		//}
+		#region Animation
+
+		/// <summary>
+		/// Applyed eine Animation auf dieses SpineObject.
+		/// </summary>
+		/// <param name="pAnimation">Animation</param>
+		/// <param name="pLoop">Soll die Animation gelooped werden?</param>
+		/// <param name="pForce">Soll die Animation applyed werden auch wenn schon diese Animation läuft?</param>
+		/// <param name="pCut">Soll nicht gefaded werden sondern alles gestoppt und direkt die Animation abgespielt werden?</param>
+		public void SetAnimation(string pAnimation = "idle", bool pLoop = true, bool pForce = false, bool pCut = false)
+		{
+			if (pCut)
+				AnimationState.ClearTracks();
+			if (AnimationState.GetCurrent(0).Animation.ToString() != pAnimation || pForce)
+				AnimationState.SetAnimation(0, pAnimation, pLoop);
+		}
+
+		#endregion
 
         #endregion
     }
