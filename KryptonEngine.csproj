@@ -78,8 +78,8 @@
     <Compile Include="Entities\Timer.cs" />
     <Compile Include="Interface\Box.cs" />
     <Compile Include="Interface\Button.cs" />
-    <Compile Include="Interface\DropDownMenue.cs" />
-    <Compile Include="Interface\MenueBar.cs" />
+    <Compile Include="Interface\DropDownMenu.cs" />
+    <Compile Include="Interface\MenuBar.cs" />
     <Compile Include="Interface\Window.cs" />
     <Compile Include="Manager\FontManager.cs" />
     <Compile Include="Manager\InteractiveObjectDataManager.cs" />

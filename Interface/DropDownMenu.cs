@@ -10,7 +10,7 @@ using KryptonEngine.Controls;
 
 namespace KryptonEngine.Interface
 {
-    public class DropDownMenue : InterfaceObject
+    public class DropDownMenu : InterfaceObject
     {
         #region Properties
         
@@ -29,7 +29,7 @@ namespace KryptonEngine.Interface
 
         #region Constructor
 
-        public DropDownMenue(Vector2 pPosition, List<String> pStringList, List<Action> pActionList) 
+        public DropDownMenu(Vector2 pPosition, List<String> pStringList, List<Action> pActionList) 
             : base(pPosition)
         {
             Position = pPosition;
@@ -72,7 +72,7 @@ namespace KryptonEngine.Interface
                 spriteBatch.Draw(mTexture, mHoverRectangle, mHoverColor);
             // Draw Methods Strings
             for (int i = 0; i < mMenueItems.Count; i++)
-                spriteBatch.DrawString(font, mMenueItems[i], new Vector2(PositionX + 5, (PositionY + i * MENUE_COLUMN_HEIGHT) - 5), mFontColor);
+                spriteBatch.DrawString(font, mMenueItems[i], new Vector2(PositionX + 5, (mDrawRectangle.Y + i * MENUE_COLUMN_HEIGHT) - 5), mFontColor);
         }
 
         public override void Update()
@@ -84,7 +84,7 @@ namespace KryptonEngine.Interface
             if(mDrawRectangle.Contains((int)MouseHelper.Position.X, (int)MouseHelper.Position.Y))
             {
                 mHover = true;
-                int posY = mDrawRectangle.Y - (int)MouseHelper.Position.Y; ;
+                int posY = mDrawRectangle.Y - (int)MouseHelper.Position.Y;
 
                 int Column = (int)(posY / MENUE_COLUMN_HEIGHT);
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
@@ -22,6 +23,7 @@ namespace KryptonEngine.Entities
 		#region Get & Set
 
         public List<GameObject> Tiles { get { return mTiles; } set { mTiles = value; } }
+		[XmlIgnoreAttribute]
 		public List<DrawPackage> DrawPackages { get
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
@@ -46,7 +48,7 @@ namespace KryptonEngine.Entities
           : base()
         {
 			Initialize();
-          mSpeed = pSpeed;
+			mSpeed = pSpeed;
         }
 
         #endregion

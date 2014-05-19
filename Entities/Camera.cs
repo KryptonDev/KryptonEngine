@@ -27,7 +27,8 @@ namespace KryptonEngine.Entities
 
         #region Getter & Setter
 		public Vector2 Position { get { return mPositionCamera; } set { mPositionCamera.X = value.X; mPositionCamera.Y = value.Y; } }
-        public Rectangle GameScreen { get { return mGameScreen; } 
+		public Vector2 Offset { get { return mCameraOffset; } }
+		public Rectangle GameScreen { get { return mGameScreen; } 
 			set 
 			{ 
 				mGameScreen = value;
@@ -111,7 +112,7 @@ namespace KryptonEngine.Entities
 		/// Berechnet den aktuellen Scalewert anhand der Distanc der Spieler zueinander.
 		/// </summary>
 		/// <param name="pDistance">Distance zwischen den zwei Spielern.</param>
-		public void SetScale(Vector2 pDistance)
+		protected void SetScale(Vector2 pDistance)
 		{
 			// 200 für Charakter Höhe/ Breite
 			float mScaleX = Math.Abs(pDistance.X) / (EngineSettings.VirtualResWidth - 200);
@@ -131,7 +132,7 @@ namespace KryptonEngine.Entities
 		/// <summary>
 		/// Überprüft ob die Kamera Position inerhalb des GameScreens ist.
 		/// </summary>
-		public void CheckBounds()
+		protected void CheckBounds()
 		{
 			if (mPositionCamera.X < EngineSettings.VirtualResWidth / 2 / mScale)
 				mPositionCamera.X = EngineSettings.VirtualResWidth / 2 / mScale;

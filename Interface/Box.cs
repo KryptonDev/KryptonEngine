@@ -39,6 +39,11 @@ namespace KryptonEngine.Interface
             if (mHover)
                 spriteBatch.Draw(mTexture, mHoverRectangle, mHoverColor);
         }
+
+		public override void Update()
+		{
+			;
+		}
         #endregion
     }
 }

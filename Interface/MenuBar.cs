@@ -9,14 +9,14 @@ using KryptonEngine.Controls;
 
 namespace KryptonEngine.Interface
 {
-    public class MenueBar : InterfaceObject
+    public class MenuBar : InterfaceObject
     {
         #region Properties
 
         public const int MENUE_HEIGHT = 20;
 
         private List<String> mMenueString = new List<String>();
-        private List<DropDownMenue> mDropDownList = new List<DropDownMenue>();
+        private List<DropDownMenu> mDropDownList = new List<DropDownMenu>();
         private List<Vector2> mMenuePosition = new List<Vector2>();
         private List<Rectangle> mMenueRectangle = new List<Rectangle>();
         
@@ -33,13 +33,13 @@ namespace KryptonEngine.Interface
 
         #region Constructor
 
-        public MenueBar(Vector2 pPosition)
+        public MenuBar(Vector2 pPosition)
             : base(pPosition)
         {
             Initialize();
         }
 
-        public MenueBar(Vector2 pPosition, List<String> pStringList, List<DropDownMenue> pDropDownList)
+        public MenuBar(Vector2 pPosition, List<String> pStringList, List<DropDownMenu> pDropDownList)
             : base(pPosition)
         {
             Initialize();
@@ -70,7 +70,7 @@ namespace KryptonEngine.Interface
             for (int i = 0; i < mMenueString.Count; i++)
                 spriteBatch.DrawString(font, mMenueString[i], mMenuePosition[i], mFontColor);
 
-            foreach (DropDownMenue ddm in mDropDownList)
+            foreach (DropDownMenu ddm in mDropDownList)
                 ddm.Draw(spriteBatch);
 
         }
@@ -95,11 +95,11 @@ namespace KryptonEngine.Interface
                 }
             }
 
-            foreach (DropDownMenue ddm in mDropDownList)
+            foreach (DropDownMenu ddm in mDropDownList)
                 ddm.Update();
         }
 
-        public void AddMenueItem(String pMenueName, DropDownMenue pMenueDropDown)
+        public void AddMenueItem(String pMenueName, DropDownMenu pMenueDropDown)
         {
             mMenueString.Add(pMenueName);
             mDropDownList.Add(pMenueDropDown);
