@@ -152,9 +152,11 @@ namespace KryptonEngine.Entities
 		/// <param name="pCut">Soll nicht gefaded werden sondern alles gestoppt und direkt die Animation abgespielt werden?</param>
 		public void SetAnimation(string pAnimation = "idle", bool pLoop = true, bool pForce = false, bool pCut = false)
 		{
+			if (mSkeleton.Data.FindAnimation(pAnimation) == null)
+				throw new Exception("Animation \"" + pAnimation + "\" ist im Skeleton \"" + mSkeleton.Data.Name + "\" nicht vorhanden.");
 			if (pCut)
 				AnimationState.ClearTracks();
-			if (AnimationState.GetCurrent(0).Animation.ToString() != pAnimation || pForce)
+			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).Animation.ToString() != pAnimation || pForce)
 				AnimationState.SetAnimation(0, pAnimation, pLoop);
 		}
 
