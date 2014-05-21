@@ -38,9 +38,12 @@ namespace KryptonEngine.Manager
 
 			foreach (FileInfo f in environmentPath.GetFiles())
 			{
-				string fileName = f.Name.Substring(0, f.Name.Length - 4);
-				font = EngineSettings.Content.Load<SpriteFont>(@"font\" + fileName);
-				mRessourcen.Add(fileName, font);
+				if (f.Name.Contains(".xnb"))
+				{
+					string fileName = f.Name.Substring(0, f.Name.Length - 4);
+					font = EngineSettings.Content.Load<SpriteFont>(@"font\" + fileName);
+					mRessourcen.Add(fileName, font);
+				}
 			}
         }
 

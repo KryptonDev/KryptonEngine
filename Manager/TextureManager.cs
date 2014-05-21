@@ -48,9 +48,12 @@ namespace KryptonEngine.Manager
 
 			foreach (FileInfo f in environmentPath.GetFiles())
 			{
-				string fileName = f.Name.Substring(0, f.Name.Length - 4);
-				tex = EngineSettings.Content.Load<Texture2D>(@"gfx\" + fileName);
-				mRessourcen.Add(fileName, tex);
+				if (f.Name.Contains(".xnb"))
+				{
+					string fileName = f.Name.Substring(0, f.Name.Length - 4);
+					tex = EngineSettings.Content.Load<Texture2D>(@"gfx\" + fileName);
+					mRessourcen.Add(fileName, tex);
+				}
 			}
 		}
 
