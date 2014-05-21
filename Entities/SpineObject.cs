@@ -156,7 +156,7 @@ namespace KryptonEngine.Entities
 				throw new Exception("Animation \"" + pAnimation + "\" ist im Skeleton \"" + mSkeleton.Data.Name + "\" nicht vorhanden.");
 			if (pCut)
 				AnimationState.ClearTracks();
-			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).Animation.ToString() != pAnimation || pForce)
+			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).ToString() != pAnimation || pForce)
 				AnimationState.SetAnimation(0, pAnimation, pLoop);
 		}
 
