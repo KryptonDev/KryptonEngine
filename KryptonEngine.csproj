@@ -67,7 +67,6 @@
     <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\DrawPackage.cs" />
     <Compile Include="Entities\GameObject.cs" />
-    <Compile Include="Entities\InteractiveObject.cs" />
     <Compile Include="Entities\InterfaceObject.cs" />
     <Compile Include="Entities\ParallaxPlane.cs" />
     <Compile Include="Entities\SpineData.cs" />

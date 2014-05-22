@@ -60,6 +60,8 @@ namespace KryptonEngine.Controls
 
 		private static Input mPause = new Input(Buttons.Start, Keys.Escape, Keys.Escape);
 		private static Input mAction = new Input(Buttons.X, Keys.Space, Keys.RightControl);
+		private static Input mUseItem = new Input(Buttons.A, Keys.LeftControl, Keys.RightShift);
+		private static Input mSwitchItem = new Input(Buttons.B, Keys.LeftAlt, Keys.Enter);
 
 		private static Input mMoveUp = new Input(Buttons.LeftThumbstickUp, Keys.W, Keys.Up);
 		private static Input mMoveDown = new Input(Buttons.LeftThumbstickDown, Keys.S, Keys.Down);
@@ -88,8 +90,13 @@ namespace KryptonEngine.Controls
 		} }
 
 		//Pause
-		public bool Pause { get { return InputJustPressed(mPause); } }
-		public bool Action { get { return InputJustPressed(mAction); } }
+		public bool PauseJustPressed { get { return InputJustPressed(mPause); } }
+		//Action
+		public bool ActionJustPressed { get { return InputJustPressed(mAction); } }
+		public bool ActionIsPressed { get { return InputPressed(mAction); } }
+		//Item
+		public bool UseItemJustPressed { get { return InputJustPressed(mUseItem); } }
+		public bool SwitchItemJustPressed { get { return InputJustPressed(mSwitchItem); } }
 
 		#endregion
 
