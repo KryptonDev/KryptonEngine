@@ -22,7 +22,7 @@ namespace KryptonEngine.Entities
 		protected Texture2D mTexture;
 		protected String mTextureName;
 
-		protected bool mIsActivated;
+		protected ActivityState mActivity;
 		#endregion
 
 		#region Getter & Setter
@@ -35,13 +35,14 @@ namespace KryptonEngine.Entities
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
 		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionRectList[0], mDebugColor); } }
-		public bool IsActivated { get { return mIsActivated; } set { mIsActivated = value; } }
+		public ActivityState Activity { get { return mActivity; } set { mActivity = value; } }
+
 		#endregion
 
 		#region Constructor
+		
+		public InteractiveObject() :base() { }
 
-		// mIsActivated default Wert - unter umständen noch ändern
-		public InteractiveObject() { mIsActivated = false; }
 		#endregion
 
 		#region Override Methods

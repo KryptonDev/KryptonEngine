@@ -62,6 +62,7 @@
     <Compile Include="Controls\InputHelper.cs" />
     <Compile Include="Controls\MouseHelper.cs" />
     <Compile Include="EngineGame.cs" />
+    <Compile Include="Entities\ActivityState.cs" />
     <Compile Include="Entities\AnimatedSprite.cs" />
     <Compile Include="Entities\BaseObject.cs" />
     <Compile Include="Entities\Camera.cs" />
