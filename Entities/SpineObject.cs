@@ -37,6 +37,12 @@ namespace KryptonEngine.Entities
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
         public Skeleton Skeleton { get { return mSkeleton; } }
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
+		public bool AnimationComplete { get
+		{
+			if (AnimationState.GetCurrent(0).Animation == null)
+				return true;
+			return false;
+		} }
 
         #endregion
 
