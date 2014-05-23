@@ -80,7 +80,7 @@ namespace HanselAndGretel.Data
 			PositionHansel = new Vector2(80, 500); //ToDo: Init Position setzen !---!---!---!---!
 			PositionGretel = new Vector2(150, 500); //ToDo: Init Position setzen !---!---!---!---!
 			SceneId = 0;
-			Scenes = new SceneData[1]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
+			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)
 				Scenes[i] = new SceneData(); //Scenes initialisieren
 		}
