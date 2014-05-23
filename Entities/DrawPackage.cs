@@ -14,44 +14,48 @@ namespace KryptonEngine.Entities
 		#region Properties
 
 		protected Vector2 mPosition;
-		protected int mPositionZ;
+		protected float mPositionZ;
 		protected Rectangle mCollisionBox;
 		protected Color mDebugColor;
 		protected Texture2D mTexture;
 		protected Skeleton mSkeleton;
 		protected bool Spine;
+		protected float mAlpha;
 
 		#endregion
 
 		#region Constructor
 
-		public DrawPackage(Vector2 pPosition, int pPositionZ, Rectangle pCollisionBox, Color pDebugColor)
+		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, float pAlpha = 1f)
 		{
 			mPosition = pPosition;
 			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
 			mTexture = TextureManager.Instance.GetElementByString("pixel");
+			mAlpha = pAlpha;
 			Spine = false;
 		}
 
-		public DrawPackage(Vector2 pPosition, int pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture)
+		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture, float pAlpha = 1f)
 		{
 			mPosition = pPosition;
 			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
 			mTexture = pTexture;
+			mAlpha = pAlpha;
 			Spine = false;
 		}
 
-		public DrawPackage(Vector2 pPosition, int pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton)
+		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton, float pAlpha = 1f)
 		{
 			mPosition = pPosition;
 			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
 			mSkeleton = pSkeleton;
+			mAlpha = pAlpha;
 			Spine = true;
 		}
 
@@ -68,7 +72,7 @@ namespace KryptonEngine.Entities
 		{
 			if (!Spine)
 			{
-				pSpriteBatch.Draw(mTexture, mPosition, Color.White);
+				pSpriteBatch.Draw(mTexture, mPosition, new Color(mAlpha, mAlpha, mAlpha, mAlpha));
 			}
 			else
 			{

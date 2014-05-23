@@ -22,7 +22,7 @@ namespace KryptonEngine.Entities
 		protected Texture2D mTexture;
 		protected String mTextureName;
 
-		protected ActivityState mActivity;
+		protected ActivityState mActivityState;
 		#endregion
 
 		#region Getter & Setter
@@ -32,10 +32,11 @@ namespace KryptonEngine.Entities
 		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
 		public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
+		public Activity Activity { get { return (Activity)ActionId; } }
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
 		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionRectList[0], mDebugColor); } }
-		public ActivityState Activity { get { return mActivity; } set { mActivity = value; } }
+		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
 
 		#endregion
 
