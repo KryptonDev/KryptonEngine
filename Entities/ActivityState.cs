@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HanselAndGretel.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,8 +54,6 @@ namespace KryptonEngine.Entities
 
 	public class ActivityState : BaseObject
 	{
-		#region Properties
-
 		public enum State
 		{
 			Idle,
@@ -63,6 +62,8 @@ namespace KryptonEngine.Entities
 			Running
 		}
 
+		#region Properties
+		
 		public static Dictionary<Activity, String> ActivityInfo = new Dictionary<Activity, string>
 		{
 			{Activity.FreeFromCobweb, "Befreien [Netz]"},
@@ -81,6 +82,9 @@ namespace KryptonEngine.Entities
 			{Activity.UseWell, "Herablassen [Brunnen]"}
 		};
 
+		protected InteractiveObject rIObj;
+		protected Hansel rHansel;
+		protected Gretel rGretel;
 		public State mStateHansel;
 		public State mStateGretel;
 
@@ -110,6 +114,17 @@ namespace KryptonEngine.Entities
 			mStateGretel = State.Idle;
 		}
 
+		public ActivityState(Hansel pHansel, Gretel pGretel, InteractiveObject pIObj)
+			:base()
+		{
+			Initialize();
+			rHansel = pHansel;
+			rGretel = pGretel;
+			rIObj = pIObj;
+			mStateHansel = State.Idle;
+			mStateGretel = State.Idle;
+		}
+
 		#endregion
 
 		#region Override Methods
@@ -125,9 +140,9 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
-		public Action<string> GetUpdateMethodForPlayer(string pPlayer)
+		public Action<Player> GetUpdateMethodForPlayer(Player pPlayer)
 		{
-			if (pPlayer == "Hansel")
+			if (pPlayer.GetType() == typeof(Hansel))
 			{
 				switch (mStateHansel)
 				{
@@ -138,10 +153,10 @@ namespace KryptonEngine.Entities
 					case State.Running:
 						return StartAction;
 					default:
-						return new Action<string>((NeverUsedString) => { });
+						return new Action<Player>((NeverUsedObject) => { });
 				}
 			}
-			else if (pPlayer == "Gretel")
+			else if (pPlayer.GetType() == typeof(Gretel))
 			{
 				switch (mStateGretel)
 				{
@@ -152,7 +167,7 @@ namespace KryptonEngine.Entities
 					case State.Running:
 						return StartAction;
 					default:
-						return new Action<string>((NeverUsedString) => { });
+						return new Action<Player>((NeverUsedObject) => { });
 				}
 			}
 			else
@@ -167,9 +182,31 @@ namespace KryptonEngine.Entities
 		/// <param name="pContains">Intersected der Spieler nur oder wird er Contained vom ActionRectangle?</param>
 		/// <returns>Nichts ausführbar = Activity.None</returns>
 		public virtual Activity GetPossibleActivity(bool pContains) { return Activity.None; }
-		public virtual void PrepareAction(string pPlayer) { }
-		public virtual void StartAction(string pPlayer) { }
-		public virtual void UpdateAction(string pPlayer) { }
+		public virtual void PrepareAction(Player pPlayer)
+		{
+			if (pPlayer.GetType() == typeof(Hansel))
+			{
+				if (rHansel.Input.ActionJustPressed)
+					mStateHansel = State.Starting;
+			}
+			else if (pPlayer.GetType() == typeof(Gretel))
+			{
+				if (rGretel.Input.ActionJustPressed)
+					mStateGretel = State.Starting;
+			}
+		}
+		public virtual void StartAction(Player pPlayer)
+		{
+			if (pPlayer.GetType() == typeof(Hansel))
+			{
+				mStateHansel = State.Running;
+			}
+			else if (pPlayer.GetType() == typeof(Gretel))
+			{
+				mStateGretel = State.Running;
+			}
+		}
+		public virtual void UpdateAction(Player pPlayer) { }
 
 		#endregion
 	}
