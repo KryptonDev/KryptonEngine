@@ -100,6 +100,7 @@ namespace KryptonEngine.Entities
             tmpInfo += "\nObjekt ID: " + mId;
             tmpInfo += "\nPosition: " + Position;
             tmpInfo += "\nRectangle Dim.: " + mCollisionBox.Width + "; " + mCollisionBox.Height;
+			tmpInfo += "\nZ-Depth: " + mDrawZ;
 
             return tmpInfo;
         }

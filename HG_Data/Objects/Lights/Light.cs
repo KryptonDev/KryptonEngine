@@ -19,6 +19,8 @@ namespace HanselAndGretel.Data
 		protected float mRange;
 		protected float mDepth;
 		protected Color mColor;
+
+		protected List<Vector2> mCircleSize;
 		#endregion
 
 		#region Getter & Setter
@@ -41,6 +43,7 @@ namespace HanselAndGretel.Data
 		{
 			// 64x64 Icongroße Hitbox
 			mCollisionBox = new Rectangle((int)pPositon.X, (int)pPositon.Y, 64, 64);
+			mCircleSize = new List<Vector2>();
 		}
 		#endregion
 
@@ -56,17 +59,50 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Methods
-		protected virtual void DrawPartCircel(SpriteBatch spriteBatch,float radius, float startAngel, float endAngel, Vector2 pos)
+
+		public void SetDrawCircle()
+		{
+			mCircleSize.Clear();
+
+			for(int i = 0; i < 360; i += 2)
+			{
+				float x = (float)(Position.X + Math.Cos(i * Math.PI / 180) * Range);
+				float y = (float)(Position.Y - Math.Sin(i * Math.PI / 180) * Range);
+
+				Vector2 pixelpos = new Vector2(x, y) + new Vector2(32, 32);
+				mCircleSize.Add(pixelpos);
+			}
+
+			mCircleSize.Add(mCircleSize[mCircleSize.Count - 1]);
+		}
+
+		protected void DrawPartCircel(SpriteBatch spriteBatch,float radius, float startAngel, float endAngel, Vector2 pos)
 		{
 
-			for (float i = startAngel; i <= endAngel; i += 0.1f)
-			{
-				float x = (float)(pos.X + Math.Cos(i * Math.PI / 180) * radius);
-				float y = (float)(pos.Y - Math.Sin(i * Math.PI / 180) * radius);
+			foreach(Vector2 v in mCircleSize)
+				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), v, Color.Yellow);
 
-				Vector2 pixelpos = new Vector2(x, y) + new Vector2(32,32);
-				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), pixelpos, Color.Yellow);
+			for(int i = 0; i < mCircleSize.Count - 1; i++)
+			{
+				DrawLine(mCircleSize[i], mCircleSize[i + 1], TextureManager.Instance.GetElementByString("pixel"), 1.0f, spriteBatch);
 			}
+			//for (float i = startAngel; i <= endAngel; i += 0.1f)
+			//{
+			//	float x = (float)(pos.X + Math.Cos(i * Math.PI / 180) * radius);
+			//	float y = (float)(pos.Y - Math.Sin(i * Math.PI / 180) * radius);
+
+			//	Vector2 pixelpos = new Vector2(x, y) + new Vector2(32,32);
+			//	spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), pixelpos, Color.Yellow);
+			//}
+		}
+
+		protected void DrawLine(Vector2 from, Vector2 to, Texture2D texture, float size, SpriteBatch spriteBatch)
+		{
+
+			double degress = Math.Atan2((to - from).Y, (to - from).X);
+			float length = Vector2.Distance(from, to);
+			spriteBatch.Draw(texture, from, new Rectangle(0, 0, 1, 1), Color.White, (float)degress, Vector2.Zero, new Vector2(length, size), SpriteEffects.None, 0);
+
 		}
 		#endregion
 	}
