@@ -38,13 +38,13 @@ namespace KryptonEngine.Entities
 		protected bool m2ndState;
 
 		/// <summary>
-		/// InputMovementFactor: 0-1
+		/// InputMovementReduction: 0-1
 		/// </summary>
-		protected float mMovementSpeedReductionHansel;
+		protected float mMovementSpeedFactorHansel;
 		/// <summary>
-		/// InputMovementFactor: 0-1
+		/// InputMovementReduction: 0-1
 		/// </summary>
-		protected float mMovementSpeedReductionGretel;
+		protected float mMovementSpeedFactorGretel;
 
 		#endregion
 
@@ -62,7 +62,9 @@ namespace KryptonEngine.Entities
 
 		public override void Initialize()
 		{
-			
+			m2ndState = false;
+			mMovementSpeedFactorHansel = 0f;
+			mMovementSpeedFactorGretel = 0f;
 		}
 
 		public override void Update()
