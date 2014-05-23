@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HanselAndGretel.Data.Character" Collapsed="true">
+    <Position X="30.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAAAAIAAAQCAAAQAAAAAAAAAAAAAAAgAAAAAAAQ=</HashCode>
+      <FileName>Character\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Enemy" Collapsed="true">
+    <Position X="33" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Mother" Collapsed="true">
+    <Position X="32" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Enemy\Mother.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Spider" Collapsed="true">
+    <Position X="34.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Enemy\Spider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Witch" Collapsed="true">
+    <Position X="36.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Enemy\Witch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Wolf" Collapsed="true">
+    <Position X="29.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Enemy\Wolf.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Gretel" Collapsed="true">
+    <Position X="25.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Player\Gretel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Hansel" Collapsed="true">
+    <Position X="27.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Player\Hansel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Inventory" Collapsed="true">
+    <Position X="26.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Player\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.InventorySlot" Collapsed="true">
+    <Position X="28.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Character\Player\InventorySlot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Player" Collapsed="true">
+    <Position X="26.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQwAwAQAAACAQAAAAAAAAAAIAAAAAQAAAAAAgAAAAA=</HashCode>
+      <FileName>Character\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Savegame">
+    <Position X="38.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQgICJAgAADQAQgAAAAQAEEACEAACMACAAABAAAAA=</HashCode>
+      <FileName>Data\Savegame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.SceneData">
+    <Position X="41" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAgAQACAAAACQCAAAAAAgAAAAEAAAAABAAACAAAAAQ=</HashCode>
+      <FileName>Data\SceneData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Waypoint" Collapsed="true">
+    <Position X="23" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAQAAAAwKIAAABCAAAAAAAAEAAQAIAAAAAIAA=</HashCode>
+      <FileName>Data\Waypoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Artefact" Collapsed="true">
+    <Position X="13.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Collectables\Artefact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Collectable" Collapsed="true">
+    <Position X="16" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Collectables\Collectable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.DiaryEntry" Collapsed="true">
+    <Position X="16" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Collectables\DiaryEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Toy" Collapsed="true">
+    <Position X="18.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Collectables\Toy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Branch" Collapsed="true">
+    <Position X="23" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Branch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Item" Collapsed="true">
+    <Position X="20.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Key" Collapsed="true">
+    <Position X="16.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Key.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Knife" Collapsed="true">
+    <Position X="18.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Knife.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Lantern" Collapsed="true">
+    <Position X="20.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Lantern.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HanselAndGretel.Data.Matches" Collapsed="true">
+    <Position X="25.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Items\Matches.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KryptonEngine.Entities.BaseObject" Collapsed="true">
+    <Position X="27.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="KryptonEngine.Entities.GameObject" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="KryptonEngine.Entities.InteractiveObject" Collapsed="true">
+    <Position X="23" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Enum Name="HanselAndGretel.Data.Activity">
+    <Position X="23.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgA4AQAEAEAAAwAACAAARACAACAAAABAEAAAAAAA=</HashCode>
+      <FileName>Data\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

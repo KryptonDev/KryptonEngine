@@ -77,6 +77,32 @@
     <Compile Include="Entities\Thumbnail.cs" />
     <Compile Include="Entities\TiledSprite.cs" />
     <Compile Include="Entities\Timer.cs" />
+    <Compile Include="HG_Data\Character\Character.cs" />
+    <Compile Include="HG_Data\Character\Enemy\Enemy.cs" />
+    <Compile Include="HG_Data\Character\Enemy\Mother.cs" />
+    <Compile Include="HG_Data\Character\Enemy\Spider.cs" />
+    <Compile Include="HG_Data\Character\Enemy\Witch.cs" />
+    <Compile Include="HG_Data\Character\Enemy\Wolf.cs" />
+    <Compile Include="HG_Data\Character\Player\Gretel.cs" />
+    <Compile Include="HG_Data\Character\Player\Hansel.cs" />
+    <Compile Include="HG_Data\Character\Player\Inventory.cs" />
+    <Compile Include="HG_Data\Character\Player\InventorySlot.cs" />
+    <Compile Include="HG_Data\Character\Player\Player.cs" />
+    <Compile Include="HG_Data\Data\Savegame.cs" />
+    <Compile Include="HG_Data\Data\SceneData.cs" />
+    <Compile Include="HG_Data\Data\Waypoint.cs" />
+    <Compile Include="HG_Data\Objects\Collectables\Collectable.cs" />
+    <Compile Include="HG_Data\Objects\EventTrigger.cs" />
+    <Compile Include="HG_Data\Objects\Items\Branch.cs" />
+    <Compile Include="HG_Data\Objects\Items\Item.cs" />
+    <Compile Include="HG_Data\Objects\Items\Key.cs" />
+    <Compile Include="HG_Data\Objects\Items\Knife.cs" />
+    <Compile Include="HG_Data\Objects\Items\Lantern.cs" />
+    <Compile Include="HG_Data\Objects\Items\Matches.cs" />
+    <Compile Include="HG_Data\Objects\Lights\DirectionLight.cs" />
+    <Compile Include="HG_Data\Objects\Lights\Light.cs" />
+    <Compile Include="HG_Data\Objects\Lights\PointLight.cs" />
+    <Compile Include="HG_Data\Objects\Lights\SpotLight.cs" />
     <Compile Include="Interface\Box.cs" />
     <Compile Include="Interface\Button.cs" />
     <Compile Include="Interface\DropDownMenu.cs" />
@@ -121,6 +147,9 @@
     <Compile Include="Spine\xna\SpriteBatcher.cs" />
     <Compile Include="Spine\xna\Util.cs" />
     <Compile Include="Spine\xna\XnaTextureLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HG_Data\ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
