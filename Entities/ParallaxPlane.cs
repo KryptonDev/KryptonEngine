@@ -29,7 +29,7 @@ namespace KryptonEngine.Entities
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
 			foreach (Sprite obj in mTiles)
 			{
-				TmpPackages.Add(new DrawPackage(obj.Position + Position, obj.DrawZ, obj.CollisionBox, mDebugColor));
+				TmpPackages.Add(new DrawPackage(obj.CollisionBox, mDebugColor));
 			}
 			return TmpPackages;
 		} }

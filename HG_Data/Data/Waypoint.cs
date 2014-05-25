@@ -37,7 +37,7 @@ namespace HanselAndGretel.Data
 		/// </summary>
 		public Vector2 MovementOnEnter { get { return mMovementOnEnter; } set { mMovementOnEnter = value; } }
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, 0, CollisionBox, mDebugColor); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(CollisionBox, mDebugColor); } }
 
 		// Zum zeichnen im Editor
 		public Texture2D Texture;

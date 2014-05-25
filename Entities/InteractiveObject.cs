@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
@@ -35,7 +36,22 @@ namespace KryptonEngine.Entities
 		public Activity Activity { get { return (Activity)ActionId; } }
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionRectList[0], mDebugColor); } }
+		[XmlIgnoreAttribute]
+		public List<DrawPackage> DrawPackages { get
+		{
+			List<DrawPackage> TmpPackages = new List<DrawPackage>();
+			//Main Package
+			TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
+			//Debug Stuff
+			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
+				TmpPackages.Add(new DrawPackage(rect, Color.Yellow));
+			foreach (Rectangle rect in ActionRectList) //Action Rectangles
+				TmpPackages.Add(new DrawPackage(rect, Color.Violet));
+			//Action Positions
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition1.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Yellow));
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Yellow));
+			return TmpPackages;
+		} }
 		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
 
 		#endregion

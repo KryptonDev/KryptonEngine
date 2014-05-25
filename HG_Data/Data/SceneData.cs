@@ -40,14 +40,14 @@ namespace HanselAndGretel.Data
 		#region Getter & Setter
 
 		[XmlIgnoreAttribute]
-		public List<DrawPackage> DrawPackagesGame
+		public List<DrawPackage> DrawPackages
 		{
 			get
 			{
 				List<DrawPackage> TmpList = new List<DrawPackage>();
 				foreach (Rectangle rect in MoveArea)
 				{
-					TmpList.Add(new DrawPackage(new Vector2(rect.X, rect.Y), 0, rect, Color.Blue));
+					TmpList.Add(new DrawPackage(rect, Color.Blue));
 				}
 				foreach (Waypoint wp in Waypoints)
 				{
@@ -55,10 +55,10 @@ namespace HanselAndGretel.Data
 				}
 				foreach (InteractiveObject iObj in InteractiveObjects)
 				{
-					TmpList.Add(iObj.DrawPackage);
+					TmpList.AddRange(iObj.DrawPackages);
 				}
 				foreach (GameObject go in BackgroundSprites)
-					TmpList.Add(new DrawPackage(go.Position, go.DrawZ, go.CollisionBox, Color.White));
+					TmpList.Add(new DrawPackage(go.CollisionBox, Color.White));
 				//Add EVERYTHING for Debug
 				//foreach (InteractiveObject obj in InteractiveObjects)
 				//{
