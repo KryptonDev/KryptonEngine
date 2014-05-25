@@ -21,20 +21,20 @@ namespace KryptonEngine.Entities
 		protected Skeleton mSkeleton;
 		protected bool Spine;
 		protected float mAlpha;
+		protected bool OnlyDebug;
 
 		#endregion
 
 		#region Constructor
 
-		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, float pAlpha = 1f)
+		public DrawPackage(Rectangle pCollisionBox, Color pDebugColor, float pAlpha = 1f)
 		{
-			mPosition = pPosition;
-			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
 			mTexture = TextureManager.Instance.GetElementByString("pixel");
 			mAlpha = pAlpha;
 			Spine = false;
+			OnlyDebug = true;
 		}
 
 		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture, float pAlpha = 1f)
@@ -46,6 +46,7 @@ namespace KryptonEngine.Entities
 			mTexture = pTexture;
 			mAlpha = pAlpha;
 			Spine = false;
+			OnlyDebug = false;
 		}
 
 		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton, float pAlpha = 1f)
@@ -57,6 +58,7 @@ namespace KryptonEngine.Entities
 			mSkeleton = pSkeleton;
 			mAlpha = pAlpha;
 			Spine = true;
+			OnlyDebug = false;
 		}
 
 		#endregion
@@ -70,6 +72,12 @@ namespace KryptonEngine.Entities
 		/// <param name="pSkeletonRenderer">SkeletonRenderer zum drawen von Texturen</param>
 		public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
 		{
+			if (OnlyDebug)
+			{
+				if (EngineSettings.IsDebug)
+					pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
+				return;
+			}
 			if (!Spine)
 			{
 				pSpriteBatch.Draw(mTexture, mPosition, new Color(mAlpha, mAlpha, mAlpha, mAlpha));
@@ -80,8 +88,6 @@ namespace KryptonEngine.Entities
 				pSkeletonRenderer.Draw(mSkeleton);
 				pSkeletonRenderer.End();
 			}
-			if (EngineSettings.IsDebug)
-				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
 		}
 
 		#endregion
