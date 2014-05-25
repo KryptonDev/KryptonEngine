@@ -41,7 +41,8 @@ namespace KryptonEngine.Entities
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
 			//Main Package
-			TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
+			TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
+			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
 			//Debug Stuff
 			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
 				TmpPackages.Add(new DrawPackage(rect, Color.Yellow));
