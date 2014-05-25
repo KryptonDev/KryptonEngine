@@ -72,11 +72,11 @@ namespace KryptonEngine.Entities
 		/// <param name="pSkeletonRenderer">SkeletonRenderer zum drawen von Texturen</param>
 		public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
 		{
-			if (OnlyDebug)
+			if (OnlyDebug || EngineSettings.IsDebug)
 			{
-				if (EngineSettings.IsDebug)
-					pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
-				return;
+				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
+				if (OnlyDebug)
+					return;
 			}
 			if (!Spine)
 			{

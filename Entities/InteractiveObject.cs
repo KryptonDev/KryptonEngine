@@ -45,12 +45,12 @@ namespace KryptonEngine.Entities
 			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
 			//Debug Stuff
 			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
-				TmpPackages.Add(new DrawPackage(rect, Color.Yellow));
+				TmpPackages.Add(new DrawPackage(rect, Color.Red));
 			foreach (Rectangle rect in ActionRectList) //Action Rectangles
 				TmpPackages.Add(new DrawPackage(rect, Color.Violet));
 			//Action Positions
-			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition1.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Yellow));
-			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Yellow));
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition1.X-5, (int)ActionPosition1.Y-5, 10, 10), Color.Blue));
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Blue));
 			return TmpPackages;
 		} }
 		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
