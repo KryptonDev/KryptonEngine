@@ -97,6 +97,11 @@ namespace KryptonEngine.Entities
 			return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
 		}
 
+		public void SetupForDeserialization()
+		{
+			Texture = TextureManager.Instance.GetElementByString(TextureName);
+		}
+
 		public void CopyFrom(InteractiveObject io)
 		{
 			this.ActionRectList = new List<Rectangle>(io.ActionRectList);
