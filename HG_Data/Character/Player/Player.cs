@@ -67,7 +67,7 @@ namespace HanselAndGretel.Data
 
 		#region Update Movement Helper
 
-		public void MoveManually(Vector2 pMovementDirection, float pMovementSpeedFactor, SceneData pScene = null, bool pIgnoreCollision = true)
+		public void MoveManually(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true)
 		{
 			Vector2 TmpMovement;
 			List<Rectangle> TmpBodies;
@@ -100,7 +100,7 @@ namespace HanselAndGretel.Data
 				TmpMovement = GetMovement(TmpMovementDirection, pMovementSpeedFactor);
 				TmpBodies = GetBodiesForCollisionCheck(pScene);
 			}
-			if ((pTargetPoint - Position).Length() <= TmpMovement.Length())
+			if ((pTargetPoint - Position).Length() < TmpMovement.Length()) //Nicht über Punkt hinaus gehen.
 				TmpMovement = pTargetPoint - Position;
 			AnimBasicAnimation(Move(TmpMovement, TmpBodies));
 		}
