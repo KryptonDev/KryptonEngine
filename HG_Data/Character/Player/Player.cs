@@ -17,7 +17,6 @@ namespace HanselAndGretel.Data
 		public List<Activity> mHandicaps;
 		public ActivityState mCurrentActivity;
 		protected InputHelper mInput;
-		protected float mSpeed;
 
 		//References
 		protected Player rOtherPlayer;
@@ -27,7 +26,6 @@ namespace HanselAndGretel.Data
 		#region Getter & Setter
 
 		public InputHelper Input { get { return mInput; } }
-		public float Speed { get { return mSpeed; } }
 
 		#endregion
 
@@ -64,10 +62,7 @@ namespace HanselAndGretel.Data
 		{
 			base.Update();
 			if (pMayMove && pMovementSpeedFactor > 0)
-			{
-				Vector2 TmpMovement = mInput.Movement * mSpeed * pMovementSpeedFactor * (EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
-				AnimBasicAnimation(Move(ViewportCheckedVector(TmpMovement), GetBodiesForCollisionCheck(pScene)));
-			}
+				AnimBasicAnimation(Move(ViewportCheckedVector(GetMovement(mInput.Movement, pMovementSpeedFactor)), GetBodiesForCollisionCheck(pScene)));
 		}
 
 		#region Update Movement Helper
@@ -78,14 +73,35 @@ namespace HanselAndGretel.Data
 			List<Rectangle> TmpBodies;
 			if (pIgnoreCollision)
 			{
-				TmpMovement = ViewportCheckedVector(pMovementDirection * mSpeed * pMovementSpeedFactor * (EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f));
+				TmpMovement = ViewportCheckedVector(GetMovement(pMovementDirection, pMovementSpeedFactor));
 				TmpBodies = new List<Rectangle>();
 			}
 			else
 			{
-				TmpMovement = pMovementDirection * mSpeed * pMovementSpeedFactor * (EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
+				TmpMovement = GetMovement(pMovementDirection, pMovementSpeedFactor);
 				TmpBodies = GetBodiesForCollisionCheck(pScene);
 			}
+			AnimBasicAnimation(Move(TmpMovement, TmpBodies));
+		}
+
+		public void MoveAgainstPoint(Vector2 pTargetPoint, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true)
+		{
+			Vector2 TmpMovementDirection = pTargetPoint - Position;
+			TmpMovementDirection.Normalize();
+			Vector2 TmpMovement;
+			List<Rectangle> TmpBodies;
+			if (pIgnoreCollision)
+			{
+				TmpMovement = ViewportCheckedVector(GetMovement(TmpMovementDirection, pMovementSpeedFactor));
+				TmpBodies = new List<Rectangle>();
+			}
+			else
+			{
+				TmpMovement = GetMovement(TmpMovementDirection, pMovementSpeedFactor);
+				TmpBodies = GetBodiesForCollisionCheck(pScene);
+			}
+			if ((pTargetPoint - Position).Length() <= TmpMovement.Length())
+				TmpMovement = pTargetPoint - Position;
 			AnimBasicAnimation(Move(TmpMovement, TmpBodies));
 		}
 
