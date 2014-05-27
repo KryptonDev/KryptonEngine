@@ -116,6 +116,8 @@ namespace HanselAndGretel.Data
 
 		protected Vector2 GetMovement(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f)
 		{
+			if (pMovementDirection.Length() != 1f)
+				pMovementDirection.Normalize();
 			return pMovementDirection * mSpeed * pMovementSpeedFactor * (EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
 		}
 

@@ -151,7 +151,7 @@ namespace KryptonEngine.Entities
 					case State.Starting:
 						return StartAction;
 					case State.Running:
-						return StartAction;
+						return UpdateAction;
 					default:
 						return new Action<Player>((NeverUsedObject) => { });
 				}
@@ -165,7 +165,7 @@ namespace KryptonEngine.Entities
 					case State.Starting:
 						return StartAction;
 					case State.Running:
-						return StartAction;
+						return UpdateAction;
 					default:
 						return new Action<Player>((NeverUsedObject) => { });
 				}
