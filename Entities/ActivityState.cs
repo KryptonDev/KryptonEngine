@@ -88,6 +88,8 @@ namespace KryptonEngine.Entities
 		public State mStateHansel;
 		public State mStateGretel;
 
+		public bool IsAvailable;
+
 		/// <summary>
 		/// Free -> Caught. KnockOver -> BalanceOver. UseKey -> PullDoor. PullDoor -> None. PushRock -> None.
 		/// </summary>
@@ -134,6 +136,7 @@ namespace KryptonEngine.Entities
 			m2ndState = false;
 			mMovementSpeedFactorHansel = 0f;
 			mMovementSpeedFactorGretel = 0f;
+			IsAvailable = true;
 		}
 
 		#endregion

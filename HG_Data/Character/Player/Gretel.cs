@@ -45,6 +45,11 @@ namespace HanselAndGretel.Data
 
 		#region Methods
 
+		public void TryToGrabItem()
+		{
+			
+		}
+
 		#endregion
 	}
 }
