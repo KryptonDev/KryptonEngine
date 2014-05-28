@@ -15,6 +15,7 @@ namespace HanselAndGretel.Data
 		#region Properties
 
 		public SpineObject mModel;
+		protected float mSpeed;
 
 		//References
 		protected Camera rCamera;
@@ -22,6 +23,8 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Getter & Setter
+
+		public float Speed { get { return mSpeed; } }
 
 		#region Redirect Position to Skeleton
 
@@ -111,7 +114,14 @@ namespace HanselAndGretel.Data
 			return TmpMovement;
 		}
 
-#region Animation
+		protected Vector2 GetMovement(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f)
+		{
+			if (pMovementDirection.Length() != 1f)
+				pMovementDirection.Normalize();
+			return pMovementDirection * mSpeed * pMovementSpeedFactor * (EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
+		}
+
+		#region Animation
 
 		public void AnimCutToIdle()
 		{
@@ -149,6 +159,7 @@ namespace HanselAndGretel.Data
 			mModel.SetAnimation(TmpAnimation);
 		}
 #endregion
+
 		#endregion
 	}
 }

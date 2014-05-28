@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
@@ -35,7 +36,23 @@ namespace KryptonEngine.Entities
 		public Activity Activity { get { return (Activity)ActionId; } }
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionRectList[0], mDebugColor); } }
+		[XmlIgnoreAttribute]
+		public List<DrawPackage> DrawPackages { get
+		{
+			List<DrawPackage> TmpPackages = new List<DrawPackage>();
+			//Main Package
+			TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
+			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
+			//Debug Stuff
+			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
+				TmpPackages.Add(new DrawPackage(rect, Color.Red));
+			foreach (Rectangle rect in ActionRectList) //Action Rectangles
+				TmpPackages.Add(new DrawPackage(rect, Color.Violet));
+			//Action Positions
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition1.X-5, (int)ActionPosition1.Y-5, 10, 10), Color.Blue));
+			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Blue));
+			return TmpPackages;
+		} }
 		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
 
 		#endregion
@@ -78,6 +95,11 @@ namespace KryptonEngine.Entities
 			float Distance2 = Vector2.Distance(PlayerPosition, mActionPosition2);
 
 			return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
+		}
+
+		public void SetupForDeserialization()
+		{
+			Texture = TextureManager.Instance.GetElementByString(TextureName);
 		}
 
 		public void CopyFrom(InteractiveObject io)
