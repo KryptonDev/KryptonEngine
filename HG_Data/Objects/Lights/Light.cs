@@ -83,17 +83,7 @@ namespace HanselAndGretel.Data
 				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), v, Color.Yellow);
 
 			for(int i = 0; i < mCircleSize.Count - 1; i++)
-			{
 				DrawLine(mCircleSize[i], mCircleSize[i + 1], TextureManager.Instance.GetElementByString("pixel"), 1.0f, spriteBatch);
-			}
-			//for (float i = startAngel; i <= endAngel; i += 0.1f)
-			//{
-			//	float x = (float)(pos.X + Math.Cos(i * Math.PI / 180) * radius);
-			//	float y = (float)(pos.Y - Math.Sin(i * Math.PI / 180) * radius);
-
-			//	Vector2 pixelpos = new Vector2(x, y) + new Vector2(32,32);
-			//	spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), pixelpos, Color.Yellow);
-			//}
 		}
 
 		protected void DrawLine(Vector2 from, Vector2 to, Texture2D texture, float size, SpriteBatch spriteBatch)
