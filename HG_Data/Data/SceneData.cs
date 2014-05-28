@@ -20,8 +20,6 @@ namespace HanselAndGretel.Data
 		public List<Rectangle> MoveArea;
 		public List<Waypoint> Waypoints;
 
-		// "ParallaxPlanes" 5 Planes die mit der Camera verschoben werde. InteractiveObjects aus [1] filtern.
-		// Nachträglich die InteractiveObjects für die letzte Ebene zeichnen, damit man auch hinter diesen laufen kann.
 		public List<GameObject> BackgroundSprites;
 
 		public List<InteractiveObject> InteractiveObjects;
@@ -29,6 +27,7 @@ namespace HanselAndGretel.Data
 		//public List<InteractiveSpineObject> InteractiveSpineObjects;
 		public List<Collectable> Collectables;
 		public List<Item> Items;
+
 		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
 		[XmlIgnoreAttribute]
