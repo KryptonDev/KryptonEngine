@@ -73,18 +73,18 @@ namespace HanselAndGretel.Data
 			List<Rectangle> TmpBodies;
 			if (pIgnoreCollision)
 			{
-				TmpMovement = ViewportCheckedVector(GetMovement(pMovementDirection, pMovementSpeedFactor));
+				TmpMovement = GetMovement(pMovementDirection, pMovementSpeedFactor);
 				TmpBodies = new List<Rectangle>();
 			}
 			else
 			{
-				TmpMovement = GetMovement(pMovementDirection, pMovementSpeedFactor);
+				TmpMovement = ViewportCheckedVector(GetMovement(pMovementDirection, pMovementSpeedFactor));
 				TmpBodies = GetBodiesForCollisionCheck(pScene);
 			}
 			AnimBasicAnimation(Move(TmpMovement, TmpBodies));
 		}
 
-		public void MoveAgainstPoint(Vector2 pTargetPoint, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true)
+		public void MoveAgainstPoint(Vector2 pTargetPoint, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true, bool pIgnoreOtherPlayer = false)
 		{
 			Vector2 TmpMovementDirection = pTargetPoint - Position;
 			TmpMovementDirection.Normalize();
@@ -94,6 +94,8 @@ namespace HanselAndGretel.Data
 			{
 				TmpMovement = ViewportCheckedVector(GetMovement(TmpMovementDirection, pMovementSpeedFactor));
 				TmpBodies = new List<Rectangle>();
+				if (!pIgnoreOtherPlayer)
+					TmpBodies.Add(rOtherPlayer.CollisionBox);
 			}
 			else
 			{

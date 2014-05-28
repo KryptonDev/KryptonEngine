@@ -39,6 +39,7 @@ namespace KryptonEngine.Entities
             }
             get { return mPosition; } 
         }
+		[XmlIgnoreAttribute]
         public int PositionX 
         { 
             set 
@@ -48,6 +49,7 @@ namespace KryptonEngine.Entities
             }
             get { return (int)mPosition.X; } 
         }
+		[XmlIgnoreAttribute]
         public int PositionY 
         { 
             set 

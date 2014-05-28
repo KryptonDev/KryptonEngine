@@ -45,6 +45,14 @@ namespace HanselAndGretel.Data
 			get
 			{
 				List<DrawPackage> TmpList = new List<DrawPackage>();
+				foreach (GameObject go in BackgroundSprites)
+				{
+					TmpList.Add(new DrawPackage(go.CollisionBox, Color.White));
+				}
+				foreach (InteractiveObject iObj in InteractiveObjects)
+				{
+					TmpList.AddRange(iObj.DrawPackages);
+				}
 				foreach (Rectangle rect in MoveArea)
 				{
 					TmpList.Add(new DrawPackage(rect, Color.Blue));
@@ -53,12 +61,6 @@ namespace HanselAndGretel.Data
 				{
 					TmpList.Add(wp.DrawPackage);
 				}
-				foreach (InteractiveObject iObj in InteractiveObjects)
-				{
-					TmpList.AddRange(iObj.DrawPackages);
-				}
-				foreach (GameObject go in BackgroundSprites)
-					TmpList.Add(new DrawPackage(go.CollisionBox, Color.White));
 				//Add EVERYTHING for Debug
 				//foreach (InteractiveObject obj in InteractiveObjects)
 				//{

@@ -77,8 +77,8 @@ namespace HanselAndGretel.Data
 			InventoryHansel = new Inventory();
 			InventoryGretel = new Inventory();
 			Chalk = 0;
-			PositionHansel = new Vector2(80, 500); //ToDo: Init Position setzen !---!---!---!---!
-			PositionGretel = new Vector2(150, 500); //ToDo: Init Position setzen !---!---!---!---!
+			PositionHansel = new Vector2(90, 320); //ToDo: Init Position setzen !---!---!---!---!
+			PositionGretel = new Vector2(200, 320); //ToDo: Init Position setzen !---!---!---!---!
 			SceneId = 0;
 			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)

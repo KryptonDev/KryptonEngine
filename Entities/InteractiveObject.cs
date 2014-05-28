@@ -33,7 +33,9 @@ namespace KryptonEngine.Entities
 		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
 		public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
+		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
+		[XmlIgnoreAttribute]
 		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
 		[XmlIgnoreAttribute]
@@ -41,8 +43,8 @@ namespace KryptonEngine.Entities
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
 			//Main Package
-			TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
-			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Texture));
+			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
+			TmpPackages.Add(new DrawPackage(Position, DrawZ, new Rectangle(CollisionBox.Center.X - 100, CollisionBox.Center.Y - 100, 200, 200), mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
 			//Debug Stuff
 			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
 				TmpPackages.Add(new DrawPackage(rect, Color.Red));
