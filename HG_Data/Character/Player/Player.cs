@@ -44,6 +44,7 @@ namespace HanselAndGretel.Data
 		{
 			base.Initialize();
 			mDebugColor = Color.LimeGreen;
+			Inventory = new Inventory();
 			mHandicaps = new List<Activity>();
 			mSpeed = 400;
 		}
