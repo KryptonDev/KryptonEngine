@@ -79,13 +79,13 @@ namespace KryptonEngine.Controls
 		{
 			Vector2 TmpMovement = Vector2.Zero;
 			if (InputPressed(mMoveUp))
-				TmpMovement.Y--;
+				--TmpMovement.Y;
 			if (InputPressed(mMoveDown))
-				TmpMovement.Y++;
+				++TmpMovement.Y;
 			if (InputPressed(mMoveLeft))
-				TmpMovement.X--;
+				--TmpMovement.X;
 			if (InputPressed(mMoveRight))
-				TmpMovement.X++;
+				++TmpMovement.X;
 			return TmpMovement;
 		} }
 

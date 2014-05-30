@@ -1,4 +1,5 @@
 ﻿using HanselAndGretel.Data;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -210,6 +211,16 @@ namespace KryptonEngine.Entities
 			}
 		}
 		public virtual void UpdateAction(Player pPlayer) { }
+
+		public Vector2 NearestActionPosition(Vector2 pPosition)
+		{
+			return ((rIObj.ActionPosition1 - pPosition).Length() < (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
+		}
+
+		public Vector2 DistantActionPosition(Vector2 pPosition)
+		{
+			return ((rIObj.ActionPosition1 - pPosition).Length() > (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
+		}
 
 		#endregion
 	}
