@@ -61,7 +61,7 @@ namespace KryptonEngine.Entities
             : base(pPosition)
         {
             TextureName = pTextureName;
-            mTexture = TextureManager.Instance.Add(pTextureName, @"gfx\" + pPathName);
+			mTexture = TextureManager.Instance.GetElementByString(TextureName);
             
             mWidth = mTexture.Width;
             mHeight = mTexture.Height;
@@ -76,6 +76,8 @@ namespace KryptonEngine.Entities
             TextureName = pTextureName;
 
             mTexture = TextureManager.Instance.GetElementByString(TextureName);
+			mNormalTexture = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mDepthTexture = TextureManager.Instance.GetElementByString(TextureName + "Depth");
             mWidth = mTexture.Width;
             mHeight = mTexture.Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);
@@ -106,6 +108,13 @@ namespace KryptonEngine.Entities
 			if (mNormalTexture == null) return;
 
 			spriteBatch.Draw(mDepthTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+		}
+
+		public void LoadTextures()
+		{
+			mTexture = TextureManager.Instance.GetElementByString(TextureName);
+			mNormalTexture = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mDepthTexture = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 		}
         #endregion
     }
