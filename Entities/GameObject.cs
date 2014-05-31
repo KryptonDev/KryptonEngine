@@ -84,6 +84,8 @@ namespace KryptonEngine.Entities
         #region Methods
 
         public virtual void Draw(SpriteBatch spriteBatch) { }
+		public virtual void DrawNormal(SpriteBatch spriteBatch) { }
+		public virtual void DrawDepth(SpriteBatch spriteBatch) { }
 
 		public override void Update()
 		{

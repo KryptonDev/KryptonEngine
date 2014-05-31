@@ -30,6 +30,7 @@ namespace HanselAndGretel.Data
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(TextureManager.Instance.GetElementByString("IconPointLight"), mPosition, new Rectangle(0, 0, 64, 64), Color.White);
+			this.DrawPartCircel(spriteBatch, mRange, 0, 360, mPosition);
 		}
 		#endregion
 
