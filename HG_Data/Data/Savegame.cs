@@ -77,15 +77,15 @@ namespace HanselAndGretel.Data
 			InventoryHansel = new Inventory();
 			InventoryGretel = new Inventory();
 			Chalk = 0;
-			PositionHansel = new Vector2(90, 320); //ToDo: Init Position setzen !---!---!---!---!
-			PositionGretel = new Vector2(200, 320); //ToDo: Init Position setzen !---!---!---!---!
+			PositionHansel = new Vector2(90, 320); //Wird beim Saven sowieso von dem eigentlichen Player bestimmt
+			PositionGretel = new Vector2(200, 320); //Wird beim Saven sowieso von dem eigentlichen Player bestimmt
 			SceneId = 0;
 			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)
 				Scenes[i] = new SceneData(); //Scenes initialisieren
 		}
 
-		public static Savegame Load() //Muss static sein damit das Savegame als solches gesetzt werden kann.
+		public static Savegame Load(Hansel pHansel, Gretel pGretel) //Muss static sein damit das Savegame als solches gesetzt werden kann.
 		{
 			Savegame TmpSavegame;
 			FileInfo file = new FileInfo(Savegame.SavegamePath);
@@ -93,13 +93,17 @@ namespace HanselAndGretel.Data
 			{
 				TmpSavegame = new Savegame();
 				TmpSavegame.Reset();
-				Savegame.Save(TmpSavegame);
+				Savegame.Save(TmpSavegame, pHansel, pGretel);
 				return TmpSavegame;
 			}
 			xmlReader = new StreamReader(Savegame.SavegamePath);
 			TmpSavegame = (Savegame)SavegameSerializer.Deserialize(xmlReader); //Savegame aus File laden
 			xmlReader.Close();
-			
+			pHansel.Inventory = TmpSavegame.InventoryHansel;
+			pGretel.Inventory = TmpSavegame.InventoryGretel;
+			pHansel.Position = TmpSavegame.PositionHansel;
+			pGretel.Position = TmpSavegame.PositionGretel;
+			pGretel.Chalk = TmpSavegame.Chalk;
 			return TmpSavegame;
 		}
 
@@ -123,8 +127,13 @@ namespace HanselAndGretel.Data
 		/// Speichert pSavegame an pSavegame.SavegamePath.
 		/// </summary>
 		/// <param name="pSavegame">Savegame, das gesaved werden soll.</param>
-		public static void Save(Savegame pSavegame) //Muss static sein damit das Savegame als solches serialisiert werden kann.
+		public static void Save(Savegame pSavegame, Hansel pHansel, Gretel pGretel) //Muss static sein damit das Savegame als solches serialisiert werden kann.
 		{
+			pSavegame.InventoryHansel = pHansel.Inventory;
+			pSavegame.InventoryGretel = pGretel.Inventory;
+			pSavegame.PositionHansel = pHansel.Position;
+			pSavegame.PositionGretel = pGretel.Position;
+			pSavegame.Chalk = pGretel.Chalk;
 			xmlWriter = new StreamWriter(Savegame.SavegamePath);
 			SavegameSerializer.Serialize(xmlWriter, pSavegame); //Savegame in File schreiben
 			xmlWriter.Close();
