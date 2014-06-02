@@ -39,7 +39,7 @@ namespace KryptonEngine.Entities
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
 		public bool AnimationComplete { get
 		{
-			if (AnimationState.GetCurrent(0) == null)
+			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).Time >= AnimationState.GetCurrent(0).EndTime)
 				return true;
 			return false;
 		} }

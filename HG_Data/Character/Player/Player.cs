@@ -44,6 +44,7 @@ namespace HanselAndGretel.Data
 		{
 			base.Initialize();
 			mDebugColor = Color.LimeGreen;
+			Inventory = new Inventory();
 			mHandicaps = new List<Activity>();
 			mSpeed = 400;
 		}
@@ -67,24 +68,42 @@ namespace HanselAndGretel.Data
 
 		#region Update Movement Helper
 
-		public void MoveManually(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true)
+		/// <summary>
+		/// Spieler manuell entsprechend bewegen.
+		/// </summary>
+		/// <param name="pMovementDirection">Auszuführende Bewegungsrichtung (muss normalisiert sein)</param>
+		/// <param name="pMovementSpeedFactor">Speed wird hiermit multipliziert</param>
+		/// <param name="pScene">Scene für ggf Kollisionsprüfung, darf bei pIgnoreCollision = true null sein.</param>
+		/// <param name="pIgnoreCollision">Keine Kollision</param>
+		/// <param name="pIgnoreOtherPlayer">Wenn pIgnoreCollision = false ist auch anderen Spieler ignorieren.</param>
+		public void MoveManually(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true, bool pIgnoreOtherPlayer = false)
 		{
 			Vector2 TmpMovement;
 			List<Rectangle> TmpBodies;
 			if (pIgnoreCollision)
 			{
-				TmpMovement = ViewportCheckedVector(GetMovement(pMovementDirection, pMovementSpeedFactor));
+				TmpMovement = GetMovement(pMovementDirection, pMovementSpeedFactor);
 				TmpBodies = new List<Rectangle>();
+				if (!pIgnoreOtherPlayer)
+					TmpBodies.Add(rOtherPlayer.CollisionBox);
 			}
 			else
 			{
-				TmpMovement = GetMovement(pMovementDirection, pMovementSpeedFactor);
+				TmpMovement = ViewportCheckedVector(GetMovement(pMovementDirection, pMovementSpeedFactor));
 				TmpBodies = GetBodiesForCollisionCheck(pScene);
 			}
 			AnimBasicAnimation(Move(TmpMovement, TmpBodies));
 		}
 
-		public void MoveAgainstPoint(Vector2 pTargetPoint, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true)
+		/// <summary>
+		/// Move Player to Point (Call by Call).
+		/// </summary>
+		/// <param name="pTargetPoint">Point</param>
+		/// <param name="pMovementSpeedFactor">Speed wird hiermit multipliziert</param>
+		/// <param name="pScene">Scene für ggf Kollisionsprüfung, darf bei pIgnoreCollision = true null sein.</param>
+		/// <param name="pIgnoreCollision">Keine Kollision</param>
+		/// <param name="pIgnoreOtherPlayer">Wenn pIgnoreCollision = false ist auch anderen Spieler ignorieren.</param>
+		public void MoveAgainstPoint(Vector2 pTargetPoint, float pMovementSpeedFactor = 1f, SceneData pScene = null, bool pIgnoreCollision = true, bool pIgnoreOtherPlayer = false)
 		{
 			Vector2 TmpMovementDirection = pTargetPoint - Position;
 			TmpMovementDirection.Normalize();
@@ -94,6 +113,8 @@ namespace HanselAndGretel.Data
 			{
 				TmpMovement = ViewportCheckedVector(GetMovement(TmpMovementDirection, pMovementSpeedFactor));
 				TmpBodies = new List<Rectangle>();
+				if (!pIgnoreOtherPlayer)
+					TmpBodies.Add(rOtherPlayer.CollisionBox);
 			}
 			else
 			{
@@ -111,6 +132,8 @@ namespace HanselAndGretel.Data
 		protected List<Rectangle> GetBodiesForCollisionCheck(SceneData pScene)
 		{
 			List<Rectangle> TmpMoveArea = new List<Rectangle>(pScene.MoveArea);
+			foreach (InteractiveObject iObj in pScene.InteractiveObjects)
+				TmpMoveArea.AddRange(iObj.CollisionRectList);
 			TmpMoveArea.Add(rOtherPlayer.CollisionBox);
 			return TmpMoveArea;
 		}

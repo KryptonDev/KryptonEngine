@@ -1,4 +1,5 @@
 ﻿using HanselAndGretel.Data;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,8 @@ namespace KryptonEngine.Entities
 		public State mStateHansel;
 		public State mStateGretel;
 
+		public bool IsAvailable;
+
 		/// <summary>
 		/// Free -> Caught. KnockOver -> BalanceOver. UseKey -> PullDoor. PullDoor -> None. PushRock -> None.
 		/// </summary>
@@ -134,6 +137,7 @@ namespace KryptonEngine.Entities
 			m2ndState = false;
 			mMovementSpeedFactorHansel = 0f;
 			mMovementSpeedFactorGretel = 0f;
+			IsAvailable = true;
 		}
 
 		#endregion
@@ -207,6 +211,16 @@ namespace KryptonEngine.Entities
 			}
 		}
 		public virtual void UpdateAction(Player pPlayer) { }
+
+		public Vector2 NearestActionPosition(Vector2 pPosition)
+		{
+			return ((rIObj.ActionPosition1 - pPosition).Length() < (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
+		}
+
+		public Vector2 DistantActionPosition(Vector2 pPosition)
+		{
+			return ((rIObj.ActionPosition1 - pPosition).Length() > (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
+		}
 
 		#endregion
 	}

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace HanselAndGretel.Data
 {
@@ -40,6 +41,7 @@ namespace HanselAndGretel.Data
 		public DrawPackage DrawPackage { get { return new DrawPackage(CollisionBox, mDebugColor); } }
 
 		// Zum zeichnen im Editor
+		[XmlIgnoreAttribute]
 		public Texture2D Texture;
 
 		#endregion

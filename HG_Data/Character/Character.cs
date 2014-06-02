@@ -107,6 +107,9 @@ namespace HanselAndGretel.Data
 			rCamera = pCamera;
 		}
 
+		/// <summary>
+		/// Moved den Character um pDelta, prüft vorher auf Collision mit pMoveArea.
+		/// </summary>
 		public Vector2 Move(Vector2 pDelta, List<Rectangle> pMoveArea)
 		{
 			Vector2 TmpMovement = Collision.CollisionCheckedVector(CollisionBox, (int)pDelta.X, (int)pDelta.Y, pMoveArea);
@@ -114,6 +117,9 @@ namespace HanselAndGretel.Data
 			return TmpMovement;
 		}
 
+		/// <summary>
+		/// Gibt entsprechend den Bedingungen potentielles Movement zurück.
+		/// </summary>
 		protected Vector2 GetMovement(Vector2 pMovementDirection, float pMovementSpeedFactor = 1f)
 		{
 			if (pMovementDirection.Length() != 1f)
@@ -123,12 +129,19 @@ namespace HanselAndGretel.Data
 
 		#region Animation
 
+		/// <summary>
+		/// Clear alle Tracks und started gelooped die "idle" Animation.
+		/// </summary>
 		public void AnimCutToIdle()
 		{
 			mModel.AnimationState.ClearTracks();
 			mModel.AnimationState.SetAnimation(0, "idle", true);
 		}
 
+		/// <summary>
+		/// Animiert den Character für idle und Movement.
+		/// </summary>
+		/// <param name="pMovement"></param>
 		public void AnimBasicAnimation(Vector2 pMovement)
 		{
 			if (pMovement == Vector2.Zero)
@@ -158,7 +171,8 @@ namespace HanselAndGretel.Data
 			TmpAnimation = "idle";
 			mModel.SetAnimation(TmpAnimation);
 		}
-#endregion
+
+		#endregion
 
 		#endregion
 	}

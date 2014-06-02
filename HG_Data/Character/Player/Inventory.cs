@@ -16,6 +16,23 @@ namespace HanselAndGretel.Data
 
 		#region Getter & Setter
 
+		public bool IsFull { get
+		{
+			if (FreeItemSlot == null)
+				return false;
+			return true;
+		} }
+
+		public InventorySlot FreeItemSlot { get
+		{
+			foreach (InventorySlot slot in ItemSlots)
+			{
+				if (slot.Item == null)
+					return slot;
+			}
+			return null;
+		} }
+
 		#endregion
 
 		#region Constructor
@@ -28,6 +45,11 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region OverrideMethods
+
+		public override void Initialize()
+		{
+			ItemSlots = new InventorySlot[3];
+		}
 
 		#endregion
 
