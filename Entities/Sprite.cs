@@ -17,8 +17,11 @@ namespace KryptonEngine.Entities
         #region Properties
 
         protected String mTextureName;
+		[XmlIgnoreAttribute]
         protected Texture2D mTexture;
+		[XmlIgnoreAttribute]
 		protected Texture2D mNormalTexture;
+		[XmlIgnoreAttribute]
 		protected Texture2D mDepthTexture;
         protected Color mTint = Color.White;
         protected int mWidth;
@@ -116,6 +119,7 @@ namespace KryptonEngine.Entities
 			mNormalTexture = TextureManager.Instance.GetElementByString(TextureName + "Normal");
 			mDepthTexture = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 		}
+
         #endregion
     }
 }

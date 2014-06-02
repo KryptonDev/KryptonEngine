@@ -125,7 +125,12 @@ namespace HanselAndGretel.Data
 		// Laden Texturen usw. von Manager das nicht mitserialisiert wird
 		public void SetupDeserialized()
 		{
-			;
+			foreach (InteractiveObject iObj in InteractiveObjects)
+				iObj.SetupDeserialized();
+			foreach (Item item in Items)
+				item.SetupDeserialized();
+			foreach (Collectable col in Collectables)
+				col.SetupDeserialized();
 		}
 		#endregion
 	}

@@ -74,7 +74,7 @@ namespace KryptonEngine.Entities
 		{
 			if (OnlyDebug || EngineSettings.IsDebug)
 			{
-				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
+				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor * mAlpha);
 				if (OnlyDebug)
 					return;
 			}

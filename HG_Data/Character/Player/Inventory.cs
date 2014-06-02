@@ -39,7 +39,7 @@ namespace HanselAndGretel.Data
 
 		public Inventory()
 		{
-
+			Initialize();
 		}
 
 		#endregion
@@ -49,6 +49,10 @@ namespace HanselAndGretel.Data
 		public override void Initialize()
 		{
 			ItemSlots = new InventorySlot[3];
+			for (int i = 0; i < ItemSlots.Length; i++)
+			{
+				ItemSlots[i] = new InventorySlot();
+			}
 		}
 
 		#endregion
@@ -58,6 +62,12 @@ namespace HanselAndGretel.Data
 		public bool Contains(Type pItem)
 		{
 			return true;
+		}
+
+		public void SetupDeserialized()
+		{
+			foreach (InventorySlot slot in ItemSlots)
+				slot.SetupDeserialized();
 		}
 
 		#endregion

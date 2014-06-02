@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KryptonEngine.Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,8 +78,6 @@ namespace HanselAndGretel.Data
 			InventoryHansel = new Inventory();
 			InventoryGretel = new Inventory();
 			Chalk = 0;
-			PositionHansel = new Vector2(90, 320); //Wird beim Saven sowieso von dem eigentlichen Player bestimmt
-			PositionGretel = new Vector2(200, 320); //Wird beim Saven sowieso von dem eigentlichen Player bestimmt
 			SceneId = 0;
 			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)
@@ -93,12 +92,15 @@ namespace HanselAndGretel.Data
 			{
 				TmpSavegame = new Savegame();
 				TmpSavegame.Reset();
+				pHansel.Position = new Vector2(90, 320); //Init Position Hansel
+				pGretel.Position = new Vector2(200, 320); //Init Position Gretel
 				Savegame.Save(TmpSavegame, pHansel, pGretel);
 				return TmpSavegame;
 			}
 			xmlReader = new StreamReader(Savegame.SavegamePath);
 			TmpSavegame = (Savegame)SavegameSerializer.Deserialize(xmlReader); //Savegame aus File laden
 			xmlReader.Close();
+			TmpSavegame.SetupDeserialized();
 			pHansel.Inventory = TmpSavegame.InventoryHansel;
 			pGretel.Inventory = TmpSavegame.InventoryGretel;
 			pHansel.Position = TmpSavegame.PositionHansel;
@@ -169,9 +171,11 @@ namespace HanselAndGretel.Data
 		public void SetupDeserialized()
 		{
 			foreach (SceneData scene in Scenes)
-			{
 				scene.SetupDeserialized();
-			}
+			foreach (Collectable col in Collectables)
+				col.SetupDeserialized();
+			InventoryHansel.SetupDeserialized();
+			InventoryGretel.SetupDeserialized();
 		}
 
 		#endregion
