@@ -99,7 +99,7 @@ namespace KryptonEngine.Entities
 			return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
 		}
 
-		public void SetupForDeserialization()
+		public void SetupDeserialized()
 		{
 			Texture = TextureManager.Instance.GetElementByString(TextureName);
 		}

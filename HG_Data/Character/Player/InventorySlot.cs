@@ -20,6 +20,11 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
+		public InventorySlot()
+		{
+
+		}
+
 		#endregion
 
 		#region OverrideMethods
@@ -27,6 +32,12 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Methods
+
+		public void SetupDeserialized()
+		{
+			if (Item != null)
+				Item.SetupDeserialized();
+		}
 
 		#endregion
 	}
