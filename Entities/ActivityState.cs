@@ -23,35 +23,13 @@ namespace KryptonEngine.Entities
 		LegUp,
 		LegUpGrab,
 		UseKey,
+		PushDoor,
 		PullDoor,
 		UseChalk,
 		UseWell,
 		UseItem,
 		SwitchItem
 	}
-
-	//public enum ActivityInfo
-	//{
-	//	Error,
-	//	CaughtInCobwebError,
-	//	Befreien,
-	//	CaughtInSwampError,
-	//	Befreien,
-	//	Umwerfen,
-	//	Balancieren,
-	//	Drücken,
-	//	SlipThroughRock,
-	//	Kriechen,
-	//	Springen,
-	//	Raueberleiter,
-	//	RaueberleiterGreifen,
-	//	Schluessel,
-	//	Oeffnen,
-	//	Kreide,
-	//	Herablassen,
-	//	UseItemError,
-	//	SwitchItemError,
-	//}
 
 	public class ActivityState : BaseObject
 	{
@@ -78,6 +56,7 @@ namespace KryptonEngine.Entities
 			{Activity.LegUp, "Räuberleiter"},
 			{Activity.LegUpGrab, "Hoch heben"},
 			{Activity.UseKey, "Schlüssel benutzen [Tür]"},
+			{Activity.PushDoor, "Drücken [Tür]"},
 			{Activity.PullDoor, "Ziehen [Tür]"},
 			{Activity.UseChalk, "Markieren [Kreide]"},
 			{Activity.UseWell, "Herablassen [Brunnen]"}

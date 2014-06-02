@@ -33,8 +33,8 @@ namespace HanselAndGretel.Data
 		{
 			base.Initialize();
 			mInput = InputHelper.Player1;
-			mCollisionBox.Width = 50;
-			mCollisionBox.Height = 100;
+			mCollisionBox.Width = 60;
+			mCollisionBox.Height = 128;
 			mModel = new SpineObject("ashbrett");
 			mHandicaps.Add(Activity.SlipThroughRock);
 			mHandicaps.Add(Activity.Crawl);

@@ -62,7 +62,7 @@ namespace HanselAndGretel.Data
 
 		#endregion
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, 0, CollisionBox, mDebugColor, mModel.Skeleton); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(/*Position, 0, */CollisionBox, mDebugColor/*, mModel.Skeleton*/); } }
 
 		#endregion
 
