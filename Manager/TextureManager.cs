@@ -84,6 +84,7 @@ namespace KryptonEngine.Manager
 			if (mRessourcen.ContainsKey(pElementName))
 				return mRessourcen[pElementName];
 
+			return null;
 			throw new ArgumentException("Element not found!");
 		}
 
@@ -112,6 +113,29 @@ namespace KryptonEngine.Manager
 			foreach (string num in this.mRessourcen.Keys)
 			{
 				if (num.IndexOf(pName) != -1)
+					result.Add(num, this.mRessourcen[num]);
+
+			}
+			return result;
+		}
+
+		public Dictionary<String, Texture2D> GetAllEntetiesWithout(List<String> pStringlist)
+		{
+			Dictionary<String, Texture2D> result = new Dictionary<string, Texture2D>();
+
+			foreach(string num in this.mRessourcen.Keys)
+			{
+				bool found = false;
+				foreach(String s in pStringlist)
+				{
+					if(num.IndexOf(s) != -1)
+					{
+						found = true;
+						//result.Add(num, this.mRessourcen[num]);
+						break;
+					}
+				}
+				if(!found)
 					result.Add(num, this.mRessourcen[num]);
 
 			}
