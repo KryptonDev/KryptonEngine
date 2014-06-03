@@ -59,9 +59,12 @@ namespace KryptonEngine.Controls
 		private static Input mDebug = new Input(Buttons.RightStick, Keys.F7, Keys.None);
 
 		private static Input mPause = new Input(Buttons.Start, Keys.Escape, Keys.Escape);
+		private static Input mBack = new Input(Buttons.B, Keys.Escape, Keys.Back);
 		private static Input mAction = new Input(Buttons.X, Keys.Space, Keys.RightControl);
 		private static Input mUseItem = new Input(Buttons.A, Keys.LeftControl, Keys.RightShift);
-		private static Input mSwitchItem = new Input(Buttons.B, Keys.LeftAlt, Keys.Enter);
+		private static Input mSwitchItem = new Input(Buttons.Y, Keys.LeftAlt, Keys.Enter);
+		private static Input mItemLeft = new Input(Buttons.LeftShoulder, Keys.Q, Keys.OemComma);
+		private static Input mItemRight = new Input(Buttons.RightShoulder, Keys.E, Keys.OemPeriod);
 
 		private static Input mMoveUp = new Input(Buttons.LeftThumbstickUp, Keys.W, Keys.Up);
 		private static Input mMoveDown = new Input(Buttons.LeftThumbstickDown, Keys.S, Keys.Down);
@@ -91,12 +94,17 @@ namespace KryptonEngine.Controls
 
 		//Pause
 		public bool PauseJustPressed { get { return InputJustPressed(mPause); } }
+		//Back
+		public bool BackJustPressed { get { return InputJustPressed(mBack); } }
 		//Action
 		public bool ActionJustPressed { get { return InputJustPressed(mAction); } }
 		public bool ActionIsPressed { get { return InputPressed(mAction); } }
 		//Item
 		public bool UseItemJustPressed { get { return InputJustPressed(mUseItem); } }
 		public bool SwitchItemJustPressed { get { return InputJustPressed(mSwitchItem); } }
+
+		public bool ItemLeftJustPressed { get { return InputJustPressed(mItemLeft); } }
+		public bool ItemRightJustPressed { get { return InputJustPressed(mItemRight); } }
 
 		#endregion
 

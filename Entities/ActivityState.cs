@@ -96,13 +96,14 @@ namespace KryptonEngine.Entities
 			mStateGretel = State.Idle;
 		}
 
-		public ActivityState(Hansel pHansel, Gretel pGretel, InteractiveObject pIObj)
+		public ActivityState(Hansel pHansel, Gretel pGretel, InteractiveObject pIObj = null)
 			:base()
 		{
 			Initialize();
 			rHansel = pHansel;
 			rGretel = pGretel;
-			rIObj = pIObj;
+			if (pIObj != null)
+				rIObj = pIObj;
 			mStateHansel = State.Idle;
 			mStateGretel = State.Idle;
 		}
