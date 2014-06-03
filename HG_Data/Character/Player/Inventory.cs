@@ -18,19 +18,12 @@ namespace HanselAndGretel.Data
 
 		public bool IsFull { get
 		{
-			if (FreeItemSlot == null)
-				return false;
-			return true;
-		} }
-
-		public InventorySlot FreeItemSlot { get
-		{
 			foreach (InventorySlot slot in ItemSlots)
 			{
 				if (slot.Item == null)
-					return slot;
+					return false;
 			}
-			return null;
+			return true;
 		} }
 
 		#endregion
@@ -59,9 +52,25 @@ namespace HanselAndGretel.Data
 
 		#region Methods
 
+		public bool TryToStore (Item item)
+		{
+			foreach (InventorySlot slot in ItemSlots)
+			{
+				if (slot.Item == null)
+				{
+					slot.Item = item;
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public bool Contains(Type pItem)
 		{
-			return true;
+			foreach (InventorySlot slot in ItemSlots)
+				if (slot.Item != null && slot.Item.GetType() == pItem)
+					return true;
+			return false;
 		}
 
 		public void SetupDeserialized()
