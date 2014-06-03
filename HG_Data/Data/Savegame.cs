@@ -79,7 +79,7 @@ namespace HanselAndGretel.Data
 			InventoryGretel = new Inventory();
 			Chalk = 0;
 			SceneId = 0;
-			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
+			Scenes = new SceneData[3]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)
 				Scenes[i] = new SceneData(); //Scenes initialisieren
 		}
@@ -92,8 +92,8 @@ namespace HanselAndGretel.Data
 			{
 				TmpSavegame = new Savegame();
 				TmpSavegame.Reset();
-				pHansel.Position = new Vector2(90, 320); //Init Position Hansel
-				pGretel.Position = new Vector2(200, 320); //Init Position Gretel
+				pHansel.Position = new Vector2(190, 50); //Init Position Hansel
+				pGretel.Position = new Vector2(250, 50); //Init Position Gretel
 				Savegame.Save(TmpSavegame, pHansel, pGretel);
 				return TmpSavegame;
 			}
@@ -118,7 +118,7 @@ namespace HanselAndGretel.Data
 			Scenes[pLevelId].ResetLevel();
 			FileInfo file = new FileInfo(ScenePath + "\\" + LevelNameFromId(pLevelId) + ".hug");
 			if (!file.Exists)
-				throw new FileNotFoundException("Die Scene {0} existiert nicht! WIESO?!?", LevelNameFromId(pLevelId));
+				throw new FileNotFoundException("Die Scene " + LevelNameFromId(pLevelId).ToString() + " existiert nicht! WIESO?!?");
 			xmlReader = new StreamReader(file.FullName);
 			Scenes[pLevelId] = (SceneData)SceneSerializer.Deserialize(xmlReader); //sData File in SpineData Object umwandeln
 			xmlReader.Close();
