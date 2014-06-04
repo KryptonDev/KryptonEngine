@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Entities;
+using KryptonEngine.Manager;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -95,6 +96,7 @@ namespace HanselAndGretel.Data
 				pHansel.Position = new Vector2(190, 50); //Init Position Hansel
 				pGretel.Position = new Vector2(250, 50); //Init Position Gretel
 				Savegame.Save(TmpSavegame, pHansel, pGretel);
+				TmpSavegame.SetupDeserialized();
 				return TmpSavegame;
 			}
 			xmlReader = new StreamReader(Savegame.SavegamePath);
@@ -170,8 +172,11 @@ namespace HanselAndGretel.Data
 
 		public void SetupDeserialized()
 		{
-			foreach (SceneData scene in Scenes)
-				scene.SetupDeserialized();
+			for (int i = 0; i < Scenes.Length; i++)
+			{
+				Scenes[i].SetupDeserialized();
+				Scenes[i].BackgroundTextures[0] = TextureManager.Instance.GetElementByString(LevelNameFromId(i) + "Diffuse");
+			}
 			foreach (Collectable col in Collectables)
 				col.SetupDeserialized();
 			InventoryHansel.SetupDeserialized();

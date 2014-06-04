@@ -21,6 +21,8 @@ namespace HanselAndGretel.Data
 		public List<Waypoint> Waypoints;
 
 		public List<GameObject> BackgroundSprites;
+		[XmlIgnoreAttribute]
+		public Texture2D[] BackgroundTextures;
 
 		public List<InteractiveObject> InteractiveObjects;
 		public List<Collectable> Collectables;
@@ -94,6 +96,7 @@ namespace HanselAndGretel.Data
 			MoveArea = new List<Rectangle>();
 			Waypoints = new List<Waypoint>();
 			BackgroundSprites = new List<GameObject>();
+			BackgroundTextures = new Texture2D[4]; //LightMaps
 
 			InteractiveObjects = new List<InteractiveObject>();
 			//InteractiveSpriteObjects = new List<InteractiveSpriteObject>();
