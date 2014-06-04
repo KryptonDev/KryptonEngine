@@ -37,8 +37,8 @@ namespace KryptonEngine
             spriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
 
             TextureManager.Instance.LoadContent();
-            InteractiveObjectDataManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();
+            InteractiveObjectDataManager.Instance.LoadContent();
             SpineDataManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
         }

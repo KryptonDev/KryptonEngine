@@ -43,7 +43,8 @@ namespace KryptonEngine.Manager
               iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
               reader.Close();
 
-              mRessourcen.Add(iObj.TextureName, iObj);
+			  if (!mRessourcen.ContainsKey(iObj.TextureName))
+				mRessourcen.Add(iObj.TextureName, iObj);
             }
           }
         }
