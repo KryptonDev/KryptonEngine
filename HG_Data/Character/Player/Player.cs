@@ -49,6 +49,12 @@ namespace HanselAndGretel.Data
 			mSpeed = 400;
 		}
 
+		public override void LoadContent()
+		{
+			base.LoadContent();
+			Inventory.LoadContent();
+		}
+
 		#endregion
 
 		#region Methods
