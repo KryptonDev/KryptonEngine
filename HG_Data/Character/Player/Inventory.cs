@@ -34,6 +34,8 @@ namespace HanselAndGretel.Data
 			return true;
 		} }
 
+		public InventorySlot CurrentSlot { get { return ItemSlots[ItemFocus]; } }
+
 		#endregion
 
 		#region Constructor
@@ -54,7 +56,7 @@ namespace HanselAndGretel.Data
 			{
 				ItemSlots[i] = new InventorySlot();
 			}
-			ItemFocus = 0;
+			ItemFocus = 1;
 		}
 
 		public override void LoadContent()
@@ -74,7 +76,7 @@ namespace HanselAndGretel.Data
 			//Draw InventoryBackground
 			for (int i = 0; i < 3; i++)
 			{
-				int TmpSlot = 2 + pFocus - i;
+				int TmpSlot = 2 - pFocus + i;
 				Vector2 TmpOrigin = new Vector2(mInventoryBackground.Bounds.Center.X, mInventoryBackground.Bounds.Center.Y);
 				pSpriteBatch.Draw(mInventoryBackground, pPosition + DrawPosition[TmpSlot], null, Color.White * pVisibility, DrawRotation[TmpSlot], TmpOrigin, DrawScale[TmpSlot], SpriteEffects.None, 1f);
 			}
@@ -83,27 +85,11 @@ namespace HanselAndGretel.Data
 			{
 				if (ItemSlots[i].Item != null)
 				{
-					int TmpSlot = 2 + pFocus - i;
+					int TmpSlot = 2 - pFocus + i;
 					Vector2 TmpOrigin = new Vector2(ItemSlots[i].Item.Texture.Bounds.Center.X, ItemSlots[i].Item.Texture.Bounds.Center.Y);
 					pSpriteBatch.Draw(ItemSlots[i].Item.Texture, pPosition + DrawPosition[TmpSlot], null, Color.White * pVisibility, DrawRotation[TmpSlot], TmpOrigin, DrawScale[TmpSlot], SpriteEffects.None, 1f);
 				}
 			}
-				
-			/*
-			List<DrawPackage> TmpDrawPackages = new List<DrawPackage>();
-			//Background
-			TmpDrawPackages.Add(new DrawPackage(pPosition, 0, Rectangle.Empty, mDebugColor, mInventoryBackground, pVisibility));
-			//Items
-			if (ItemSlots[0].Item != null)
-				TmpDrawPackages.Add(new DrawPackage(pPosition + new Vector2(0, 0), 0, Rectangle.Empty, mDebugColor, ItemSlots[0].Item.Texture, pVisibility));
-			if (ItemSlots[1].Item != null)
-				TmpDrawPackages.Add(new DrawPackage(pPosition + new Vector2(64, 0), 0, Rectangle.Empty, mDebugColor, ItemSlots[1].Item.Texture, pVisibility));
-			if (ItemSlots[2].Item != null)
-				TmpDrawPackages.Add(new DrawPackage(pPosition + new Vector2(128, 0), 0, Rectangle.Empty, mDebugColor, ItemSlots[2].Item.Texture, pVisibility));
-			//Focus
-			if (pFocus < 3)
-				TmpDrawPackages.Add(new DrawPackage(pPosition + new Vector2(64 * pFocus, 0), 0, Rectangle.Empty, mDebugColor, mInventoryFocus, pVisibility));
-			 */
 		}
 
 		public bool TryToStore (Item item)
@@ -111,23 +97,35 @@ namespace HanselAndGretel.Data
 			if (ItemSlots[1].Item == null)
 			{
 				ItemSlots[1].Item = item;
+				if (ItemSlots[0].Item == null && ItemSlots[2].Item == null)
+					ItemFocus = 1;
 				return true;
 			}
 			if (ItemSlots[0].Item == null)
 			{
 				ItemSlots[0].Item = item;
+				if (ItemSlots[1].Item == null && ItemSlots[2].Item == null)
+					ItemFocus = 0;
 				return true;
 			}
 			if (ItemSlots[2].Item == null)
 			{
 				ItemSlots[2].Item = item;
+				if (ItemSlots[0].Item == null && ItemSlots[1].Item == null)
+					ItemFocus = 2;
 				return true;
 			}
 			return false;
 		}
 
-		public bool Contains(Type pItem)
+		public bool Contains(Type pItem, bool InCurrentSlot = true)
 		{
+			if (InCurrentSlot)
+			{
+				if (ItemSlots[ItemFocus].Item != null && ItemSlots[ItemFocus].Item.GetType() == pItem)
+					return true;
+				return false;
+			}
 			foreach (InventorySlot slot in ItemSlots)
 				if (slot.Item != null && slot.Item.GetType() == pItem)
 					return true;
