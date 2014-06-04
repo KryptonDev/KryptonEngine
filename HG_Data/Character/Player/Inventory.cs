@@ -14,6 +14,7 @@ namespace HanselAndGretel.Data
 		#region Properties
 
 		public InventorySlot[] ItemSlots;
+		public int ItemFocus;
 		protected Texture2D mInventoryBackground;
 		protected Texture2D mInventoryFocus;
 
@@ -51,6 +52,7 @@ namespace HanselAndGretel.Data
 			{
 				ItemSlots[i] = new InventorySlot();
 			}
+			ItemFocus = 0;
 		}
 
 		public override void LoadContent()
