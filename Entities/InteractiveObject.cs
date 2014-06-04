@@ -1,4 +1,5 @@
-﻿using KryptonEngine.Manager;
+﻿using KryptonEngine.Interface;
+using KryptonEngine.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -61,15 +62,30 @@ namespace KryptonEngine.Entities
 
 		#region Constructor
 		
-		public InteractiveObject() :base() { }
+		public InteractiveObject() 
+			: base() 
+		{
+			Initialize();
+		}
 
 		#endregion
 
 		#region Override Methods
 
+		public override void Initialize()
+		{
+			mDropDown = new DropDownMenu(Vector2.Zero,
+				new List<String>() { "Activity: None", "Activity: CaughtInCobweb", "Activity: FreeFromCobweb", "Activity: CaughtInSwamp", "Activity: FreeFromSwamp",
+								"Activity: KnockOverTree", "Activity: BalanceOverTree", "Activity: PushRock", "Activity: SlipThroughRock", "Activity: Crawl", "Activity: JumpOverGap",
+								"Activity: LegUp", "Activity: LegUpGrab", "Activity: UseKey", "Activity: PullDoor", "Activity: UseChalk", "Activity: UseWell", "Activity: UseItem" },
+				new List<Action>() { SetActivityState0, SetActivityState1, SetActivityState2, SetActivityState3, SetActivityState4, SetActivityState5, SetActivityState6, SetActivityState7,
+								SetActivityState8,SetActivityState9,SetActivityState10,SetActivityState11,SetActivityState12,SetActivityState13,SetActivityState14,
+								SetActivityState15,SetActivityState16,SetActivityState17,SetActivityState18});
+		}
+
 		public override void Update()
 		{
-
+			mDropDown.Update();
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
@@ -117,6 +133,152 @@ namespace KryptonEngine.Entities
 
 			this.Position = io.Position;
 		}
+
+		public override string GetInfo()
+		{
+			String tmp = base.GetInfo();
+			String actID = "";
+			switch(mActionId)
+			{
+				case 0: actID = "None";
+					break;
+				case 1: actID = "CaughtInCobweb";
+					break;
+				case 2: actID = "FreeFromCobweb";
+					break;
+				case 3: actID = "CaughtInSwamp";
+					break;
+				case 4: actID = "FreeFromSwamp";
+					break;
+				case 5: actID = "KnockOverTree";
+					break;
+				case 6: actID = "BalanceOverTree";
+					break;
+				case 7: actID = "PushRock";
+					break;
+				case 8: actID = "SlipThroughRock";
+					break;
+				case 9: actID = "Crawl";
+					break;
+				case 10: actID = "JumpOverGap";
+					break;
+				case 11: actID = "LegUp";
+					break;
+				case 12: actID = "LegUpGrab";
+					break;
+				case 13: actID = "UseKey";
+					break;
+				case 14: actID = "PullDoor";
+					break;
+				case 15: actID = "UseChalk";
+					break;
+				case 16: actID = "UseWell";
+					break;
+				case 17: actID = "UseItem";
+					break;
+				case 18: actID = "SwitchItem";
+					break;
+			}
+			tmp += "\nActionID: " + actID;
+			return tmp;
+		}
+
+		#region DropDownMenu
+		private void SetActivityState0()
+		{
+			mActionId = 0;
+		}
+
+		private void SetActivityState1()
+		{
+			mActionId = 1;
+		}
+
+		private void SetActivityState2()
+		{
+			mActionId = 2;
+		}
+
+		private void SetActivityState3()
+		{
+			mActionId = 3;
+		}
+
+		private void SetActivityState4()
+		{
+			mActionId = 4;
+		}
+
+		private void SetActivityState5()
+		{
+			mActionId = 5;
+		}
+
+		private void SetActivityState6()
+		{
+			mActionId = 6;
+		}
+
+		private void SetActivityState7()
+		{
+			mActionId = 7;
+		}
+
+		private void SetActivityState8()
+		{
+			mActionId = 8;
+		}
+
+		private void SetActivityState9()
+		{
+			mActionId = 9;
+		}
+
+		private void SetActivityState10()
+		{
+			mActionId = 10;
+		}
+
+		private void SetActivityState11()
+		{
+			mActionId = 11;
+		}
+
+		private void SetActivityState12()
+		{
+			mActionId = 12;
+		}
+
+		private void SetActivityState13()
+		{
+			mActionId = 13;
+		}
+
+		private void SetActivityState14()
+		{
+			mActionId = 14;
+		}
+
+		private void SetActivityState15()
+		{
+			mActionId = 15;
+		}
+
+		private void SetActivityState16()
+		{
+			mActionId = 16;
+		}
+
+		private void SetActivityState17()
+		{
+			mActionId = 17;
+		}
+
+		private void SetActivityState18()
+		{
+			mActionId = 18;
+		}
+		#endregion
 		#endregion
 	}
 }

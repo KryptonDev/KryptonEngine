@@ -105,7 +105,7 @@ namespace KryptonEngine.Entities
 
 		public override void DrawDepth(SpriteBatch spriteBatch)
 		{
-			if (mNormalTexture == null) return;
+			if (mDepthTexture == null) return;
 
 			spriteBatch.Draw(mDepthTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
 		}

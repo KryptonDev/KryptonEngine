@@ -95,7 +95,7 @@ namespace KryptonEngine.Interface
                 mHover = false;
 
             // Überprüft Klick um Action auszuführen, danach wird das Menü geschlossen
-            if (MouseHelper.Instance.IsClickedLeft )//&& mDrawRectangle.Contains((int)MouseHelper.Position.X, (int)MouseHelper.Position.Y))
+            if (MouseHelper.Instance.IsClickedLeft )
             {
                 if (mDrawRectangle.Contains((int)MouseHelper.Position.X, (int)MouseHelper.Position.Y))
                 {
@@ -107,6 +107,7 @@ namespace KryptonEngine.Interface
                     {
                         mMenueActions[Column]();
                         IsVisible = false;
+						MouseHelper.ResetClick();
                     }
                 }
                 else

@@ -85,7 +85,6 @@ namespace KryptonEngine.Manager
 				return mRessourcen[pElementName];
 
 			return null;
-			throw new ArgumentException("Element not found!");
 		}
 
 		public override void Unload()

@@ -61,7 +61,7 @@ namespace HanselAndGretel.Data
 		{
 			mDebugColor = Color.DarkGreen;
 			mOneWay = false;
-			mDropDown = new DropDownMenu(Vector2.Zero, new List<String>() { "Change One Way", "Zugang von: Norden", "Zugang von: Westen", "Zugang von: Süden", "Zugang von: Osten" }, new List<Action>() { ChangeOneWay, LeaveNorth, LeaveWest, LeaveSouth, LeaveEast });
+			mDropDown = new DropDownMenu(Vector2.Zero, new List<String>() { "Change One Way", "Zugang von: Norden", "Zugang von: Westen", "Zugang von: Sueden", "Zugang von: Osten" }, new List<Action>() { ChangeOneWay, LeaveNorth, LeaveWest, LeaveSouth, LeaveEast });
 			mMovementOnEnter = new Vector2(-1f, 0);
 		}
 
@@ -90,7 +90,7 @@ namespace HanselAndGretel.Data
 			else if(mMovementOnEnter.X < 0)
 				leave = "\nVerlassen : Westen";
 			else if(mMovementOnEnter.Y > 0)
-				leave = "\nVerlassen : Süden";
+				leave = "\nVerlassen : Sueden";
 			else if (mMovementOnEnter.Y < 0)
 				leave = "\nVerlassen : Norden";
 
