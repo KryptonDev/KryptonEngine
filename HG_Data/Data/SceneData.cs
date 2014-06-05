@@ -31,6 +31,7 @@ namespace HanselAndGretel.Data
 		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
 		public List<Light> Lights;
+		public List<EventTrigger> Events;
 		//public List<Emitter> Emitter;
 		//public List<SoundAreas> SoundAreas;
 
@@ -84,10 +85,6 @@ namespace HanselAndGretel.Data
 		}
 		#endregion
 
-		#region OverrideMethods
-
-		#endregion
-
 		#region Methods
 
 		public void Initialize()
@@ -99,12 +96,11 @@ namespace HanselAndGretel.Data
 			BackgroundTextures = new Texture2D[4]; //LightMaps
 
 			InteractiveObjects = new List<InteractiveObject>();
-			//InteractiveSpriteObjects = new List<InteractiveSpriteObject>();
-			//InteractiveSpineObjects = new List<InteractiveSpineObject>();
 			Collectables = new List<Collectable>();
 			Items = new List<Item>();
 			Enemies = new List<Enemy>();
 			Lights = new List<Light>();
+			Events = new List<EventTrigger>();
 
 			InteractiveObjects = new List<InteractiveObject>();
 		}
@@ -117,12 +113,11 @@ namespace HanselAndGretel.Data
 			MoveArea.Clear();
 			Waypoints.Clear();
 			BackgroundSprites.Clear();
-			//InteractiveSpriteObjects.Clear();
-			//InteractiveSpineObjects.Clear();
 			InteractiveObjects.Clear();
 			Collectables.Clear();
 			Items.Clear();
 			Lights.Clear();
+			Events.Clear();
 		}
 
 		// Laden Texturen usw. von Manager das nicht mitserialisiert wird
@@ -131,9 +126,9 @@ namespace HanselAndGretel.Data
 			foreach (InteractiveObject iObj in InteractiveObjects)
 				iObj.SetupDeserialized();
 			foreach (Item item in Items)
-				item.SetupDeserialized();
+				item.LoadTextures();
 			foreach (Collectable col in Collectables)
-				col.SetupDeserialized();
+				col.LoadTextures();
 		}
 		#endregion
 	}

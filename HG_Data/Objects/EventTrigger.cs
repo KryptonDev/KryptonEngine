@@ -18,7 +18,7 @@ namespace HanselAndGretel.Data
 
 		#region Properties
 
-		protected List<Rectangle> mTrigger;
+		protected Rectangle mTrigger;
 		protected int mIdToTrigger;
 		protected EEvent mEvent;
 		protected bool mActivated;
@@ -27,7 +27,7 @@ namespace HanselAndGretel.Data
 
 		#region Getter & Setter
 
-		public List<Rectangle> Trigger { get { return mTrigger; } set { mTrigger = value; } }
+		public Rectangle Trigger { get { return mTrigger; } set { mTrigger = value; } }
 		public EEvent Event { get { return mEvent; } set { mEvent = value; } }
 		public int Target { get { return mIdToTrigger; } set { mIdToTrigger = value; } }
 		public bool IsAcitvated { get { return mActivated; } set { mActivated = value; } }

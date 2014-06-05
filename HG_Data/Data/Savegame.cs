@@ -178,7 +178,7 @@ namespace HanselAndGretel.Data
 				Scenes[i].BackgroundTextures[0] = TextureManager.Instance.GetElementByString(LevelNameFromId(i) + "Diffuse");
 			}
 			foreach (Collectable col in Collectables)
-				col.SetupDeserialized();
+				col.LoadTextures();
 			InventoryHansel.SetupDeserialized();
 			InventoryGretel.SetupDeserialized();
 		}
