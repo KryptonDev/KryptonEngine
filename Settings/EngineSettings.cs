@@ -150,6 +150,12 @@ namespace KryptonEngine
 			Graphics.ApplyChanges();
 		}
 
+		public static void SetToWindowed()
+		{
+			Graphics.IsFullScreen = false;
+			Graphics.ApplyChanges();
+		}
+
         #endregion
     }
 }
