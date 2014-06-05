@@ -16,9 +16,8 @@ namespace HanselAndGretel.Data
 		#region Properties
 
 		protected float mIntensity;
-		protected float mRange;
 		protected float mDepth;
-		protected Color mColor;
+		protected Vector3 mColor;
 
 		protected List<Vector2> mCircleSize;
 		#endregion
@@ -26,9 +25,8 @@ namespace HanselAndGretel.Data
 		#region Getter & Setter
 
 		public float Intensity { get { return mIntensity; } set { mIntensity = value; } }
-		public float Range { get { return mRange; } set { mRange = value; } }
 		public float Depth { get { return mDepth; } set {mDepth = value;} }
-		public Color LightColor { get { return mColor; } set { mColor = value; } }
+		public Vector3 LightColor { get { return mColor; } set { mColor = value; } }
 		#endregion
 
 		#region Constructor
@@ -51,30 +49,11 @@ namespace HanselAndGretel.Data
 
 		public override string GetInfo()
 		{
-			string temp;
-			temp = base.GetInfo();
-			temp += "\nRange: " + mRange;
-			return temp;
+			return base.GetInfo();
 		}
 		#endregion
 
 		#region Methods
-
-		public void SetDrawCircle()
-		{
-			mCircleSize.Clear();
-
-			for(int i = 0; i < 360; i += 2)
-			{
-				float x = (float)(Position.X + Math.Cos(i * Math.PI / 180) * Range);
-				float y = (float)(Position.Y - Math.Sin(i * Math.PI / 180) * Range);
-
-				Vector2 pixelpos = new Vector2(x, y) + new Vector2(32, 32);
-				mCircleSize.Add(pixelpos);
-			}
-
-			mCircleSize.Add(mCircleSize[mCircleSize.Count - 1]);
-		}
 
 		protected void DrawPartCircel(SpriteBatch spriteBatch,float radius, float startAngel, float endAngel, Vector2 pos)
 		{

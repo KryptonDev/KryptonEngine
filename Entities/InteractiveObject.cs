@@ -75,12 +75,12 @@ namespace KryptonEngine.Entities
 		public override void Initialize()
 		{
 			mDropDown = new DropDownMenu(Vector2.Zero,
-				new List<String>() { "Activity: None", "Activity: CaughtInCobweb", "Activity: FreeFromCobweb", "Activity: CaughtInSwamp", "Activity: FreeFromSwamp",
+				new List<String>() { "Activity: None", "Activity: CaughtInCobweb",  "Activity: CaughtInSwamp",
 								"Activity: KnockOverTree", "Activity: BalanceOverTree", "Activity: PushRock", "Activity: SlipThroughRock", "Activity: Crawl", "Activity: JumpOverGap",
-								"Activity: LegUp", "Activity: LegUpGrab", "Activity: UseKey", "Activity: PullDoor", "Activity: UseChalk", "Activity: UseWell", "Activity: UseItem" },
-				new List<Action>() { SetActivityState0, SetActivityState1, SetActivityState2, SetActivityState3, SetActivityState4, SetActivityState5, SetActivityState6, SetActivityState7,
+								"Activity: LegUp", "Activity: LegUpGrab", "Activity: UseKey", "Activity: PullDoor", "Activity: UseChalk", "Activity: UseWell" },
+				new List<Action>() { SetActivityState0, SetActivityState1, SetActivityState3, SetActivityState5, SetActivityState6, SetActivityState7,
 								SetActivityState8,SetActivityState9,SetActivityState10,SetActivityState11,SetActivityState12,SetActivityState13,SetActivityState14,
-								SetActivityState15,SetActivityState16,SetActivityState17,SetActivityState18});
+								SetActivityState15,SetActivityState16,SetActivityState17});
 		}
 
 		public override void Update()
@@ -144,11 +144,7 @@ namespace KryptonEngine.Entities
 					break;
 				case 1: actID = "CaughtInCobweb";
 					break;
-				case 2: actID = "FreeFromCobweb";
-					break;
 				case 3: actID = "CaughtInSwamp";
-					break;
-				case 4: actID = "FreeFromSwamp";
 					break;
 				case 5: actID = "KnockOverTree";
 					break;
@@ -173,10 +169,6 @@ namespace KryptonEngine.Entities
 				case 15: actID = "UseChalk";
 					break;
 				case 16: actID = "UseWell";
-					break;
-				case 17: actID = "UseItem";
-					break;
-				case 18: actID = "SwitchItem";
 					break;
 			}
 			tmp += "\nActionID: " + actID;
@@ -274,10 +266,6 @@ namespace KryptonEngine.Entities
 			mActionId = 17;
 		}
 
-		private void SetActivityState18()
-		{
-			mActionId = 18;
-		}
 		#endregion
 		#endregion
 	}

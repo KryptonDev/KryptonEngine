@@ -30,7 +30,7 @@ namespace KryptonEngine.Entities
 		public Vector2 Offset { get { return mCameraOffset; } }
 		public Rectangle GameScreen { get { return mGameScreen; } 
 			set 
-			{ 
+			{
 				mGameScreen = value;
 				int x = mGameScreen.Width / EngineSettings.VirtualResWidth;
 				int y = mGameScreen.Height / EngineSettings.VirtualResHeight;
@@ -174,6 +174,16 @@ namespace KryptonEngine.Entities
                     mPositionCamera.Y += mSpeed.Y;
 			mTransform = Matrix.CreateTranslation(new Vector3(mPositionCamera, 0));
         }
+
+		public void ResetScale()
+		{
+			mScale = 1;
+		}
+
+		public void ZoomOut(int pZoomFactor)
+		{
+			mScale = 1 / pZoomFactor;
+		}
         #endregion
 
     }

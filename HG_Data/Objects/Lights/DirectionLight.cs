@@ -11,9 +11,11 @@ namespace HanselAndGretel.Data
 	public class DirectionLight : Light
 	{		
 		#region Properties
+		private Vector3 mDirection;
 		#endregion
 
 		#region Getter & Setter
+		public Vector3 Direction { get { return mDirection; } set { mDirection = value; } }
 		#endregion
 
 		#region Constructor
@@ -31,7 +33,6 @@ namespace HanselAndGretel.Data
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(TextureManager.Instance.GetElementByString("IconDirectionLight"), mPosition, new Rectangle(0, 0, 64, 64), Color.White);
-			this.DrawPartCircel(spriteBatch, mRange, 0, 360, mPosition);
 		}
 		#endregion
 

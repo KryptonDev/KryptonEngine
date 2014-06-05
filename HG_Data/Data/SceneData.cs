@@ -23,14 +23,11 @@ namespace HanselAndGretel.Data
 		public List<GameObject> BackgroundSprites;
 
 		public List<InteractiveObject> InteractiveObjects;
-		//public List<InteractiveSpriteObject> InteractiveSpriteObjects;
-		//public List<InteractiveSpineObject> InteractiveSpineObjects;
 		public List<Collectable> Collectables;
 		public List<Item> Items;
 
 		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
-		[XmlIgnoreAttribute]
 		public List<Light> Lights;
 		//public List<Emitter> Emitter;
 		//public List<SoundAreas> SoundAreas;
