@@ -25,14 +25,11 @@ namespace HanselAndGretel.Data
 		public Texture2D[] BackgroundTextures;
 
 		public List<InteractiveObject> InteractiveObjects;
-		//public List<InteractiveSpriteObject> InteractiveSpriteObjects;
-		//public List<InteractiveSpineObject> InteractiveSpineObjects;
 		public List<Collectable> Collectables;
 		public List<Item> Items;
 
 		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
-		[XmlIgnoreAttribute]
 		public List<Light> Lights;
 		//public List<Emitter> Emitter;
 		//public List<SoundAreas> SoundAreas;

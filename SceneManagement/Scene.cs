@@ -20,8 +20,16 @@ namespace KryptonEngine.SceneManagement
         protected String mBackgroundName;
         protected Texture2D mBackgroundTexture;
         protected SpriteBatch mSpriteBatch;
-        protected RenderTarget2D mRenderTarget;
-        protected Camera mCamera;
+		#region Rendertargets
+		protected RenderTarget2D mRenderTargetDiffuse;
+		protected RenderTarget2D mRenderTargetNormal;
+		protected RenderTarget2D mRenderTargetAO;
+		protected RenderTarget2D mRenderTargetDepthObject;
+		protected RenderTarget2D mRenderTargetDepthGame;
+		protected RenderTarget2D mRenderTargetLight;
+		protected RenderTarget2D mRenderTargetFinal;
+		#endregion
+		protected Camera mCamera;
 
         protected Color mClearColor = Color.YellowGreen;
 
@@ -47,7 +55,14 @@ namespace KryptonEngine.SceneManagement
         {
             this.mName = pSceneName;
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
-            mRenderTarget = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+
+			mRenderTargetDiffuse = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetNormal = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetAO = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetDepthObject = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetDepthGame = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetLight = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
+			mRenderTargetFinal = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
         }
 
         #endregion
@@ -84,7 +99,7 @@ namespace KryptonEngine.SceneManagement
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mRenderTarget, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
+            mSpriteBatch.Draw(mRenderTargetFinal, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
             mSpriteBatch.End();
         }
 

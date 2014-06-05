@@ -99,8 +99,10 @@
     <Compile Include="HG_Data\Objects\Items\Knife.cs" />
     <Compile Include="HG_Data\Objects\Items\Lantern.cs" />
     <Compile Include="HG_Data\Objects\Items\Matches.cs" />
+    <Compile Include="HG_Data\Objects\Lights\AmbientLight.cs" />
     <Compile Include="HG_Data\Objects\Lights\DirectionLight.cs" />
     <Compile Include="HG_Data\Objects\Lights\Light.cs" />
+    <Compile Include="HG_Data\Objects\Lights\Lighter.cs" />
     <Compile Include="HG_Data\Objects\Lights\PointLight.cs" />
     <Compile Include="HG_Data\Objects\Lights\SpotLight.cs" />
     <Compile Include="Interface\Box.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Manager\FontManager.cs" />
     <Compile Include="Manager\InteractiveObjectDataManager.cs" />
     <Compile Include="Manager\Manager.cs" />
+    <Compile Include="Manager\ShaderManager.cs" />
     <Compile Include="Manager\SpineDataManager.cs" />
     <Compile Include="Manager\TextureManager.cs" />
     <Compile Include="Physics\Collision.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Pools\SpinePool.cs" />
     <Compile Include="Pools\SpritePool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\QuadRenderer.cs" />
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="SceneManagement\SceneManager.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
