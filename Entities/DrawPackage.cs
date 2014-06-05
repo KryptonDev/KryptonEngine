@@ -19,9 +19,16 @@ namespace KryptonEngine.Entities
 		protected Color mDebugColor;
 		protected Texture2D mTexture;
 		protected Skeleton mSkeleton;
-		protected bool Spine;
+		protected bool mSpine;
 		protected float mAlpha;
-		protected bool OnlyDebug;
+		protected bool mOnlyDebug;
+
+		#endregion
+
+		#region Getter & Setter
+
+		public bool Spine { get { return mSpine; } }
+		public bool OnlyDebug { get { return mOnlyDebug; } }
 
 		#endregion
 
@@ -33,8 +40,8 @@ namespace KryptonEngine.Entities
 			mDebugColor = pDebugColor;
 			mTexture = TextureManager.Instance.GetElementByString("pixel");
 			mAlpha = pAlpha;
-			Spine = false;
-			OnlyDebug = true;
+			mSpine = false;
+			mOnlyDebug = true;
 		}
 
 		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture, float pAlpha = 1f)
@@ -45,8 +52,8 @@ namespace KryptonEngine.Entities
 			mDebugColor = pDebugColor;
 			mTexture = pTexture;
 			mAlpha = pAlpha;
-			Spine = false;
-			OnlyDebug = false;
+			mSpine = false;
+			mOnlyDebug = false;
 		}
 
 		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton, float pAlpha = 1f)
@@ -57,8 +64,8 @@ namespace KryptonEngine.Entities
 			mDebugColor = pDebugColor;
 			mSkeleton = pSkeleton;
 			mAlpha = pAlpha;
-			Spine = true;
-			OnlyDebug = false;
+			mSpine = true;
+			mOnlyDebug = false;
 		}
 
 		#endregion
@@ -72,13 +79,13 @@ namespace KryptonEngine.Entities
 		/// <param name="pSkeletonRenderer">SkeletonRenderer zum drawen von Texturen</param>
 		public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
 		{
-			if (OnlyDebug || EngineSettings.IsDebug)
+			if (EngineSettings.IsDebug)
 			{
-				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor);
-				if (OnlyDebug)
-					return;
+				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor * mAlpha);
 			}
-			if (!Spine)
+			if (mOnlyDebug)
+				return;
+			if (!mSpine)
 			{
 				pSpriteBatch.Draw(mTexture, mPosition, new Color(mAlpha, mAlpha, mAlpha, mAlpha));
 			}

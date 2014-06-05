@@ -15,6 +15,7 @@ namespace HanselAndGretel.Data
 		#region Properties
 
 		public SpineObject mModel;
+		protected Vector2 SkeletonOffset;
 		protected float mSpeed;
 
 		//References
@@ -35,7 +36,7 @@ namespace HanselAndGretel.Data
 				mPosition = value;
 				mCollisionBox.X = (int)value.X;
 				mCollisionBox.Y = (int)value.Y;
-				mModel.Position = value;
+				mModel.Position = value + SkeletonOffset;
 			}
 			get { return mPosition; }
 		}
@@ -45,7 +46,7 @@ namespace HanselAndGretel.Data
 			{
 				mPosition.X = value;
 				mCollisionBox.X = value;
-				mModel.PositionX = value;
+				mModel.PositionX = value + (int)SkeletonOffset.X;
 			}
 			get { return (int)mPosition.X; }
 		}
@@ -55,14 +56,14 @@ namespace HanselAndGretel.Data
 			{
 				mPosition.Y = value;
 				mCollisionBox.Y = value;
-				mModel.PositionY = value;
+				mModel.PositionY = value + (int)SkeletonOffset.Y;
 			}
 			get { return (int)mPosition.Y; }
 		}
 
 		#endregion
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, 0, CollisionBox, mDebugColor, mModel.Skeleton); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position + SkeletonOffset, 0, CollisionBox, mDebugColor, mModel.Skeleton); } }
 
 		#endregion
 

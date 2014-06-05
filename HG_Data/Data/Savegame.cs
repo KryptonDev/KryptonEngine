@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using KryptonEngine.Entities;
+using KryptonEngine.Manager;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,15 +79,13 @@ namespace HanselAndGretel.Data
 			InventoryHansel = new Inventory();
 			InventoryGretel = new Inventory();
 			Chalk = 0;
-			PositionHansel = new Vector2(90, 320); //ToDo: Init Position setzen !---!---!---!---!
-			PositionGretel = new Vector2(200, 320); //ToDo: Init Position setzen !---!---!---!---!
 			SceneId = 0;
-			Scenes = new SceneData[2]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
+			Scenes = new SceneData[3]; //ToDo: Anzahl Scenes setzen !---!---!---!---!
 			for (int i = 0; i < Scenes.Length; i++)
 				Scenes[i] = new SceneData(); //Scenes initialisieren
 		}
 
-		public static Savegame Load() //Muss static sein damit das Savegame als solches gesetzt werden kann.
+		public static Savegame Load(Hansel pHansel, Gretel pGretel) //Muss static sein damit das Savegame als solches gesetzt werden kann.
 		{
 			Savegame TmpSavegame;
 			FileInfo file = new FileInfo(Savegame.SavegamePath);
@@ -93,13 +93,21 @@ namespace HanselAndGretel.Data
 			{
 				TmpSavegame = new Savegame();
 				TmpSavegame.Reset();
-				Savegame.Save(TmpSavegame);
+				pHansel.Position = new Vector2(190, 50); //Init Position Hansel
+				pGretel.Position = new Vector2(250, 50); //Init Position Gretel
+				Savegame.Save(TmpSavegame, pHansel, pGretel);
+				TmpSavegame.SetupDeserialized();
 				return TmpSavegame;
 			}
 			xmlReader = new StreamReader(Savegame.SavegamePath);
 			TmpSavegame = (Savegame)SavegameSerializer.Deserialize(xmlReader); //Savegame aus File laden
 			xmlReader.Close();
-			
+			TmpSavegame.SetupDeserialized();
+			pHansel.Inventory = TmpSavegame.InventoryHansel;
+			pGretel.Inventory = TmpSavegame.InventoryGretel;
+			pHansel.Position = TmpSavegame.PositionHansel;
+			pGretel.Position = TmpSavegame.PositionGretel;
+			pGretel.Chalk = TmpSavegame.Chalk;
 			return TmpSavegame;
 		}
 
@@ -112,7 +120,7 @@ namespace HanselAndGretel.Data
 			Scenes[pLevelId].ResetLevel();
 			FileInfo file = new FileInfo(ScenePath + "\\" + LevelNameFromId(pLevelId) + ".hug");
 			if (!file.Exists)
-				throw new FileNotFoundException("Die Scene {0} existiert nicht! WIESO?!?", LevelNameFromId(pLevelId));
+				throw new FileNotFoundException("Die Scene " + LevelNameFromId(pLevelId).ToString() + " existiert nicht! WIESO?!?");
 			xmlReader = new StreamReader(file.FullName);
 			Scenes[pLevelId] = (SceneData)SceneSerializer.Deserialize(xmlReader); //sData File in SpineData Object umwandeln
 			xmlReader.Close();
@@ -123,8 +131,13 @@ namespace HanselAndGretel.Data
 		/// Speichert pSavegame an pSavegame.SavegamePath.
 		/// </summary>
 		/// <param name="pSavegame">Savegame, das gesaved werden soll.</param>
-		public static void Save(Savegame pSavegame) //Muss static sein damit das Savegame als solches serialisiert werden kann.
+		public static void Save(Savegame pSavegame, Hansel pHansel, Gretel pGretel) //Muss static sein damit das Savegame als solches serialisiert werden kann.
 		{
+			pSavegame.InventoryHansel = pHansel.Inventory;
+			pSavegame.InventoryGretel = pGretel.Inventory;
+			pSavegame.PositionHansel = pHansel.Position;
+			pSavegame.PositionGretel = pGretel.Position;
+			pSavegame.Chalk = pGretel.Chalk;
 			xmlWriter = new StreamWriter(Savegame.SavegamePath);
 			SavegameSerializer.Serialize(xmlWriter, pSavegame); //Savegame in File schreiben
 			xmlWriter.Close();
@@ -159,10 +172,15 @@ namespace HanselAndGretel.Data
 
 		public void SetupDeserialized()
 		{
-			foreach (SceneData scene in Scenes)
+			for (int i = 0; i < Scenes.Length; i++)
 			{
-				scene.SetupDeserialized();
+				Scenes[i].SetupDeserialized();
+				Scenes[i].BackgroundTextures[0] = TextureManager.Instance.GetElementByString(LevelNameFromId(i) + "Diffuse");
 			}
+			foreach (Collectable col in Collectables)
+				col.SetupDeserialized();
+			InventoryHansel.SetupDeserialized();
+			InventoryGretel.SetupDeserialized();
 		}
 
 		#endregion

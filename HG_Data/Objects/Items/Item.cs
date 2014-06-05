@@ -41,6 +41,11 @@ namespace HanselAndGretel.Data
 
 		#region Methods
 
+		public void SetupDeserialized()
+		{
+			LoadTextures();
+		}
+
 		#endregion
 	}
 }
