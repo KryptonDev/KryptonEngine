@@ -38,7 +38,6 @@ namespace HanselAndGretel.Data
 			SkeletonOffset = new Vector2(0, 50);
 			mModel = new SpineObject("ashbrett");
 			mHandicaps.Add(Activity.SlipThroughRock);
-			mHandicaps.Add(Activity.Crawl);
 			mHandicaps.Add(Activity.UseChalk);
 		}
 
