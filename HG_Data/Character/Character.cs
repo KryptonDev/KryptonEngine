@@ -36,6 +36,8 @@ namespace HanselAndGretel.Data
 				mPosition = value;
 				mCollisionBox.X = (int)value.X;
 				mCollisionBox.Y = (int)value.Y;
+				// Später löschen abfrage für Editor da noch keine Models da sind !!!
+				if (mModel == null) return;
 				mModel.Position = value + SkeletonOffset;
 			}
 			get { return mPosition; }
@@ -46,6 +48,8 @@ namespace HanselAndGretel.Data
 			{
 				mPosition.X = value;
 				mCollisionBox.X = value;
+				// Später löschen abfrage für Editor da noch keine Models da sind !!!
+				if (mModel == null) return;
 				mModel.PositionX = value + (int)SkeletonOffset.X;
 			}
 			get { return (int)mPosition.X; }
@@ -56,6 +60,8 @@ namespace HanselAndGretel.Data
 			{
 				mPosition.Y = value;
 				mCollisionBox.Y = value;
+				// Später löschen abfrage für Editor da noch keine Models da sind !!!
+				if (mModel == null) return;
 				mModel.PositionY = value + (int)SkeletonOffset.Y;
 			}
 			get { return (int)mPosition.Y; }

@@ -20,7 +20,11 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public DirectionLight() : base() { }
+		public DirectionLight() : base() 
+		{
+			mDirection = Vector3.One;
+			LightColor = Vector3.One;
+		}
 
 		public DirectionLight(Vector2 pPosition)
 			:base(pPosition)

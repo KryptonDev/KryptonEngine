@@ -34,6 +34,13 @@ namespace HanselAndGretel.Data
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(TextureManager.Instance.GetElementByString("IconPointLight"), mPosition, new Rectangle(0, 0, 64, 64), Color.White);
+
+			if (mCircleSize == null)
+			{
+				mCircleSize = new List<Vector2>();
+				SetDrawCircle();
+			}
+
 			this.DrawPartCircel(spriteBatch, mRadius, 0, 360, mPosition);
 		}
 
@@ -50,6 +57,11 @@ namespace HanselAndGretel.Data
 
 		public void SetDrawCircle()
 		{
+			if (mCircleSize == null)
+			{
+				mCircleSize = new List<Vector2>();
+				SetDrawCircle();
+			}
 			mCircleSize.Clear();
 
 			for (int i = 0; i < 360; i += 2)

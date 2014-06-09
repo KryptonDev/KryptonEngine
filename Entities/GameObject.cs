@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using KryptonEngine.Interface;
 using System.Xml.Serialization;
 using KryptonEngine.Controls;
+using HanselAndGretel.Data;
 
 
 namespace KryptonEngine.Entities
@@ -24,7 +25,6 @@ namespace KryptonEngine.Entities
         protected Color mDebugColor = Color.Yellow;
         protected bool mVisible;
 		protected int mDrawZ;
-		protected DropDownMenu mDropDown;
         #endregion
 
         #region Getter & Setter
@@ -62,8 +62,6 @@ namespace KryptonEngine.Entities
 		public Rectangle CollisionBox { get { return mCollisionBox; } set { mCollisionBox = value; } }
         public bool IsVisible { get { return mVisible; } set { mVisible = value; } }
 		public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
-		[XmlIgnoreAttribute]
-		public DropDownMenu DropDown { get { return mDropDown; } }
         #endregion
         #region Constructor
 
@@ -89,13 +87,6 @@ namespace KryptonEngine.Entities
 		public virtual void DrawNormal(SpriteBatch spriteBatch) { }
 		public virtual void DrawDepth(SpriteBatch spriteBatch) { }
 
-		public override void Update()
-		{
-			if (mDropDown != null)
-				if (mDropDown.IsVisible)
-					mDropDown.Update();
-		}
-
         public override string GetInfo()
         {
             String tmpInfo;
@@ -108,16 +99,6 @@ namespace KryptonEngine.Entities
 
             return tmpInfo;
         }
-
-		public void ShowDropDown(Vector2 pPosition)
-		{
-			if (mDropDown != null)
-			{
-				mDropDown.OpenDropDownMenue(pPosition);
-				MouseHelper.ResetClick();
-			}
-		}
-
         #endregion
     }
 }

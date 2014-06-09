@@ -9,6 +9,7 @@ using KryptonEngine.Manager;
 using System.Xml.Serialization;
 using System.IO;
 using KryptonEngine;
+using KryptonEngine.HG_Data.Objects.Lights;
 
 namespace HanselAndGretel.Data
 {
@@ -27,11 +28,15 @@ namespace HanselAndGretel.Data
 		public List<InteractiveObject> InteractiveObjects;
 		public List<Collectable> Collectables;
 		public List<Item> Items;
+		public List<Light> Lights;
+
+		public List<EventTrigger> Events;
+
+		public AmbientLight SceneAmbientLight;
+		public DirectionLight SceneDirectionLight;
 
 		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
-		public List<Light> Lights;
-		public List<EventTrigger> Events;
 		//public List<Emitter> Emitter;
 		//public List<SoundAreas> SoundAreas;
 
@@ -103,6 +108,9 @@ namespace HanselAndGretel.Data
 			Events = new List<EventTrigger>();
 
 			InteractiveObjects = new List<InteractiveObject>();
+
+			SceneAmbientLight = new AmbientLight();
+			SceneDirectionLight = new DirectionLight();
 		}
 
 		/// <summary>
