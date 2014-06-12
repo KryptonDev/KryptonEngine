@@ -5,18 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KryptonEngine.Rendering
+namespace KryptonEngine.Rendering.Components
 {
-    public class QuadRenderer
+    public static class QuadRenderer
     {
-
         #region Properties
-        private readonly VertexPositionTexture[] mVertexBuffer = null;
-        private readonly short[] mIndexBuffer = null;
+        static readonly VertexPositionTexture[] mVertexBuffer = null;
+        static readonly short[] mIndexBuffer = null;
         #endregion
 
         #region Constructor
-        public QuadRenderer()
+       static QuadRenderer()
         {
             mVertexBuffer = new VertexPositionTexture[]
             {
@@ -28,15 +27,14 @@ namespace KryptonEngine.Rendering
 
             mIndexBuffer = new short[] { 0, 1, 2, 1, 3, 2 };
         }
+
         #endregion
 
         #region Method
 
-        public void Render()
+        public static void Render(GraphicsDevice pGraphicsDevice)
         {
-            EngineSettings.Graphics.GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList,
-				mVertexBuffer, 0, 4, mIndexBuffer, 0, 2,
-				VertexPositionTexture.VertexDeclaration);
+            pGraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, mVertexBuffer, 0, 4, mIndexBuffer, 0, 2, VertexPositionTexture.VertexDeclaration);
         }
 
         #endregion

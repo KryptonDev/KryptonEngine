@@ -24,8 +24,7 @@ namespace HanselAndGretel.Data
         private Effect mCombineShader;
         private float mRotationAngle;
         private float mInvert;
-		private QuadRenderer mQuadRenderer;
-
+		
         #endregion
 
         #region Getter & Setter
@@ -54,7 +53,6 @@ namespace HanselAndGretel.Data
 		{
 			this.mLightShader = ShaderManager.Instance.GetElementByString("LightShader");
 			this.mCombineShader = ShaderManager.Instance.GetElementByString("CombineShader");
-			this.mQuadRenderer = new QuadRenderer();
 		}
 
         public void GenerateLightMap(RenderTarget2D pLightMap, RenderTarget2D pNormalMap, RenderTarget2D pDepthMap, RenderTarget2D pAOMap, List<Light> pLightList)
@@ -85,7 +83,7 @@ namespace HanselAndGretel.Data
                     mLightShader.CurrentTechnique.Passes[0].Apply();
                 }
 
-				mQuadRenderer.Render();
+				//mQuadRenderer.Render();
             }
            
           
@@ -116,7 +114,7 @@ namespace HanselAndGretel.Data
 
             mCombineShader.CurrentTechnique.Passes[0].Apply();
 
-			mQuadRenderer.Render();
+			//mQuadRenderer.Render();
 
 			// Verursacht lilascreen
 			//EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
