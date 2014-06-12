@@ -27,19 +27,12 @@ namespace KryptonEngine.Entities
 		UseChalk,
 		UseWell,
 		UseItem,
-		SwitchItem
+		SwitchItem,
+		BalanceOverCrackedTree
 	}
 
 	public class ActivityState : BaseObject
 	{
-		public enum State
-		{
-			Idle,
-			Preparing,
-			Starting,
-			Running
-		}
-
 		#region Properties
 		
 		public static Dictionary<Activity, String> ActivityInfo = new Dictionary<Activity, string>
@@ -57,14 +50,13 @@ namespace KryptonEngine.Entities
 			{Activity.PushDoor, "Drücken [Tür]"},
 			{Activity.PullDoor, "Ziehen [Tür]"},
 			{Activity.UseChalk, "Markieren [Kreide]"},
-			{Activity.UseWell, "Herablassen [Brunnen]"}
+			{Activity.UseWell, "Herablassen [Brunnen]"},
+			{Activity.BalanceOverCrackedTree, "Balancieren [Brüchiger Baum]"}
 		};
 
 		protected InteractiveObject rIObj;
-		protected Hansel rHansel;
-		protected Gretel rGretel;
-		public State mStateHansel;
-		public State mStateGretel;
+		//protected Hansel rHansel;
+		//protected Gretel rGretel;
 
 		public bool IsAvailable;
 
@@ -90,20 +82,14 @@ namespace KryptonEngine.Entities
 			:base()
 		{
 			Initialize();
-			mStateHansel = State.Idle;
-			mStateGretel = State.Idle;
 		}
 
-		public ActivityState(Hansel pHansel, Gretel pGretel, InteractiveObject pIObj = null)
+		public ActivityState(InteractiveObject pIObj = null)
 			:base()
 		{
 			Initialize();
-			rHansel = pHansel;
-			rGretel = pGretel;
 			if (pIObj != null)
 				rIObj = pIObj;
-			mStateHansel = State.Idle;
-			mStateGretel = State.Idle;
 		}
 
 		#endregion
@@ -122,83 +108,14 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
-		public Action<Player> GetUpdateMethodForPlayer(Player pPlayer)
-		{
-			if (pPlayer.GetType() == typeof(Hansel))
-			{
-				switch (mStateHansel)
-				{
-					case State.Preparing:
-						return PrepareAction;
-					case State.Starting:
-						return StartAction;
-					case State.Running:
-						return UpdateAction;
-					default:
-						return new Action<Player>((NeverUsedObject) => { });
-				}
-			}
-			else if (pPlayer.GetType() == typeof(Gretel))
-			{
-				switch (mStateGretel)
-				{
-					case State.Preparing:
-						return PrepareAction;
-					case State.Starting:
-						return StartAction;
-					case State.Running:
-						return UpdateAction;
-					default:
-						return new Action<Player>((NeverUsedObject) => { });
-				}
-			}
-			else
-			{
-				throw new Exception("Nicht existenten PlayerString angegeben!");
-			}
-		}
-
 		/// <summary>
 		/// Gibt die Activity zurück, die hier gerade ausgeführt werden kann anhand der Information ob der Spieler nur Intersected oder Contained wird. Ob der konkrete Spieler das dann auch ausführen kann muss extern getestet werden.
 		/// </summary>
 		/// <param name="pContains">Intersected der Spieler nur oder wird er Contained vom ActionRectangle?</param>
 		/// <returns>Nichts ausführbar = Activity.None</returns>
 		public virtual Activity GetPossibleActivity(bool pContains) { return Activity.None; }
-		public virtual void PrepareAction(Player pPlayer)
-		{
-			if (pPlayer.GetType() == typeof(Hansel))
-			{
-				if (rHansel.Input.ActionJustPressed)
-					mStateHansel = State.Starting;
-			}
-			else if (pPlayer.GetType() == typeof(Gretel))
-			{
-				if (rGretel.Input.ActionJustPressed)
-					mStateGretel = State.Starting;
-			}
-		}
-		public virtual void StartAction(Player pPlayer)
-		{
-			if (pPlayer.GetType() == typeof(Hansel))
-			{
-				mStateHansel = State.Running;
-			}
-			else if (pPlayer.GetType() == typeof(Gretel))
-			{
-				mStateGretel = State.Running;
-			}
-		}
-		public virtual void UpdateAction(Player pPlayer) { }
 
-		public Vector2 NearestActionPosition(Vector2 pPosition)
-		{
-			return ((rIObj.ActionPosition1 - pPosition).Length() < (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
-		}
-
-		public Vector2 DistantActionPosition(Vector2 pPosition)
-		{
-			return ((rIObj.ActionPosition1 - pPosition).Length() > (rIObj.ActionPosition2 - pPosition).Length()) ? rIObj.ActionPosition1 : rIObj.ActionPosition2;
-		}
+		public void Update();
 
 		#endregion
 	}
