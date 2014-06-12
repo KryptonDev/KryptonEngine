@@ -28,7 +28,7 @@ namespace KryptonEngine.Entities
 		UseWell,
 		UseItem,
 		SwitchItem,
-		BalanceOverCrackedTree
+		BalanceOverBrokenTree
 	}
 
 	public class ActivityState : BaseObject
@@ -51,7 +51,7 @@ namespace KryptonEngine.Entities
 			{Activity.PullDoor, "Ziehen [Tür]"},
 			{Activity.UseChalk, "Markieren [Kreide]"},
 			{Activity.UseWell, "Herablassen [Brunnen]"},
-			{Activity.BalanceOverCrackedTree, "Balancieren [Brüchiger Baum]"}
+			{Activity.BalanceOverBrokenTree, "Balancieren [Brüchiger Baum]"}
 		};
 
 		protected InteractiveObject rIObj;
