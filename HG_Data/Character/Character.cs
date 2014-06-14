@@ -97,7 +97,7 @@ namespace HanselAndGretel.Data
 
 		public override void LoadContent()
 		{
-			mModel.Load();
+			mModel.LoadContent();
 		}
 
 		public override void Update()

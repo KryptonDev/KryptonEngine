@@ -13,11 +13,21 @@ using KryptonEngine.HG_Data.Objects.Lights;
 
 namespace HanselAndGretel.Data
 {
+	public enum SoundSetting
+	{
+		Forest,
+		Mountain,
+		Swamp,
+		Inside
+	}
+
 	public class SceneData
 	{
 		#region Properties
 
 		public Rectangle GamePlane; // Damit die Camera weiß in welchem Bereich sie sich bewegen darf. 
+		public SoundSetting BackgroundSoundSetting;
+
 		public List<Rectangle> MoveArea;
 		public List<Waypoint> Waypoints;
 

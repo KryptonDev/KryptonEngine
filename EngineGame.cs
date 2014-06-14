@@ -46,6 +46,11 @@ namespace KryptonEngine
             SceneManager.Instance.LoadContent();
         }
 
+		protected override void UnloadContent()
+		{
+			base.UnloadContent();
+		}
+
         protected override void Update(GameTime gameTime)
         {
             if (!this.IsActive) return;

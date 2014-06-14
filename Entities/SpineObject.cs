@@ -102,7 +102,7 @@ namespace KryptonEngine.Entities
 
         #endregion
 
-        public void Load()
+        public override void LoadContent()
         {
             mBounds = new SkeletonBounds();
 
@@ -129,6 +129,11 @@ namespace KryptonEngine.Entities
         }
 
         #endregion
+
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
+		}
 
 		public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
         {

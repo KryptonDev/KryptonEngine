@@ -38,8 +38,12 @@ namespace KryptonEngine.FModAudio
 		{
 			if(BackgroundSong != null)
 				BackgroundSong.Release();
+
+			foreach (KeyValuePair<string, FModSong> pair in mSongList)
+				pair.Value.Release();
 		}
 
+		// Spielt den SoundEffekt ab. Übergabe ist nur der Name der Datei ( ohne .mp3)
 		public void AddSong(string pName)
 		{
 			if (mSongList.ContainsKey(pName)) return;
@@ -48,6 +52,7 @@ namespace KryptonEngine.FModAudio
 			mSongList.Add(pName, newSong);
 		}
 
+		// Setzt die Hintergrund Musik. Muss gemacht werden sobald die Scene gewechselt wird und in der neuen Scene ein anderes SoundSetting ist.
 		public void SetBackgroundSong(List<string> pMusicList)
 		{
 			BackgroundSong = new FModSong(pMusicList);
@@ -55,23 +60,26 @@ namespace KryptonEngine.FModAudio
 			FadeBackgroundIn();
 		}
 
-
+		// Fadet den die erste Spur der Hintergrund Musik ein.
 		public void FadeBackgroundIn()
 		{
 			BackgroundSong.StartFade(0, FadingSpeed);
 		}
 
+		// Fadet die Hintergrund Musik aus. Muss gemacht werden wenn die neue Scene ein anderes SoundSetting hat.
 		public void FadeBackgroundOut()
 		{
 			for (int i = 0; i < BackgroundSong.MaxChannelCount; i++ )
 				BackgroundSong.StartFade(i, -FadingSpeed);
 		}
 
+		// Fadet einen Channel ein wie z.B. ein Wolf ist in sichtweite. Dann einfach 1.mal die vorgegebene Channel ID übergeben.
 		public void FadeBackgroundChannelIn(int index)
 		{
 			BackgroundSong.StartFade(index, FadingSpeed);
 		}
 
+		// Fadet einen Channel aus. Z.B. der Wolf ist wieder aus dem Sichtfeld.
 		public void FadeBackgroundChannelOut(int index)
 		{
 			BackgroundSong.StartFade(index, -FadingSpeed);
@@ -91,7 +99,8 @@ namespace KryptonEngine.FModAudio
 			{
 				if (pair.Value.PlayDone)
 				{
-					delete.Add(pair.Key); pair.Value.Release();
+					delete.Add(pair.Key); 
+					pair.Value.Release();
 				}
 			}
 
