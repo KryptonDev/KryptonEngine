@@ -9,6 +9,7 @@ using KryptonEngine.Controls;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Spine;
+using KryptonEngine.FModAudio;
 
 namespace KryptonEngine
 {
@@ -22,11 +23,12 @@ namespace KryptonEngine
             Content.RootDirectory = "Content";
             EngineSettings.Content = Content;
             EngineSettings.Graphics = new GraphicsDeviceManager(this);
+			EngineSettings.InitializeFMOD();
+			FmodMediaPlayer.FadingSpeed = SceneManager.Instance.FadeSpeed;
         }
 
         protected override void Initialize()
         {
-			
 			EngineSettings.SpineRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             SceneManager.Instance.Initialize();
 			base.Initialize();
@@ -59,6 +61,7 @@ namespace KryptonEngine
 				InputHelper.Update();
 			}
             SceneManager.Instance.Update();
+			FmodMediaPlayer.Instance.Update();
 
             base.Update(gameTime);
         }

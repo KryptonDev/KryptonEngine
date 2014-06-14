@@ -76,6 +76,8 @@ namespace KryptonEngine.Entities
         public override void Initialize()
         {
 			mScale = 1.0f;
+			MoveCamera(mCameraOffset);
+			mTransform = GetTranslationMatrix();
         }
 
         #endregion

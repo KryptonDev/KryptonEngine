@@ -87,6 +87,8 @@ namespace KryptonEngine
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
 
+		public static FMOD.System FMODDevice;
+
         public static Keys Exitkey = Keys.F12;
 
 		public static SkeletonRenderer SpineRenderer;
@@ -156,6 +158,11 @@ namespace KryptonEngine
 			Graphics.ApplyChanges();
 		}
 
+		public static void InitializeFMOD()
+		{
+			FMOD.Factory.System_Create(ref EngineSettings.FMODDevice);
+			EngineSettings.FMODDevice.init(128, FMOD.INITFLAGS.NORMAL, (IntPtr)null);
+		}
         #endregion
     }
 }
