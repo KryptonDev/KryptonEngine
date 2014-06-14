@@ -81,8 +81,11 @@ namespace KryptonEngine.FModAudio
 		{
 			EngineSettings.FMODDevice.update();
 
-			for (int i = 0; i < BackgroundSong.MaxChannelCount; i++)
-				BackgroundSong.FadeVolume(i);
+			if (BackgroundSong != null)
+			{
+				for (int i = 0; i < BackgroundSong.MaxChannelCount; i++)
+					BackgroundSong.FadeVolume(i);
+			}
 
 			foreach (KeyValuePair<string, FModSong> pair in mSongList)
 			{

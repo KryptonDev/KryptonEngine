@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Entities;
+using KryptonEngine.FModAudio;
 using KryptonEngine.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,6 +57,7 @@ namespace HanselAndGretel.Data
 		{
 			mIdToTrigger = -1;
 			mWitchSpawnPosition = Vector2.Zero;
+			SoundName = "";
 		}
 		#endregion
 
@@ -65,6 +67,32 @@ namespace HanselAndGretel.Data
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(TextureManager.Instance.GetElementByString("IconEventArea"), CollisionBox, Color.White);
+		}
+		#endregion
+
+		#region Methods
+
+		public void TriggerActivity()
+		{
+			switch(this.mEvent)
+			{
+				case EEvent.PlaySound: PlaySound();
+					break;
+				case EEvent.SpawnWitch: SpawnWitch();
+					break;
+			}
+		}
+
+		private void PlaySound()
+		{
+			FmodMediaPlayer.Instance.AddSong(this.mSoundName);
+		}
+
+		private void SpawnWitch()
+		{
+			//FmodMediaPlayer.Instance.AddSong("WitchSpawn");
+			//FmodMediaPlayer.Instance.FadeBackgroundChannelIn(WitchChannelIndex);
+			//level.Add(Witch)
 		}
 		#endregion
 	}
