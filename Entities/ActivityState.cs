@@ -108,11 +108,6 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
-		/// <summary>
-		/// Gibt die Activity zurück, die hier gerade ausgeführt werden kann anhand der Information ob der Spieler nur Intersected oder Contained wird. Ob der konkrete Spieler das dann auch ausführen kann muss extern getestet werden.
-		/// </summary>
-		/// <param name="pContains">Intersected der Spieler nur oder wird er Contained vom ActionRectangle?</param>
-		/// <returns>Nichts ausführbar = Activity.None</returns>
 		public virtual Activity GetPossibleActivity(Player pPlayer, Player pOtherPlayer) { return Activity.None; }
 		public virtual void Update(Player pPlayer, Player pOtherPlayer) { }
 
