@@ -113,9 +113,8 @@ namespace KryptonEngine.Entities
 		/// </summary>
 		/// <param name="pContains">Intersected der Spieler nur oder wird er Contained vom ActionRectangle?</param>
 		/// <returns>Nichts ausführbar = Activity.None</returns>
-		public virtual Activity GetPossibleActivity(bool pContains) { return Activity.None; }
-
-		public void Update();
+		public virtual Activity GetPossibleActivity(Player pPlayer, Player pOtherPlayer) { return Activity.None; }
+		public virtual void Update(Player pPlayer, Player pOtherPlayer) { }
 
 		#endregion
 	}
