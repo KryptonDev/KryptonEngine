@@ -16,6 +16,7 @@ namespace HanselAndGretel.Data
 		public Inventory Inventory;
 		public List<Activity> mHandicaps;
 		public ActivityState mCurrentActivity;
+		public int mCurrentState;
 		protected InputHelper mInput;
 
 		//References
@@ -46,6 +47,7 @@ namespace HanselAndGretel.Data
 			mDebugColor = Color.LimeGreen;
 			Inventory = new Inventory();
 			mHandicaps = new List<Activity>();
+			mCurrentState = 0;
 			mSpeed = 400;
 		}
 

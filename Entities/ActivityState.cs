@@ -29,7 +29,7 @@ namespace KryptonEngine.Entities
 		UseItem,
 		SwitchItem,
 		BalanceOverBrokenTree
-	}
+	};
 
 	public class ActivityState : BaseObject
 	{

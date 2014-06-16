@@ -9,7 +9,7 @@ namespace KryptonEngine.Controls
 {
 	public class InputHelper
 	{
-		private class Input //Input um Mapping zu Button & Keys  zu speichern
+		public class Input //Input um Mapping zu Button & Keys  zu speichern
 		{
 			public Buttons Button;
 			public Keys KeyPlayer1;
@@ -59,10 +59,10 @@ namespace KryptonEngine.Controls
 		private static Input mDebug = new Input(Buttons.RightStick, Keys.F7, Keys.None);
 
 		private static Input mPause = new Input(Buttons.Start, Keys.Escape, Keys.Escape);
-		private static Input mBack = new Input(Buttons.B, Keys.Escape, Keys.Back);
-		private static Input mAction = new Input(Buttons.X, Keys.Space, Keys.RightControl);
-		private static Input mUseItem = new Input(Buttons.A, Keys.LeftControl, Keys.RightShift);
-		private static Input mSwitchItem = new Input(Buttons.Y, Keys.LeftAlt, Keys.Enter);
+		public static Input mBack = new Input(Buttons.B, Keys.Escape, Keys.Back);
+		public static Input mAction = new Input(Buttons.X, Keys.Space, Keys.RightControl);
+		public static Input mUseItem = new Input(Buttons.A, Keys.LeftControl, Keys.RightShift);
+		public static Input mSwitchItem = new Input(Buttons.Y, Keys.LeftAlt, Keys.Enter);
 		private static Input mItemLeft = new Input(Buttons.LeftShoulder, Keys.Q, Keys.OemComma);
 		private static Input mItemRight = new Input(Buttons.RightShoulder, Keys.E, Keys.OemPeriod);
 
@@ -121,7 +121,7 @@ namespace KryptonEngine.Controls
 
 		#region InputStates
 
-		private bool InputJustPressed(Input pInput)
+		public bool InputJustPressed(Input pInput)
 		{
 			if (Connected)
 				return ButtonJustPressed(pInput.Button);
