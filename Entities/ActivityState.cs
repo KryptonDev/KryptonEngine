@@ -84,7 +84,7 @@ namespace KryptonEngine.Entities
 			Initialize();
 		}
 
-		public ActivityState(InteractiveObject pIObj = null)
+		public ActivityState(Hansel pHansel, Gretel pGretel, InteractiveObject pIObj = null)
 			:base()
 		{
 			Initialize();
