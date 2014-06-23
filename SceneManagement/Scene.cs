@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using KryptonEngine.Manager;
 using KryptonEngine.Entities;
+using KryptonEngine.Rendering;
 
 namespace KryptonEngine.SceneManagement
 {
@@ -16,7 +17,9 @@ namespace KryptonEngine.SceneManagement
     {
         #region Properties
 
-        protected String mName;
+		protected TwoDRenderer mRenderer;
+
+		protected String mName;
         protected String mBackgroundName;
         protected Texture2D mBackgroundTexture;
         protected SpriteBatch mSpriteBatch;
@@ -55,6 +58,7 @@ namespace KryptonEngine.SceneManagement
         {
             this.mName = pSceneName;
             mSpriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
+			mRenderer = new TwoDRenderer(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
 
 			mRenderTargetDiffuse = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);
 			mRenderTargetNormal = new RenderTarget2D(EngineSettings.Graphics.GraphicsDevice, EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight);

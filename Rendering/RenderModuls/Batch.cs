@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using KryptonEngine.Rendering.Components;
 
-namespace KryptonEngine.Rendering.RenderModuls
+namespace KryptonEngine.Rendering
 {
     class Batch
     {

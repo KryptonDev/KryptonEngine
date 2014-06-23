@@ -9,7 +9,7 @@ using System.Text;
 using KryptonEngine.Rendering.Components;
 using KryptonEngine.Rendering.Core;
 
-namespace KryptonEngine.Rendering.RenderModuls
+namespace KryptonEngine.Rendering
 {
     
     public class TwoDRenderer : BaseRenderer 
