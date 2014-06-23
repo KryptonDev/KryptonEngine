@@ -34,7 +34,7 @@ namespace KryptonEngine.Pools
         protected override SpineObject CreateInstance()
         {
             SpineObject TmpSpineObject = new SpineObject(mName);
-            TmpSpineObject.Load();
+            TmpSpineObject.LoadContent();
             return TmpSpineObject;
         }
 

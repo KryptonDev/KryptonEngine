@@ -27,12 +27,12 @@ namespace KryptonEngine.Interface
 
         public Button() { }
 
-        public Button(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight)
-            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
+        public Button(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight)
+            : base(pPosition, pTextureName, pRectangleWidth, pRectangleHeight)
         {   }
 
-        public Button(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList)
-            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
+        public Button(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList)
+            : base(pPosition, pTextureName, pSourceRectangleList)
         {
             mSourceRectangle = new Rectangle[pSourceRectangleList.Count];
 
@@ -40,8 +40,8 @@ namespace KryptonEngine.Interface
                 mSourceRectangle[i] = pSourceRectangleList[i];
         }
 
-        public Button(Vector2 pPosition, String pTextureName, String pPath)
-            : base(pPosition, pTextureName, pPath)
+        public Button(Vector2 pPosition, String pTextureName)
+            : base(pPosition, pTextureName)
         {
             TextureName = pTextureName;
         }

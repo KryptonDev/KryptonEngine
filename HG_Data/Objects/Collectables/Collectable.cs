@@ -18,6 +18,7 @@ namespace HanselAndGretel.Data
 		protected String mShowTextureName;
 		protected Texture2D mShowTexture;
 		protected bool mShowDescription;
+		protected bool mIsHidden;
 		#endregion
 
 		#region Getter & Setter
@@ -29,6 +30,7 @@ namespace HanselAndGretel.Data
 		public String ShowTextureName { get { return mShowTextureName; } set { mShowTextureName = value; } }
 		// Überprüf Variable ob Beschreibung angezeigt wird
 		public bool ShowDescription { get { return mShowDescription; } set { mShowDescription = value; } }
+		public bool IsHidden { get { return mIsHidden; } set { mIsHidden = value; } }
 		#endregion
 
 		#region Constructor

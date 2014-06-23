@@ -57,6 +57,9 @@ namespace HanselAndGretel.Data
 
 		protected void DrawPartCircel(SpriteBatch spriteBatch,float radius, float startAngel, float endAngel, Vector2 pos)
 		{
+			/////////////////////////////////////////
+			// Fix wenn geladen ist die liste leer //
+			/////////////////////////////////////////
 
 			foreach(Vector2 v in mCircleSize)
 				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), v, Color.Yellow);

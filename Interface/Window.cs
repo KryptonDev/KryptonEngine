@@ -41,7 +41,7 @@ namespace KryptonEngine.Interface
             mDrawRectangle = new Rectangle(PositionX , PositionY, (int)mWindowDimension.X, (int)mWindowDimension.Y);
 
             mMoveRectangle = new Rectangle(PositionX - 1, PositionY - 1 - TITLEBAR_HEIGHT, (int)mWindowDimension.X + 2, TITLEBAR_HEIGHT);
-            mButtonClose = new Button(new Vector2(PositionX + (int)mWindowDimension.X - 19, PositionY + 1 - TITLEBAR_HEIGHT), "EngineClose", @"Engine\EngineClose");
+            //mButtonClose = new Button(new Vector2(PositionX + (int)mWindowDimension.X - 19, PositionY + 1 - TITLEBAR_HEIGHT), "EngineClose", @"Engine\EngineClose");
             mButtonClose.OnButtonPressed = CloseWindow;
             IsVisible = false;
         }

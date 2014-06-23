@@ -76,6 +76,8 @@ namespace KryptonEngine.Entities
         public override void Initialize()
         {
 			mScale = 1.0f;
+			MoveCamera(mCameraOffset);
+			mTransform = GetTranslationMatrix();
         }
 
         #endregion
@@ -172,6 +174,7 @@ namespace KryptonEngine.Entities
                 mPositionCamera.Y = (-mGameScreen.Height + EngineSettings.VirtualResHeight - mBoundSize);
                 else
                     mPositionCamera.Y += mSpeed.Y;
+
 			mTransform = Matrix.CreateTranslation(new Vector3(mPositionCamera, 0));
         }
 
@@ -183,6 +186,7 @@ namespace KryptonEngine.Entities
 		public void ZoomOut(int pZoomFactor)
 		{
 			mScale = 1 / pZoomFactor;
+			mTransform = Matrix.CreateScale(mScale);
 		}
         #endregion
 

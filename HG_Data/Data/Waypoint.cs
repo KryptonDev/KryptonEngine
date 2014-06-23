@@ -39,11 +39,6 @@ namespace HanselAndGretel.Data
 		public Vector2 MovementOnEnter { get { return mMovementOnEnter; } set { mMovementOnEnter = value; } }
 
 		public DrawPackage DrawPackage { get { return new DrawPackage(CollisionBox, mDebugColor); } }
-
-		// Zum zeichnen im Editor
-		[XmlIgnoreAttribute]
-		public Texture2D Texture;
-
 		#endregion
 
 		#region Constructor
@@ -61,7 +56,6 @@ namespace HanselAndGretel.Data
 		{
 			mDebugColor = Color.DarkGreen;
 			mOneWay = false;
-			mDropDown = new DropDownMenu(Vector2.Zero, new List<String>() { "Change One Way", "Zugang von: Norden", "Zugang von: Westen", "Zugang von: Sueden", "Zugang von: Osten" }, new List<Action>() { ChangeOneWay, LeaveNorth, LeaveWest, LeaveSouth, LeaveEast });
 			mMovementOnEnter = new Vector2(-1f, 0);
 		}
 
@@ -102,33 +96,6 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Methods
-		#region DropDownMethods
-
-		private void ChangeOneWay()
-		{
-			mOneWay = !mOneWay;
-		}
-
-		private void LeaveNorth()
-		{
-			mMovementOnEnter = new Vector2(0, -mLeaveSpeed);
-		}
-
-		private void LeaveSouth()
-		{
-			mMovementOnEnter = new Vector2(0, mLeaveSpeed);
-		}
-
-		private void LeaveEast()
-		{
-			mMovementOnEnter = new Vector2(mLeaveSpeed, 0);
-		}
-
-		private void LeaveWest()
-		{
-			mMovementOnEnter = new Vector2(-mLeaveSpeed, 0);
-		}
-		#endregion
 
 		#endregion
 	}

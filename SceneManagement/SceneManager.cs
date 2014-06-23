@@ -50,7 +50,7 @@ namespace KryptonEngine.SceneManagement
 
         public static Scene CurrentScene { get { return mCurrentScene; } }
         public static Color FadeColor { set { mFadeColor = value; } }
-        public float FadeSpeed { set { mFadeSpeed = 1.0f / 30.0f / value; } }
+		public float FadeSpeed { set { mFadeSpeed = 1.0f / 30.0f / value; } get { return mFadeSpeed; } }
 
         #endregion
 

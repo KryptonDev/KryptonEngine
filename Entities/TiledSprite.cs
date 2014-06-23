@@ -38,6 +38,7 @@ namespace KryptonEngine.Entities
         public int CurrentTileHeight { get { return mSourceRectangle[mSourceRectanglePosition].Height; } }
 
         public Rectangle CollisionBox { get { return mSourceRectangle[mSourceRectanglePosition]; } }
+		public int HighestTile { get { return mSourceRectangle.Length - 1; } }
         #endregion
         
         #endregion
@@ -46,8 +47,8 @@ namespace KryptonEngine.Entities
 
         public TiledSprite() { }
 
-        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight)
-            : base(pPosition, pTextureName, pPath)
+        public TiledSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight)
+            : base(pPosition, pTextureName)
         {
             mSourceRectangleWidth = pRectangleWidth;
             mSourceRectangleHeight = pRectangleHeight;
@@ -67,8 +68,8 @@ namespace KryptonEngine.Entities
             mDebugColor = Color.AliceBlue;
         }
 
-        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList)
-            : base(pPosition, pTextureName, pPath)
+        public TiledSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList)
+            : base(pPosition, pTextureName)
         {
             mSourceRectangle = new Rectangle[pSourceRectangleList.Count];
 
@@ -79,8 +80,8 @@ namespace KryptonEngine.Entities
             mDebugColor = Color.AliceBlue;
         }
 
-        public TiledSprite(Vector2 pPosition, String pTextureName, String pPath)
-            : base(pPosition, pTextureName, pPath)
+        public TiledSprite(Vector2 pPosition, String pTextureName)
+            : base(pPosition, pTextureName)
         {
             mSourceRectangleHeight = mTexture.Height;
             mSourceRectangleWidth = mTexture.Width;
@@ -116,6 +117,11 @@ namespace KryptonEngine.Entities
 
             return subtexture;
         }
+
+		public Rectangle GetCurrentTileRectangle(int index)
+		{
+			return mSourceRectangle[index];
+		}
 
         #endregion
     }

@@ -30,30 +30,30 @@ namespace KryptonEngine.Entities
 
         public AnimatedSprite() { }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed)
-            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed)
+            : base(pPosition, pTextureName, pRectangleWidth, pRectangleHeight)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed)
-            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed)
+            : base(pPosition, pTextureName, pSourceRectangleList)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
-            : base(pPosition, pTextureName, pPath, pRectangleWidth, pRectangleHeight)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, int pRectangleWidth, int pRectangleHeight, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
+            : base(pPosition, pTextureName, pRectangleWidth, pRectangleHeight)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
             mRepeatAnimation = pIsRepeat;
         }
 
-        public AnimatedSprite(Vector2 pPosition, String pTextureName, String pPath, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
-            : base(pPosition, pTextureName, pPath, pSourceRectangleList)
+        public AnimatedSprite(Vector2 pPosition, String pTextureName, List<Rectangle> pSourceRectangleList, List<int> pFrames, int pAnimSpeed, bool pIsRepeat)
+            : base(pPosition, pTextureName, pSourceRectangleList)
         {
             mFrames = pFrames;
             mAnimSpeed = pAnimSpeed;
