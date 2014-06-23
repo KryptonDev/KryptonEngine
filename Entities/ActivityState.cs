@@ -54,7 +54,7 @@ namespace KryptonEngine.Entities
 			{Activity.BalanceOverBrokenTree, "Balancieren [Brüchiger Baum]"}
 		};
 
-		protected InteractiveObject rIObj;
+		public InteractiveObject rIObj;
 		//protected Hansel rHansel;
 		//protected Gretel rGretel;
 
