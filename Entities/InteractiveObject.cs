@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
-	public class InteractiveObject : GameObject
+	public class InteractiveObject : SpineObject
 	{
 		#region Properties
 
@@ -21,13 +21,49 @@ namespace KryptonEngine.Entities
 		protected Vector2 mActionPosition2;
 
 		protected int mActionId;
-		protected Texture2D mTexture;
-		protected String mTextureName;
 
 		protected ActivityState mActivityState;
 		#endregion
 
 		#region Getter & Setter
+
+		#region Redirect Position to CollisionBox
+
+		[XmlIgnoreAttribute]
+		new public Vector2 Position
+		{
+			set
+			{
+				mPosition = value;
+				for (int i = 0; i < mCollisionRectList.Count; ++i)
+					mCollisionRectList[i] = new Rectangle((int)value.X, (int)value.Y, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
+			}
+			get { return mPosition; }
+		}
+		[XmlIgnoreAttribute]
+		new public int PositionX
+		{
+			set
+			{
+				mPosition.X = value;
+				for (int i = 0; i < mCollisionRectList.Count; ++i)
+					mCollisionRectList[i] = new Rectangle(value, mCollisionRectList[i].Y, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
+			}
+			get { return (int)mPosition.X; }
+		}
+		[XmlIgnoreAttribute]
+		new public int PositionY
+		{
+			set
+			{
+				mPosition.Y = value;
+				for (int i = 0; i < mCollisionRectList.Count; ++i)
+					mCollisionRectList[i] = new Rectangle(mCollisionRectList[i].X, value, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
+			}
+			get { return (int)mPosition.Y; }
+		}
+
+		#endregion
 
 		public List<Rectangle> ActionRectList { get { return mActionRectList; } set { mActionRectList = value; } }
 		public List<Rectangle> CollisionRectList { get { return mCollisionRectList; } set { mCollisionRectList = value; } }
@@ -36,9 +72,6 @@ namespace KryptonEngine.Entities
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
-		[XmlIgnoreAttribute]
-		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
-		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
 		[XmlIgnoreAttribute]
 		public List<DrawPackage> DrawPackages { get
 		{
@@ -62,8 +95,8 @@ namespace KryptonEngine.Entities
 
 		#region Constructor
 		
-		public InteractiveObject() 
-			: base() 
+		public InteractiveObject(string pName) 
+			: base(pName) 
 		{
 			Initialize();
 		}
@@ -73,6 +106,7 @@ namespace KryptonEngine.Entities
 		#region Override Methods
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			/*
 			if (mTexture != null)
 			{
 				spriteBatch.Draw(mTexture, Position, Color.White);
@@ -85,6 +119,7 @@ namespace KryptonEngine.Entities
 					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
 				}
 			}
+			*/
 		}
 		#endregion
 
@@ -110,21 +145,17 @@ namespace KryptonEngine.Entities
 
 		public void SetupDeserialized()
 		{
-			Texture = TextureManager.Instance.GetElementByString(TextureName);
+			//Texture = TextureManager.Instance.GetElementByString(TextureName);
 		}
 
 		public void CopyFrom(InteractiveObject io)
 		{
+			base.CopyFrom(io);
 			this.ActionRectList = new List<Rectangle>(io.ActionRectList);
 			this.CollisionRectList = new List<Rectangle>(io.CollisionRectList);
 			this.ActionPosition1 = io.ActionPosition1;
 			this.ActionPosition2 = io.ActionPosition2;
-			this.DrawZ = io.DrawZ;
 			this.ActionId = io.ActionId;
-			this.mTexture = io.Texture;
-			this.mTextureName = io.TextureName;
-
-			this.Position = io.Position;
 		}
 
 		public override string GetInfo()

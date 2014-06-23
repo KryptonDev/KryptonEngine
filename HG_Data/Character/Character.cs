@@ -10,12 +10,10 @@ using KryptonEngine.Physics;
 
 namespace HanselAndGretel.Data
 {
-	public class Character : GameObject
+	public class Character : InteractiveObject
 	{
 		#region Properties
 
-		public SpineObject mModel;
-		protected Vector2 SkeletonOffset;
 		protected float mSpeed;
 
 		//References
@@ -27,19 +25,14 @@ namespace HanselAndGretel.Data
 
 		public float Speed { get { return mSpeed; } }
 
-		#region Redirect Position to Skeleton
+		#region Redirect Position to CollisionBox
 
 		new public Vector2 Position
 		{
 			set
 			{
 				mPosition = value;
-				mCollisionBox.X = (int)value.X;
-				mCollisionBox.Y = (int)value.Y;
-
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-				mModel.Position = value + SkeletonOffset;
+				mCollisionRectList[0] = new Rectangle((int)value.X, (int)value.Y, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
 			}
 			get { return mPosition; }
 		}
@@ -48,11 +41,7 @@ namespace HanselAndGretel.Data
 			set
 			{
 				mPosition.X = value;
-				mCollisionBox.X = value;
-
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-				mModel.PositionX = value + (int)SkeletonOffset.X;
+				mCollisionRectList[0] = new Rectangle(value, mCollisionRectList[0].Y, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
 			}
 			get { return (int)mPosition.X; }
 		}
@@ -61,32 +50,25 @@ namespace HanselAndGretel.Data
 			set
 			{
 				mPosition.Y = value;
-				mCollisionBox.Y = value;
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-
-				mModel.PositionY = value + (int)SkeletonOffset.Y;
+				mCollisionRectList[0] = new Rectangle(mCollisionRectList[0].X, value, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
 			}
 			get { return (int)mPosition.Y; }
 		}
 
 		#endregion
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position + SkeletonOffset, 0, CollisionBox, mDebugColor, mModel.Skeleton); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, 0, CollisionBox, mDebugColor, Skeleton); } }
 
 		#endregion
 
 		#region Constructor
 
-		public Character()
+		public Character(string pName)
+			:base(pName)
 		{
 
 		}
 
-		public Character(Vector2 pPosition)
-			:base(pPosition)
-		{
-		}
 
 		#endregion
 
@@ -100,12 +82,12 @@ namespace HanselAndGretel.Data
 
 		public override void LoadContent()
 		{
-			mModel.LoadContent();
+			base.LoadContent();
 		}
 
 		public override void Update()
 		{
-			mModel.Update();
+			base.Update();
 		}
 
 		#endregion
@@ -144,8 +126,8 @@ namespace HanselAndGretel.Data
 		/// </summary>
 		public void AnimCutToIdle()
 		{
-			mModel.AnimationState.ClearTracks();
-			mModel.AnimationState.SetAnimation(0, "idle", true);
+			AnimationState.ClearTracks();
+			AnimationState.SetAnimation(0, "idle", true);
 		}
 
 		/// <summary>
@@ -156,7 +138,7 @@ namespace HanselAndGretel.Data
 		{
 			if (pMovement == Vector2.Zero)
 			{
-				mModel.SetAnimation();
+				SetAnimation();
 				return;
 			}
 			string TmpAnimation;
@@ -164,9 +146,9 @@ namespace HanselAndGretel.Data
 			TmpMovement.Normalize();
 			//Flip?
 			if (TmpMovement.X > 0)
-				mModel.Flip = true;
+				Flip = true;
 			else if (TmpMovement.X < 0)
-				mModel.Flip = false;
+				Flip = false;
 			//Get correct Animation
 			//if (TmpMovement.Y > Math.Sin(67.5)) //Hoch
 			//	TmpAnimation = "walkUp";
@@ -179,7 +161,7 @@ namespace HanselAndGretel.Data
 			//else //Runter
 			//	TmpAnimation = "WalkDown";
 			TmpAnimation = "idle";
-			mModel.SetAnimation(TmpAnimation);
+			SetAnimation(TmpAnimation);
 		}
 
 		#endregion

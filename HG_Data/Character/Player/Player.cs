@@ -32,7 +32,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Player()
+		public Player(string pName)
+			:base(pName)
 		{
 			
 		}

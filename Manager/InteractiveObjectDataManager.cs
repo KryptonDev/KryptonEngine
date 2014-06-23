@@ -27,7 +27,7 @@ namespace KryptonEngine.Manager
 
         public override void LoadContent()
         {
-          InteractiveObject iObj = new InteractiveObject();
+          InteractiveObject iObj = new InteractiveObject("");
           XmlSerializer xml = new XmlSerializer(typeof(InteractiveObject));
           TextReader reader;
 
@@ -40,11 +40,11 @@ namespace KryptonEngine.Manager
             {
               reader = new StreamReader(f.FullName);
               iObj = (InteractiveObject)xml.Deserialize(reader);
-              iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
+              //ToDo: SpineObject laden!!! iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
               reader.Close();
 
-			  if (!mRessourcen.ContainsKey(iObj.TextureName))
-				mRessourcen.Add(iObj.TextureName, iObj);
+			  //if (!mRessourcen.ContainsKey(iObj.TextureName))
+				//mRessourcen.Add(iObj.TextureName, iObj);
             }
           }
         }
@@ -75,7 +75,7 @@ namespace KryptonEngine.Manager
         {
 			if (mRessourcen.ContainsKey(pElementName))
 			{
-				InteractiveObject io = new InteractiveObject();
+				InteractiveObject io = new InteractiveObject("");
 				io.CopyFrom(mRessourcen[pElementName]);
 				return io;
 			}

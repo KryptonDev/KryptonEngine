@@ -152,6 +152,21 @@ namespace KryptonEngine.Entities
                 pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
         }
 
+		public void CopyFrom(SpineObject spine)
+		{
+			this.mAnimationState = spine.mAnimationState;
+			this.mBounds = spine.mBounds;
+			this.mCollisionBox = spine.mCollisionBox;
+			this.mDebugColor = spine.mDebugColor;
+			this.mDrawZ = spine.mDrawZ;
+			this.mInitPosition = spine.mInitPosition;
+			this.mName = spine.mName;
+			this.Position = spine.Position;
+			this.mScale = spine.mScale;
+			this.mSkeleton = spine.mSkeleton;
+			this.mVisible = spine.mVisible;
+		}
+
 		#region Animation
 
 		/// <summary>

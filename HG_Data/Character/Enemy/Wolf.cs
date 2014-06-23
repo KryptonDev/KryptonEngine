@@ -20,14 +20,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Wolf(Vector2 pPosition)
-			:base(pPosition)
-		{
-
-		}
-
-		public Wolf()
-			:base()
+		public Wolf(string pName)
+			:base(pName)
 		{
 
 		}
