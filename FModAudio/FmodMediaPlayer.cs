@@ -73,7 +73,7 @@ namespace KryptonEngine.FModAudio
 				BackgroundSong.StartFade(i, -FadingSpeed);
 		}
 
-		// Fadet einen Channel ein wie z.B. ein Wolf ist in sichtweite. Dann einfach 1.mal die vorgegebene Channel ID übergeben.
+		// Fadet einen Channel ein wie z.B. ein Wolf ist in Sichtweite. Dann einfach 1.mal die vorgegebene Channel ID übergeben.
 		public void FadeBackgroundChannelIn(int index)
 		{
 			BackgroundSong.StartFade(index, FadingSpeed);

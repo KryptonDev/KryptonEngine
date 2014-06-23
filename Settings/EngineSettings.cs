@@ -86,6 +86,7 @@ namespace KryptonEngine
         public static ContentManager Content;
         public static GraphicsDeviceManager Graphics;
         public static GameTime Time;
+		public static Random Randomizer;
 
 		public static FMOD.System FMODDevice;
 
