@@ -127,7 +127,16 @@
     <Compile Include="Pools\SpinePool.cs" />
     <Compile Include="Pools\SpritePool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rendering\QuadRenderer.cs" />
+    <Compile Include="Rendering\Components\FPSCounter.cs" />
+    <Compile Include="Rendering\Components\GBuffer.cs" />
+    <Compile Include="Rendering\Components\QuadRenderer.cs" />
+    <Compile Include="Rendering\Components\SpriteData.cs" />
+    <Compile Include="Rendering\Core\BaseRenderer.cs" />
+    <Compile Include="Rendering\RenderModuls\2DRenderer.cs" />
+    <Compile Include="Rendering\RenderModuls\Batch.cs" />
+    <Compile Include="Rendering\Shader\BaseShader.cs" />
+    <Compile Include="Rendering\Shader\MaterialShader.cs" />
+    <Compile Include="Rendering\Shader\PostShader.cs" />
     <Compile Include="SceneManagement\Scene.cs" />
     <Compile Include="SceneManagement\SceneManager.cs" />
     <Compile Include="Settings\EngineSettings.cs" />
