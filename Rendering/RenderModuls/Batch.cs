@@ -12,23 +12,25 @@ namespace KryptonEngine.Rendering.RenderModuls
 
         #region Properties
 
+        public int TextCount;
+        
         private GraphicsDevice mGraphicsDevice;
 
         private int mCurrentTextureID;
 
-        private List<Texture2D> mDiffuseTextureBuffer;
-        private List<Texture2D> mNormalTextureBuffer;
-        private List<Texture2D> mAoTextureBuffer;
-        private List<Texture2D> mDepthTextureBuffer;
+        public List<Texture2D> mDiffuseTextureBuffer;
+        public List<Texture2D> mNormalTextureBuffer;
+        public List<Texture2D> mAoTextureBuffer;
+        public List<Texture2D> mDepthTextureBuffer;
 
-        private List<SpriteData> mBatchItems;
-        private Queue<SpriteData> mFreeItems;
+        public List<SpriteData> mBatchItems;
+        public Queue<SpriteData> mFreeItems;
 
 
-        private List< List <VertexPositionTexture>> mVertexDataBuffer;
-        
-        private VertexPositionTexture[] mVertexBuffer;
-        private int[] mIndexBuffer;
+        public List<List<VertexPositionTexture>> mVertexDataBuffer;
+
+        public VertexPositionTexture[] mVertexBuffer;
+        public int[] mIndexBuffer;
 
         #endregion
 
@@ -47,9 +49,6 @@ namespace KryptonEngine.Rendering.RenderModuls
             this.mNormalTextureBuffer = new List<Texture2D>();
             this.mAoTextureBuffer = new List<Texture2D>();
             this.mDepthTextureBuffer = new List<Texture2D>();
-            
-
-
         }
 
         #endregion
@@ -58,6 +57,7 @@ namespace KryptonEngine.Rendering.RenderModuls
 
         public void Render()
         {
+            Texture2D testTexture = null;
             if (mBatchItems.Count == 0)
                 return;
 
@@ -67,6 +67,8 @@ namespace KryptonEngine.Rendering.RenderModuls
             {
                 short startIndex   = 0;
                 short currentIndex = 0;
+                int offset = 0;
+                int currentTextureId = 0;
 
                 int batchesToProcess = batchCount;
                 EnsureIndexArraySize(batchesToProcess);
@@ -75,43 +77,62 @@ namespace KryptonEngine.Rendering.RenderModuls
                 {
                     SpriteData item = mBatchItems[i];
 
-                    if(mVertexDataBuffer.Count-1 < item.TextureID)
-                        mVertexDataBuffer.Add(new List<VertexPositionTexture>());
+                    //if(mVertexDataBuffer.Count-1 < item.TextureID)
+                    //    mVertexDataBuffer.Add(new List<VertexPositionTexture>());
                         
+                    //mVertexDataBuffer[item.TextureID].Add(item.vertexTL);
+                    //mVertexDataBuffer[item.TextureID].Add(item.vertexTR);
+                    //mVertexDataBuffer[item.TextureID].Add(item.vertexBL);
+                    //mVertexDataBuffer[item.TextureID].Add(item.vertexBR);
 
-                    mVertexDataBuffer[item.TextureID].Add(item.vertexTL);
-                    mVertexDataBuffer[item.TextureID].Add(item.vertexTR);
-                    mVertexDataBuffer[item.TextureID].Add(item.vertexBL);
-                    mVertexDataBuffer[item.TextureID].Add(item.vertexBR);
+                    if (!ReferenceEquals(mDiffuseTextureBuffer[item.TextureID], testTexture))
+                    {
+                        if (i > offset)
+                        {
+                            this.Flush(currentTextureId, offset, i - offset);
+                        }
+                        offset = i;
+                        currentTextureId = item.TextureID;
+                        currentIndex = 0;
+                        testTexture = mDiffuseTextureBuffer[item.TextureID];
+                    }
 
-                    //this.mVertexBuffer[currentIndex++] = item.vertexTL;
-                    //this.mVertexBuffer[currentIndex++] = item.vertexTR;
-                    //this.mVertexBuffer[currentIndex++] = item.vertexBL;
-                    //this.mVertexBuffer[currentIndex++] = item.vertexBR;
+                    this.mVertexBuffer[currentIndex++] = item.vertexTL;
+                    this.mVertexBuffer[currentIndex++] = item.vertexTR;
+                    this.mVertexBuffer[currentIndex++] = item.vertexBL;
+                    this.mVertexBuffer[currentIndex++] = item.vertexBR;
 
                     this.mFreeItems.Enqueue(item);
                 }
 
-                Flush();
+                Flush(currentTextureId,offset, batchesToProcess-offset);
                 batchCount -= batchesToProcess;
             }
 
+            this.TextCount = mDiffuseTextureBuffer.Count;
+
             mBatchItems.Clear();
+            this.clearTextures();
         }
 
-        public void Flush()
+        public void Flush(int TextureID, int offset, int count)
         {
-            int vertexCount = 0;
-           for(int i = 0; i < this.mVertexDataBuffer.Count; i++)
-           {
-               mGraphicsDevice.Textures[1] = mDiffuseTextureBuffer[i];
-               vertexCount = this.mVertexDataBuffer[i].Count;
-               EnsureIndexArraySize(vertexCount);
-               mVertexBuffer = this.mVertexDataBuffer[i].ToArray();
-               this.mGraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, this.mVertexBuffer, 0, vertexCount, this.mIndexBuffer, 0, (vertexCount / 4) * 2, VertexPositionTexture.VertexDeclaration);
-      
-           }
-            
+           int vertexCount = count*4;
+           int indexCount  = count*2;
+
+           int vertexOffset = offset * 4;
+           int indexOffset  = offset * 6;
+
+           
+           mGraphicsDevice.Textures[1] = mDiffuseTextureBuffer[TextureID];
+           mGraphicsDevice.Textures[2] = mNormalTextureBuffer[TextureID];
+           mGraphicsDevice.Textures[3] = mAoTextureBuffer[TextureID];
+           mGraphicsDevice.Textures[4] = mDepthTextureBuffer[TextureID];
+
+           this.mGraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList,
+                                                          this.mVertexBuffer, 0, vertexCount,
+                                                          this.mIndexBuffer, 0, indexCount,
+                                                          VertexPositionTexture.VertexDeclaration);
 
         }
         #endregion
@@ -122,9 +143,9 @@ namespace KryptonEngine.Rendering.RenderModuls
         {
             SpriteData item;
 
-            //if (_freeBatchItemQueue.Count > 0)
-            //    item = mFreeBatchItems.Dequeue();
-            //else
+            if (mFreeItems.Count > 0)
+                item = mFreeItems.Dequeue();
+            else
                 item = new SpriteData();
             this.mBatchItems.Add(item);
             return item;
@@ -146,10 +167,18 @@ namespace KryptonEngine.Rendering.RenderModuls
             return this.mDiffuseTextureBuffer.Count - 1;
         }
 
+        public void clearTextures()
+        {
+            this.mDiffuseTextureBuffer.Clear();
+            this.mNormalTextureBuffer.Clear();
+            this.mAoTextureBuffer.Clear();
+            this.mDepthTextureBuffer.Clear();
+        }
+
         private void EnsureIndexArraySize(int itemAmount)
         {
 
-            int[] newIndex = new int[6 * itemAmount];
+            int[] newIndex = new int[6 * (itemAmount)];
             int start = 0;
 
             //if (mIndexBuffer != null)
@@ -172,7 +201,7 @@ namespace KryptonEngine.Rendering.RenderModuls
             }
 
             mIndexBuffer = newIndex;
-            mVertexBuffer = new VertexPositionTexture[4 * itemAmount];
+            mVertexBuffer = new VertexPositionTexture[itemAmount*4];
         }
         #endregion
 

@@ -22,6 +22,7 @@ namespace KryptonEngine.Rendering.RenderModuls
         private RasterizerState mRasterizerState;
         private BlendState mLightMapBlendState;
         private BlendState mAlphaBlend;
+        private DepthStencilState mDepthStencilState;
 
         private Effect mDraw;
         private Effect mLightShader;
@@ -37,8 +38,6 @@ namespace KryptonEngine.Rendering.RenderModuls
         private Matrix mTranslatetViewMatrix;
         private Matrix mProjection;
 
-        private ushort mSpriteBeginCount;
-
         private bool isBegin = false;
 
         private Texture2D[] mTextureArray;
@@ -46,6 +45,8 @@ namespace KryptonEngine.Rendering.RenderModuls
         private int mPlaneHeight;
 
         private float[] mSkeletonVertecies = new float[8];
+
+        private FPSCounter mFPSCounter;
         #endregion
 
 
@@ -73,6 +74,8 @@ namespace KryptonEngine.Rendering.RenderModuls
 
         public void Initialize(int pWidth, int pHeight)
         {
+            this.mFPSCounter = new FPSCounter();
+
             this.mRasterizerState = new RasterizerState();
             this.mRasterizerState.CullMode = CullMode.None;
 
@@ -85,16 +88,30 @@ namespace KryptonEngine.Rendering.RenderModuls
             this.mLightMapBlendState.AlphaBlendFunction = BlendFunction.Add;
 
 
-            this.mAlphaBlend = new BlendState();
-            this.mAlphaBlend.ColorSourceBlend = Blend.One;
-            this.mAlphaBlend.AlphaSourceBlend = Blend.One;
 
-            this.mAlphaBlend.ColorDestinationBlend = Blend.One;
-            this.mAlphaBlend.AlphaDestinationBlend = Blend.One;
+            this.mAlphaBlend = BlendState.AlphaBlend;
 
-            this.mAlphaBlend.AlphaBlendFunction = BlendFunction.Add;
-            this.mAlphaBlend.ColorBlendFunction = BlendFunction.Add;
-            
+            this.mDepthStencilState = new DepthStencilState();
+            this.mDepthStencilState.DepthBufferWriteEnable = true;
+            this.mDepthStencilState.DepthBufferEnable = true;
+            this.mDepthStencilState.DepthBufferFunction = CompareFunction.GreaterEqual;
+
+           // this.mAlphaBlend = new BlendState();
+
+            //this.mAlphaBlend.ColorDestinationBlend = Blend.InverseSourceAlpha;
+            //this.mAlphaBlend.ColorSourceBlend = Blend.SourceAlpha;
+
+            //this.mAlphaBlend.AlphaSourceBlend = Blend.Zero;
+            //this.mAlphaBlend.AlphaDestinationBlend = Blend.Zero;
+
+            //this.mAlphaBlend.ColorBlendFunction = BlendFunction.Add;
+            //this.mAlphaBlend.AlphaBlendFunction = BlendFunction.Add;
+
+
+
+
+           
+
 
             this.mLightMap = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
             this.mFinalMap = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
@@ -110,12 +127,23 @@ namespace KryptonEngine.Rendering.RenderModuls
             this.mBatch = new Batch(this.mGraphicsDevice);
         }
 
+        public void UpdateFPSCounter()
+        {
+            this.mFPSCounter.Update();
+        }
+
+        public void UpdateFPSDrawCounter()
+        {
+            this.mFPSCounter.UpdateDrawCounter();
+        }
 
         public void LoadContent(ContentManager pContent)
         {
             this.mLightShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Light");
             this.mCombineShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Combine");
             this.mDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("MRT");
+
+            this.mGBuffer.LoadContent();
         }
         #endregion
 
@@ -131,14 +159,18 @@ namespace KryptonEngine.Rendering.RenderModuls
         {
             if (this.isBegin) throw new InvalidOperationException("End must called before Beginn");
 
-           
+            // Setzt States für die Grafikkarte
+            //  Rasterizer Statet Culled die Vertecies
+            // Blendstate ist für Alphatesting
+            // DepthStenciel für draw reihen folge
+
             this.mGraphicsDevice.RasterizerState = this.mRasterizerState;
             this.mGraphicsDevice.BlendState = this.mAlphaBlend;
+            this.mGraphicsDevice.DepthStencilState = this.mDepthStencilState;
 
             this.mTranslatetViewMatrix = Matrix.Multiply(mView, pTranslation);
             this.mProjection = Matrix.CreateOrthographicOffCenter(0, this.mGraphicsDevice.Viewport.Width, this.mGraphicsDevice.Viewport.Height, 0, 1f, 0f);
 
-            this.mSpriteBeginCount +=1;
             this.isBegin = true;
         }
 
@@ -150,10 +182,10 @@ namespace KryptonEngine.Rendering.RenderModuls
 
         public void Draw(Skeleton pSkeleton,Texture2D[] pMapArray,float pDepth = 1.0f,float pScale = 1.0f)
         {
-            this.mTextureArray[0] = null;
-            this.mTextureArray[1] = pMapArray[0];
-            this.mTextureArray[2] = pMapArray[1];
-            this.mTextureArray[3] = pMapArray[2];
+            this.mTextureArray[0] = pMapArray[0];
+            this.mTextureArray[1] = pMapArray[1];
+            this.mTextureArray[2] = pMapArray[2];
+            this.mTextureArray[3] = pMapArray[3];
 
             this.InternalDraw(pSkeleton, this.mTextureArray, pDepth,pScale);
         }
@@ -236,7 +268,7 @@ namespace KryptonEngine.Rendering.RenderModuls
             float scale = pDestination.W;
             int width = (int)(pTextureArray[0].Width * scale);
             int height = (int)(pTextureArray[0].Height * scale);
-            int textId = this.mBatch.getTextureIndex(pTextureArray[0]);
+            item.TextureID = this.mBatch.AddTextures(pTextureArray);
 
             item.vertexTL.Position.X = pDestination.X;
             item.vertexTL.Position.Y = pDestination.Y;
@@ -269,12 +301,12 @@ namespace KryptonEngine.Rendering.RenderModuls
             item.vertexBR.TextureCoordinate.Y = 1;
 
 
-            if ( textId == -1) 
-            {
-               textId = this.mBatch.AddTextures(pTextureArray);
-            }
+            //if ( textId == -1) 
+            //{
+            //   textId = this.mBatch.AddTextures(pTextureArray);
+            //}
 
-            item.TextureID = textId;
+            //item.TextureID = textId;
 
         }
 
@@ -285,7 +317,7 @@ namespace KryptonEngine.Rendering.RenderModuls
             List<Slot> drawOrder = pSkeleton.DrawOrder;
             float x = pSkeleton.X, y = pSkeleton.Y;
             int textId = this.mBatch.getTextureIndex(pTextureArray[0]);
-
+            float orderDepth = 0.00000000001f;
             for (int i = 0, n = drawOrder.Count; i < n; i++)
             {
                 Slot slot = drawOrder[i];
@@ -295,22 +327,22 @@ namespace KryptonEngine.Rendering.RenderModuls
                   
                     SpriteData item = this.mBatch.createBatchItem();
                     AtlasRegion region = (AtlasRegion)regionAttachment.RendererObject;
-                    pTextureArray[0] = pTextureArray[0] != (Texture2D)region.page.rendererObject ?  (Texture2D)region.page.rendererObject : pTextureArray[0];
+                   // pTextureArray[0] = pTextureArray[0] != (Texture2D)region.page.rendererObject ?  (Texture2D)region.page.rendererObject : pTextureArray[0];
 
                     float[] vertices = this.mSkeletonVertecies;
                     regionAttachment.ComputeWorldVertices(x, y, slot.Bone, vertices);
                     item.vertexTL.Position.X = vertices[RegionAttachment.X1];
                     item.vertexTL.Position.Y = vertices[RegionAttachment.Y1];
-                    item.vertexTL.Position.Z = pDepth;
+                    item.vertexTL.Position.Z = pDepth - orderDepth*(n-(i+1));
                     item.vertexBL.Position.X = vertices[RegionAttachment.X2];
                     item.vertexBL.Position.Y = vertices[RegionAttachment.Y2];
-                    item.vertexBL.Position.Z = pDepth;
+                    item.vertexBL.Position.Z = pDepth - orderDepth * (n - (i + 1));
                     item.vertexBR.Position.X = vertices[RegionAttachment.X3];
                     item.vertexBR.Position.Y = vertices[RegionAttachment.Y3];
-                    item.vertexBR.Position.Z = pDepth;
+                    item.vertexBR.Position.Z = pDepth - orderDepth * (n - (i + 1));
                     item.vertexTR.Position.X = vertices[RegionAttachment.X4];
                     item.vertexTR.Position.Y = vertices[RegionAttachment.Y4];
-                    item.vertexTR.Position.Z = pDepth;
+                    item.vertexTR.Position.Z = pDepth - orderDepth * (n - (i + 1));
 
                     float[] uvs = regionAttachment.UVs;
                     item.vertexTL.TextureCoordinate.X = uvs[RegionAttachment.X1];
@@ -328,6 +360,7 @@ namespace KryptonEngine.Rendering.RenderModuls
                     }
 
                     item.TextureID = textId;
+                    orderDepth += 0.00001f;
                 }
 
 
@@ -368,6 +401,36 @@ namespace KryptonEngine.Rendering.RenderModuls
         public void ClearGBuffer()
         {
             this.mGBuffer.Clear();
+        }
+        #endregion
+
+        #region Debug
+        public void DrawDebugRendertargets(SpriteBatch batch)
+        {
+            int width = mGraphicsDevice.Viewport.Width;
+            int height = mGraphicsDevice.Viewport.Height;
+            int smallWidth  = width / 4;
+            int smallHeigth = height / 4;
+
+            batch.Begin(SpriteSortMode.Texture, BlendState.Opaque, SamplerState.PointClamp,DepthStencilState.None,RasterizerState.CullNone);
+            batch.Draw(this.mGBuffer.RenderTargets[0], new Rectangle(smallWidth * 0, height - smallHeigth, smallWidth, smallHeigth), Color.White);
+            batch.Draw(this.mGBuffer.RenderTargets[1], new Rectangle(smallWidth * 1, height - smallHeigth, smallWidth, smallHeigth), Color.White);
+            batch.Draw(this.mGBuffer.RenderTargets[2], new Rectangle(smallWidth * 2, height - smallHeigth, smallWidth, smallHeigth), Color.White);
+           // batch.Draw(this.mGraphicsDevice., new Rectangle(smallWidth * 3, height - smallHeigth, smallWidth, smallHeigth), Color.White);
+
+            batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"),this.mFPSCounter.FPS.ToString() + " FPS", Vector2.Zero, Color.White);
+            batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"), this.mBatch.mDiffuseTextureBuffer.Count.ToString() + " Textures", new Vector2(0,20), Color.White);
+            batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"), this.mBatch.mFreeItems.Count.ToString() + " Free Items", new Vector2(0, 40), Color.White);
+            batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"), this.mBatch.mVertexDataBuffer.Count.ToString() + " VertexData", new Vector2(0, 60), Color.White);
+            
+            batch.End();
+        }
+        
+        public void DrawRenderTargetOnScreen(SpriteBatch batch,int index)
+        {
+            batch.Begin();
+            batch.Draw(this.mGBuffer.RenderTargets[index], Vector2.Zero, Color.White);
+            batch.End();
         }
         #endregion
     }
