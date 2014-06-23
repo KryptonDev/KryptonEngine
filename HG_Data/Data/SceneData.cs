@@ -144,15 +144,9 @@ namespace HanselAndGretel.Data
 			foreach (InteractiveObject iObj in InteractiveObjects)
 				iObj.SetupDeserialized();
 			foreach (Item item in Items)
-<<<<<<< HEAD
-				item.SetupDeserialized();
-			foreach (Collectable col in Collectables)
-				col.SetupDeserialized();
-=======
 				item.LoadTextures();
 			foreach (Collectable col in Collectables)
 				col.LoadTextures();
->>>>>>> origin/Carsten
 		}
 		#endregion
 	}

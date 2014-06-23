@@ -71,7 +71,6 @@ namespace KryptonEngine.Entities
 		#endregion
 
 		#region Override Methods
-
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			if (mTexture != null)
@@ -91,12 +90,22 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
-		public Vector2 GetNearestStartPosition(Vector2 PlayerPosition)
+		/*public Vector2 GetNearestStartPosition(Vector2 PlayerPosition)
 		{
 			float Distance1 = Vector2.Distance(PlayerPosition, mActionPosition1);
 			float Distance2 = Vector2.Distance(PlayerPosition, mActionPosition2);
 
 			return (Math.Min(Distance1, Distance2) == Distance1) ? mActionPosition1 : mActionPosition2;
+		}*/
+
+		public Vector2 NearestActionPosition(Vector2 pPosition)
+		{
+			return ((ActionPosition1 - pPosition).Length() < (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
+		}
+
+		public Vector2 DistantActionPosition(Vector2 pPosition)
+		{
+			return ((ActionPosition1 - pPosition).Length() > (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
 		}
 
 		public void SetupDeserialized()

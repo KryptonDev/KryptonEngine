@@ -40,7 +40,6 @@ namespace HanselAndGretel.Data
 				mCircleSize = new List<Vector2>();
 				SetDrawCircle();
 			}
-
 			this.DrawPartCircel(spriteBatch, mRadius, 0, 360, mPosition);
 		}
 
