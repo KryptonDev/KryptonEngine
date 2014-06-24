@@ -68,34 +68,6 @@ namespace KryptonEngine.Entities
             mScale = 1.0f;
         }
 
-        //public SpineObject(string pName)
-        //{
-        //    mName = pName;
-        //    mInitPosition = new Vector2(0, 0);
-        //    mScale = 1.0f;
-        //}
-
-        //public SpineObject(string pName, float pScale)
-        //{
-        //    mName = pName;
-        //    mInitPosition = new Vector2(0, 0);
-        //    mScale = pScale;
-        //}
-
-        //public SpineObject(string pName, Vector2 pPosition)
-        //{
-        //    mName = pName;
-        //    mInitPosition = pPosition;
-        //    mScale = 1.0f;
-        //}
-
-        //public SpineObject(string pName, Vector2 pPosition, float pScale)
-        //{
-        //    mName = pName;
-        //    mInitPosition = pPosition;
-        //    mScale = pScale;
-        //}
-
         #endregion
 
         #region Methods
@@ -121,11 +93,10 @@ namespace KryptonEngine.Entities
             mAnimationState = SpineDataManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
-			
 			LoadTextures();
         }
 
-		public void LoadTextures()
+		protected void LoadTextures()
 		{
 			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
@@ -133,7 +104,6 @@ namespace KryptonEngine.Entities
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
 		}
-
 
         #region Update
 

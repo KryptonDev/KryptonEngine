@@ -135,7 +135,7 @@ namespace HanselAndGretel.Data
 		public void LoadTextures()
 		{
 			foreach (InventorySlot slot in ItemSlots)
-				slot.LoadTextures();
+				slot.LoadContent();
 			LoadContent();
 		}
 

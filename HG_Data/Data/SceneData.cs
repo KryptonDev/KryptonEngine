@@ -102,16 +102,16 @@ namespace HanselAndGretel.Data
 		}
 
 		// Laden Texturen usw. von Manager das nicht mitserialisiert wird
-		public void LoadTextures(string pBackgroundTextureName)
+		public void LoadContent(string pBackgroundTextureName)
 		{
 			BackgroundTexture.TextureName = pBackgroundTextureName;
 			BackgroundTexture.LoadTextures();
 			foreach (InteractiveObject iObj in InteractiveObjects)
-				iObj.LoadTextures();
+				iObj.LoadContent();
 			foreach (Item item in Items)
-				item.LoadTextures();
+				item.LoadContent();
 			foreach (Collectable col in Collectables)
-				col.LoadTextures();
+				col.LoadContent();
 		}
 
 		public void SetupRenderList(Hansel pHansel, Gretel pGretel)

@@ -33,10 +33,10 @@ namespace HanselAndGretel.Data
 
 		#region Methods
 
-		public void LoadTextures()
+		public void LoadContent()
 		{
 			if (Item != null)
-				Item.LoadTextures();
+				Item.LoadContent();
 		}
 
 		#endregion
