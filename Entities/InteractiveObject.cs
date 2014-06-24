@@ -70,6 +70,8 @@ namespace KryptonEngine.Entities
 		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
 		public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
+		public int Height;
+		public int Width;
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
 		[XmlIgnoreAttribute]
@@ -104,23 +106,27 @@ namespace KryptonEngine.Entities
 		#endregion
 
 		#region Override Methods
-		public override void Draw(SpriteBatch spriteBatch)
+
+		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			/*
-			if (mTexture != null)
-			{
-				spriteBatch.Draw(mTexture, Position, Color.White);
-				if (EngineSettings.IsDebug)
-				{
-					foreach (Rectangle r in ActionRectList)
-						spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
-					foreach (Rectangle r in CollisionRectList)
-						spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
-					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
-				}
-			}
-			*/
+			base.Draw(renderer);
 		}
+
+		//public override void Draw(SpriteBatch spriteBatch)
+		//{
+		//	if (mTexture != null)
+		//	{
+		//		spriteBatch.Draw(mTexture, Position, Color.White);
+		//		if (EngineSettings.IsDebug)
+		//		{
+		//			foreach (Rectangle r in ActionRectList)
+		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
+		//			foreach (Rectangle r in CollisionRectList)
+		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
+		//			spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
+		//		}
+		//	}
+		//}
 		#endregion
 
 		#region Methods
@@ -141,11 +147,6 @@ namespace KryptonEngine.Entities
 		public Vector2 DistantActionPosition(Vector2 pPosition)
 		{
 			return ((ActionPosition1 - pPosition).Length() > (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
-		}
-
-		public void SetupDeserialized()
-		{
-			//Texture = TextureManager.Instance.GetElementByString(TextureName);
 		}
 
 		public void CopyFrom(InteractiveObject io)

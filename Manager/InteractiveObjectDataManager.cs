@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Entities;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,8 +40,10 @@ namespace KryptonEngine.Manager
             if (f.Name.EndsWith(".iObj"))
             {
               reader = new StreamReader(f.FullName);
-              iObj = (InteractiveObject)xml.Deserialize(reader);
-              //ToDo: SpineObject laden!!! iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
+				iObj = (InteractiveObject)xml.Deserialize(reader);
+				//Wird mit deserialisiert	iObj.Name = f.Name.Substring(0, f.Name.Length - 5);
+				iObj.mTextures = new Texture2D[4];
+              iObj.mTextures[0] = TextureManager.Instance.GetElementByString(iObj.Name);
               reader.Close();
 
 			  //if (!mRessourcen.ContainsKey(iObj.TextureName))

@@ -11,6 +11,7 @@ using KryptonEngine.Interface;
 using System.Xml.Serialization;
 using KryptonEngine.Controls;
 using HanselAndGretel.Data;
+using KryptonEngine.Rendering;
 
 
 namespace KryptonEngine.Entities
@@ -25,6 +26,7 @@ namespace KryptonEngine.Entities
         protected Color mDebugColor = Color.Yellow;
         protected bool mVisible;
 		protected int mDrawZ;
+		protected float mNormalZ;
         #endregion
 
         #region Getter & Setter
@@ -62,6 +64,7 @@ namespace KryptonEngine.Entities
 		public Rectangle CollisionBox { get { return mCollisionBox; } set { mCollisionBox = value; } }
         public bool IsVisible { get { return mVisible; } set { mVisible = value; } }
 		public int DrawZ { get { return mDrawZ; } set { mDrawZ = value; } }
+		public float NormalZ { get { return mNormalZ; } set { mNormalZ = value; } }
         #endregion
         #region Constructor
 
@@ -83,9 +86,10 @@ namespace KryptonEngine.Entities
 
         #region Methods
 
+		public virtual void Draw(TwoDRenderer renderer) { }
         public virtual void Draw(SpriteBatch spriteBatch) { }
-		public virtual void DrawNormal(SpriteBatch spriteBatch) { }
-		public virtual void DrawDepth(SpriteBatch spriteBatch) { }
+		//public virtual void DrawNormal(SpriteBatch spriteBatch) { }
+		//public virtual void DrawDepth(SpriteBatch spriteBatch) { }
 
         public override string GetInfo()
         {

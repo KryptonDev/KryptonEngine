@@ -43,12 +43,17 @@ namespace KryptonEngine.Entities
             mCollisionBox = new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT), Color.White);
+		public override void Draw(Rendering.TwoDRenderer renderer)
+		{
+			renderer.Draw(mTextures, new Vector3(Position, 1));
+		}
+
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			spriteBatch.Draw(mTextures[0], new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT), Color.White);
 			//if (EngineSettings.IsDebug)
 			//	spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
-        }
+		}
         #endregion
     }
 }

@@ -83,8 +83,8 @@ namespace KryptonEngine.Entities
         public TiledSprite(Vector2 pPosition, String pTextureName)
             : base(pPosition, pTextureName)
         {
-            mSourceRectangleHeight = mTexture.Height;
-            mSourceRectangleWidth = mTexture.Width;
+            mSourceRectangleHeight = mTextures[0].Height;
+            mSourceRectangleWidth = mTextures[0].Width;
 
             mSourceRectangle = new Rectangle[1];
             mSourceRectangle[0] = new Rectangle(0, 0, mSourceRectangleWidth, mSourceRectangleHeight);
@@ -95,12 +95,14 @@ namespace KryptonEngine.Entities
 
         #region Methods
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(mTexture, Position, mSourceRectangle[mSourceRectanglePosition], mTint);
-            if (EngineSettings.IsDebug)
-                spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
-        }
+
+
+		//public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+		//{
+		//	spriteBatch.Draw(mTexture, Position, mSourceRectangle[mSourceRectanglePosition], mTint);
+		//	if (EngineSettings.IsDebug)
+		//		spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, PositionY, mSourceRectangleWidth, mSourceRectangleHeight), mDebugColor);
+		//}
 
         public Texture2D GetTileTexture2D(int pTile)
         {

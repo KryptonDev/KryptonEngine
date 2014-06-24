@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Manager;
+using KryptonEngine.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -29,10 +30,16 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region OverrideMethods
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(TextureManager.Instance.GetElementByString("EnemyWolf"), mPosition, Color.White);
-		}
+
+		//public override void Draw(TwoDRenderer renderer)
+		//{
+		//	renderer.Draw(mTextures, )
+		//}
+
+		//public override void Draw(SpriteBatch spriteBatch)
+		//{
+		//	spriteBatch.Draw(TextureManager.Instance.GetElementByString("EnemyWolf"), mPosition, Color.White);
+		//}
 		#endregion
 
 		#region Methods

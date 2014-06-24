@@ -49,7 +49,6 @@ namespace KryptonEngine.Rendering
         private FPSCounter mFPSCounter;
         #endregion
 
-
         #region Getter & Setter
         public int maxHeight { set { this.mPlaneHeight = value; } }
         #endregion
@@ -137,7 +136,7 @@ namespace KryptonEngine.Rendering
             this.mFPSCounter.UpdateDrawCounter();
         }
 
-        public void LoadContent(ContentManager pContent)
+        public void LoadContent()
         {
             this.mLightShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Light");
             this.mCombineShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Combine");
@@ -193,7 +192,7 @@ namespace KryptonEngine.Rendering
         #endregion
 
         #region Draw Sprite
-        public void Draw(Texture2D pTexture,Texture2D[] pMapArray,Vector2 pPosition)
+        public void Draw(Texture2D[] pMapArray,Vector2 pPosition)
         {
             Vector4 vector = default(Vector4);
             vector.X = pPosition.X;
@@ -201,15 +200,15 @@ namespace KryptonEngine.Rendering
             vector.Z = pPosition.Y/this.mPlaneHeight;
             vector.W = 1.0f;
 
-            this.mTextureArray[0] = pTexture;
-            this.mTextureArray[1] = pMapArray[0];
-            this.mTextureArray[2] = pMapArray[1];
-            this.mTextureArray[3] = pMapArray[2];
+			this.mTextureArray[0] = pMapArray[0];
+            this.mTextureArray[1] = pMapArray[1];
+            this.mTextureArray[2] = pMapArray[2];
+            this.mTextureArray[3] = pMapArray[3];
 
             this.InternalDraw(this.mTextureArray, vector);
         }
 
-        public void Draw(Texture2D pTexture,Texture2D[] pMapArray, Vector2 pPosition,float pScale)
+        public void Draw(Texture2D[] pMapArray, Vector2 pPosition,float pScale)
         {
             Vector4 vector = default(Vector4);
             vector.X = pPosition.X;
@@ -217,15 +216,15 @@ namespace KryptonEngine.Rendering
             vector.Z = pPosition.Y / this.mPlaneHeight;
             vector.W = pScale;
 
-            this.mTextureArray[0] = pTexture;
-            this.mTextureArray[1] = pMapArray[0];
-            this.mTextureArray[2] = pMapArray[1];
-            this.mTextureArray[3] = pMapArray[2];
+			this.mTextureArray[0] = pMapArray[0];
+			this.mTextureArray[1] = pMapArray[1];
+			this.mTextureArray[2] = pMapArray[2];
+			this.mTextureArray[3] = pMapArray[3];
 
             this.InternalDraw(this.mTextureArray, vector);
         }
 
-        public void Draw(Texture2D pTexture,Texture2D[] pMapArray, Vector3 pPosition)
+        public void Draw(Texture2D[] pMapArray, Vector3 pPosition)
         {
             Vector4 vector = default(Vector4);
             vector.X = pPosition.X;
@@ -233,15 +232,15 @@ namespace KryptonEngine.Rendering
             vector.Z = pPosition.Z;
             vector.W = 1.0f;
 
-            this.mTextureArray[0] = pTexture;
-            this.mTextureArray[1] = pMapArray[0];
-            this.mTextureArray[2] = pMapArray[1];
-            this.mTextureArray[3] = pMapArray[2];
+			this.mTextureArray[0] = pMapArray[0];
+			this.mTextureArray[1] = pMapArray[1];
+			this.mTextureArray[2] = pMapArray[2];
+			this.mTextureArray[3] = pMapArray[3];
 
             this.InternalDraw(this.mTextureArray, vector);
         }
 
-        public void Draw(Texture2D pTexture,Texture2D[] pMapArray, Vector3 pPosition, float pScale)
+        public void Draw(Texture2D[] pMapArray, Vector3 pPosition, float pScale)
         {
             Vector4 vector = default(Vector4);
             vector.X = pPosition.X;
@@ -249,10 +248,10 @@ namespace KryptonEngine.Rendering
             vector.Z = pPosition.Z;
             vector.W = pScale;
 
-            this.mTextureArray[0] = pTexture;
-            this.mTextureArray[1] = pMapArray[0];
-            this.mTextureArray[2] = pMapArray[1];
-            this.mTextureArray[3] = pMapArray[2];
+			this.mTextureArray[0] = pMapArray[0];
+			this.mTextureArray[1] = pMapArray[1];
+			this.mTextureArray[2] = pMapArray[2];
+			this.mTextureArray[3] = pMapArray[3];
 
             this.InternalDraw(this.mTextureArray, vector);
         }
@@ -309,7 +308,6 @@ namespace KryptonEngine.Rendering
             //item.TextureID = textId;
 
         }
-
 
         private void InternalDraw(Skeleton pSkeleton,Texture2D[] pTextureArray,float pDepth ,float scale)
         {
@@ -388,7 +386,7 @@ namespace KryptonEngine.Rendering
 
         #region Function Methods
 
-        public void SetGebuffer()
+        public void SetGBuffer()
         {
             this.mGBuffer.SetGBuffer();
         }
@@ -402,6 +400,11 @@ namespace KryptonEngine.Rendering
         {
             this.mGBuffer.Clear();
         }
+
+		public Texture2D GetRenderTargetTexture(int index)
+		{
+			return mGBuffer.RenderTargets[index];
+		}
         #endregion
 
         #region Debug
