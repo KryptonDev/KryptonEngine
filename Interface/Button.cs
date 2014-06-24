@@ -43,7 +43,7 @@ namespace KryptonEngine.Interface
         public Button(Vector2 pPosition, String pTextureName)
             : base(pPosition, pTextureName)
         {
-            TextureName = pTextureName;
+            mTextureName = pTextureName;
         }
         #endregion
 

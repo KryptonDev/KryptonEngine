@@ -17,15 +17,15 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        private String mTextureName;
+        protected String mTextureName;
 		[XmlIgnoreAttribute]
-		private Texture2D[] mTextures;
+		protected Texture2D[] mTextures;
         protected Color mTint = Color.White;
-		private int mWidth;
-		private int mHeight;
+		protected int mWidth;
+		protected int mHeight;
 
         protected Vector2 mOrigin;
-		private int mRotation = 0;
+		protected int mRotation = 0;
         protected SpriteEffects mEffekt = SpriteEffects.None;
 
         #region Getter & Setter
@@ -55,7 +55,7 @@ namespace KryptonEngine.Entities
         public Sprite(Vector2 pPosition, String pTextureName, String pPathName)
             : base(pPosition)
         {
-            TextureName = pTextureName;
+            mTextureName = pTextureName;
 			LoadTextures();
             
             mWidth = mTextures[0].Width;
@@ -68,7 +68,7 @@ namespace KryptonEngine.Entities
         public Sprite(Vector2 pPosition, String pTextureName)
             : base(pPosition)
         {
-            TextureName = pTextureName;
+            mTextureName = pTextureName;
 			LoadTextures();
 			mWidth = mTextures[0].Width;
 			mHeight = mTextures[0].Height;
@@ -110,10 +110,10 @@ namespace KryptonEngine.Entities
 		public void LoadTextures()
 		{
 			mTextures = new Texture2D[4];
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			mTextures[0] = TextureManager.Instance.GetElementByString(mTextureName);
+			mTextures[2] = TextureManager.Instance.GetElementByString(mTextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(mTextureName + "Depth");
+			mTextures[1] = TextureManager.Instance.GetElementByString(mTextureName + "Normal");
 		}
 
 		/*
