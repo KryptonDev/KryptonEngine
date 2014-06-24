@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using KryptonEngine.Manager;
 using System.Xml.Serialization;
+using KryptonEngine.Rendering;
 
 namespace KryptonEngine.Entities
 {
@@ -18,11 +19,7 @@ namespace KryptonEngine.Entities
 
         protected String mTextureName;
 		[XmlIgnoreAttribute]
-        protected Texture2D mTexture;
-		[XmlIgnoreAttribute]
-		protected Texture2D mNormalTexture;
-		[XmlIgnoreAttribute]
-		protected Texture2D mDepthTexture;
+		protected Texture2D[] mTextures;
         protected Color mTint = Color.White;
         protected int mWidth;
         protected int mHeight;
@@ -44,13 +41,7 @@ namespace KryptonEngine.Entities
 		[XmlIgnoreAttribute]
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
 
-		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
-		[XmlIgnoreAttribute]
-		public Texture2D NormalTexture { get { return mNormalTexture; } set { mNormalTexture = value; } }
-		[XmlIgnoreAttribute]
-		public Texture2D DepthTexture { get { return mDepthTexture; } set { mDepthTexture = value; } }
-
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTexture); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTextures[0]); } }
 
         #endregion
 
@@ -64,10 +55,13 @@ namespace KryptonEngine.Entities
             : base(pPosition)
         {
             TextureName = pTextureName;
-			mTexture = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
             
-            mWidth = mTexture.Width;
-            mHeight = mTexture.Height;
+            mWidth = mTextures[0].Width;
+            mHeight = mTextures[0].Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);
 
             mCollisionBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mWidth, mHeight);
@@ -78,11 +72,14 @@ namespace KryptonEngine.Entities
         {
             TextureName = pTextureName;
 
-            mTexture = TextureManager.Instance.GetElementByString(TextureName);
-			mNormalTexture = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mDepthTexture = TextureManager.Instance.GetElementByString(TextureName + "Depth");
-            mWidth = mTexture.Width;
-            mHeight = mTexture.Height;
+			mTextures = new Texture2D[4];
+			
+			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			mWidth = mTextures[0].Width;
+			mHeight = mTextures[0].Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);
 
             mCollisionBox = new Rectangle((int)pPosition.X, (int)pPosition.Y, mWidth, mHeight);
@@ -92,32 +89,43 @@ namespace KryptonEngine.Entities
 
         #region Methods
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(mTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
-            if (EngineSettings.IsDebug)
-                spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
-        }
-
-		public override void DrawNormal(SpriteBatch spriteBatch)
+		public override void Draw(TwoDRenderer renderer)
 		{
-			if (mNormalTexture == null) return;
-
-			spriteBatch.Draw(mNormalTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+			renderer.Draw(mTextures, new Vector3(Position, NormalZ));
 		}
 
-		public override void DrawDepth(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
-			if (mDepthTexture == null) return;
-
-			spriteBatch.Draw(mDepthTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+			spriteBatch.Draw(mTextures[0], new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+			if (EngineSettings.IsDebug)
+				spriteBatch.Draw(mTextures[0], new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
 		}
+
+		//public override void DrawNormal(SpriteBatch spriteBatch)
+		//{
+		//	if (mNormalTexture == null) return;
+
+		//	spriteBatch.Draw(mNormalTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+		//}
+
+		//public override void DrawDepth(SpriteBatch spriteBatch)
+		//{
+		//	if (mDepthTexture == null) return;
+
+		//	spriteBatch.Draw(mDepthTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
+		//}
 
 		public void LoadTextures()
 		{
-			mTexture = TextureManager.Instance.GetElementByString(TextureName);
-			mNormalTexture = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mDepthTexture = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+		}
+
+		public Texture2D GetTexture(int index)
+		{
+			return mTextures[index];
 		}
 
         #endregion

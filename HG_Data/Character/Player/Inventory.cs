@@ -86,8 +86,8 @@ namespace HanselAndGretel.Data
 				if (ItemSlots[i].Item != null)
 				{
 					int TmpSlot = 2 - pFocus + i;
-					Vector2 TmpOrigin = new Vector2(ItemSlots[i].Item.Texture.Bounds.Center.X, ItemSlots[i].Item.Texture.Bounds.Center.Y);
-					pSpriteBatch.Draw(ItemSlots[i].Item.Texture, pPosition + DrawPosition[TmpSlot], null, Color.White * pVisibility, DrawRotation[TmpSlot], TmpOrigin, DrawScale[TmpSlot], SpriteEffects.None, 1f);
+					Vector2 TmpOrigin = new Vector2(ItemSlots[i].Item.GetTexture(0).Bounds.Center.X, ItemSlots[i].Item.GetTexture(0).Bounds.Center.Y);
+					pSpriteBatch.Draw(ItemSlots[i].Item.GetTexture(0), pPosition + DrawPosition[TmpSlot], null, Color.White * pVisibility, DrawRotation[TmpSlot], TmpOrigin, DrawScale[TmpSlot], SpriteEffects.None, 1f);
 				}
 			}
 		}

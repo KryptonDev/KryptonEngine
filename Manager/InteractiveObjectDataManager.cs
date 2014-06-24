@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Entities;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,8 +40,10 @@ namespace KryptonEngine.Manager
             if (f.Name.EndsWith(".iObj"))
             {
               reader = new StreamReader(f.FullName);
-              iObj = (InteractiveObject)xml.Deserialize(reader);
-              iObj.Texture = TextureManager.Instance.GetElementByString(iObj.TextureName);
+				iObj = (InteractiveObject)xml.Deserialize(reader);
+				iObj.TextureName = f.Name.Substring(0, f.Name.Length - 5);
+				iObj.Textures = new Texture2D[4];
+              iObj.Textures[0] = TextureManager.Instance.GetElementByString(iObj.TextureName);
               reader.Close();
 
 			  if (!mRessourcen.ContainsKey(iObj.TextureName))

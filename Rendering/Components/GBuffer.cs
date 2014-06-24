@@ -9,7 +9,7 @@ namespace KryptonEngine.Rendering.Components
 {
     public class GBuffer
     {
-        #region properties
+        #region Properties
         #region Rendertragets
 
         // Diffuse = 32 Byte (RGBA)

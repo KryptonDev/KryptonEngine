@@ -10,6 +10,7 @@ using KryptonEngine.Entities;
 using KryptonEngine.Manager;
 using Spine;
 using Microsoft.Xna.Framework.Graphics;
+using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
@@ -24,6 +25,8 @@ namespace KryptonEngine.Entities
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
+		[XmlIgnoreAttribute]
+		protected Texture2D[] mTextures;
 
 		new protected Color mDebugColor = Color.Yellow;
 
@@ -105,12 +108,18 @@ namespace KryptonEngine.Entities
         public override void LoadContent()
         {
             mBounds = new SkeletonBounds();
+			mTextures = new Texture2D[4];
 
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
             mAnimationState = SpineDataManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
+
+			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
         }
 
         #region Update
@@ -130,27 +139,32 @@ namespace KryptonEngine.Entities
 
         #endregion
 
-		public override void Draw(SpriteBatch spriteBatch)
+		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
+			renderer.Draw(mSkeleton, mTextures, DrawZ);
 		}
 
-		public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
-        {
-			Draw(pSpriteBatch, pCameraPosition, Vector2.Zero);
-        }
+		//public override void Draw(SpriteBatch spriteBatch)
+		//{
+		//	Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
+		//}
 
-        public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition, Vector2 pOffset)
-        {
-            Vector2 TmpPosition = Position;
-            Position -= pCameraPosition - pOffset;
-            EngineSettings.SpineRenderer.Begin();
-			EngineSettings.SpineRenderer.Draw(mSkeleton);
-			EngineSettings.SpineRenderer.End();
-            Position = TmpPosition;
-            if (EngineSettings.IsDebug)
-                pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
-        }
+		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
+		//{
+		//	Draw(pSpriteBatch, pCameraPosition, Vector2.Zero);
+		//}
+
+		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition, Vector2 pOffset)
+		//{
+		//	Vector2 TmpPosition = Position;
+		//	Position -= pCameraPosition - pOffset;
+		//	EngineSettings.SpineRenderer.Begin();
+		//	EngineSettings.SpineRenderer.Draw(mSkeleton);
+		//	EngineSettings.SpineRenderer.End();
+		//	Position = TmpPosition;
+		//	if (EngineSettings.IsDebug)
+		//		pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
+		//}
 
 		#region Animation
 

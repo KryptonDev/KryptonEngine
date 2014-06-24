@@ -75,7 +75,7 @@ namespace KryptonEngine.SceneManagement
 
         public virtual void LoadContent()
         {
-
+			mRenderer.LoadContent();
         }
 
         /// <summary>
@@ -102,8 +102,10 @@ namespace KryptonEngine.SceneManagement
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
 
+			mRenderer.DrawRenderTargetOnScreen(mSpriteBatch, 0);
             mSpriteBatch.Begin();
-            mSpriteBatch.Draw(mRenderTargetFinal, new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
+            //mSpriteBatch.Draw(mRenderer.GetRenderTargetTexture(0), new Rectangle(0, 0, EngineSettings.DisplayWidth, EngineSettings.DisplayHeight), Color.White);
+			mSpriteBatch.Draw(mRenderTargetFinal, Vector2.Zero, Color.White);
             mSpriteBatch.End();
         }
 

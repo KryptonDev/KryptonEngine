@@ -35,10 +35,10 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region OverrideMethods
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(TextureManager.Instance.GetElementByString("EnemyWitch"), mPosition, Color.White);
-		}
+		//public override void Draw(SpriteBatch spriteBatch)
+		//{
+		//	spriteBatch.Draw(TextureManager.Instance.GetElementByString("EnemyWitch"), mPosition, Color.White);
+		//}
 		#endregion
 
 		#region Methods

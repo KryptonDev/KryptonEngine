@@ -1,4 +1,5 @@
 ﻿using KryptonEngine.Entities;
+using KryptonEngine.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -53,7 +54,7 @@ namespace HanselAndGretel.Data
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, Position, Color.White);
+			spriteBatch.Draw(mTextures[0], Position, Color.White);
 			if (this.ShowDescription)
 				spriteBatch.Draw(ShowTexture, Vector2.Zero, Color.White);
 

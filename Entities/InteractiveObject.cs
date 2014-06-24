@@ -21,7 +21,7 @@ namespace KryptonEngine.Entities
 		protected Vector2 mActionPosition2;
 
 		protected int mActionId;
-		protected Texture2D mTexture;
+		protected Texture2D[] mTextures;
 		protected String mTextureName;
 
 		protected ActivityState mActivityState;
@@ -34,11 +34,14 @@ namespace KryptonEngine.Entities
 		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
 		public Vector2 ActionPosition2 { get { return mActionPosition2; } set { mActionPosition2 = value; } }
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
+		public int Height;
+		public int Width;
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
 		[XmlIgnoreAttribute]
-		public Texture2D Texture { get { return mTexture; } set { mTexture = value; } }
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
+		[XmlIgnoreAttribute]
+		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
 		[XmlIgnoreAttribute]
 		public List<DrawPackage> DrawPackages { get
 		{
@@ -71,21 +74,27 @@ namespace KryptonEngine.Entities
 		#endregion
 
 		#region Override Methods
-		public override void Draw(SpriteBatch spriteBatch)
+
+		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			if (mTexture != null)
-			{
-				spriteBatch.Draw(mTexture, Position, Color.White);
-				if (EngineSettings.IsDebug)
-				{
-					foreach (Rectangle r in ActionRectList)
-						spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
-					foreach (Rectangle r in CollisionRectList)
-						spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
-					spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
-				}
-			}
+			renderer.Draw(mTextures, new Vector3(Position, NormalZ));
 		}
+
+		//public override void Draw(SpriteBatch spriteBatch)
+		//{
+		//	if (mTexture != null)
+		//	{
+		//		spriteBatch.Draw(mTexture, Position, Color.White);
+		//		if (EngineSettings.IsDebug)
+		//		{
+		//			foreach (Rectangle r in ActionRectList)
+		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
+		//			foreach (Rectangle r in CollisionRectList)
+		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
+		//			spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
+		//		}
+		//	}
+		//}
 		#endregion
 
 		#region Methods
@@ -108,9 +117,12 @@ namespace KryptonEngine.Entities
 			return ((ActionPosition1 - pPosition).Length() > (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
 		}
 
-		public void SetupDeserialized()
+		public void LoadTextures()
 		{
-			Texture = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 		}
 
 		public void CopyFrom(InteractiveObject io)
@@ -121,8 +133,12 @@ namespace KryptonEngine.Entities
 			this.ActionPosition2 = io.ActionPosition2;
 			this.DrawZ = io.DrawZ;
 			this.ActionId = io.ActionId;
-			this.mTexture = io.Texture;
 			this.mTextureName = io.TextureName;
+			this.mTextures = new Texture2D[4];
+			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 
 			this.Position = io.Position;
 		}
