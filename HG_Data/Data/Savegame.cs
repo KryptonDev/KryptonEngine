@@ -96,18 +96,19 @@ namespace HanselAndGretel.Data
 				pHansel.Position = new Vector2(190, 50); //Init Position Hansel
 				pGretel.Position = new Vector2(250, 50); //Init Position Gretel
 				Savegame.Save(TmpSavegame, pHansel, pGretel);
-				TmpSavegame.SetupDeserialized();
+				TmpSavegame.LoadTextures();
 				return TmpSavegame;
 			}
 			xmlReader = new StreamReader(Savegame.SavegamePath);
 			TmpSavegame = (Savegame)SavegameSerializer.Deserialize(xmlReader); //Savegame aus File laden
 			xmlReader.Close();
-			TmpSavegame.SetupDeserialized();
+			TmpSavegame.LoadTextures();
 			pHansel.Inventory = TmpSavegame.InventoryHansel;
 			pGretel.Inventory = TmpSavegame.InventoryGretel;
 			pHansel.Position = TmpSavegame.PositionHansel;
 			pGretel.Position = TmpSavegame.PositionGretel;
 			pGretel.Chalk = TmpSavegame.Chalk;
+			TmpSavegame.Scenes[TmpSavegame.SceneId].SetupRenderList(pHansel, pGretel);
 			return TmpSavegame;
 		}
 
@@ -124,7 +125,7 @@ namespace HanselAndGretel.Data
 			xmlReader = new StreamReader(file.FullName);
 			Scenes[pLevelId] = (SceneData)SceneSerializer.Deserialize(xmlReader); //sData File in SpineData Object umwandeln
 			xmlReader.Close();
-			Scenes[pLevelId].SetupDeserialized();
+			Scenes[pLevelId].LoadTextures(LevelNameFromId(pLevelId));
 		}
 
 		/// <summary>
@@ -170,18 +171,17 @@ namespace HanselAndGretel.Data
 			return LevelName;
 		}
 
-		public void SetupDeserialized()
+		public void LoadTextures()
 		{
 			for (int i = 0; i < Scenes.Length; i++)
 			{
-				Scenes[i].SetupDeserialized();
-				Scenes[i].BackgroundTextures[0] = TextureManager.Instance.GetElementByString(LevelNameFromId(i) + "Diffuse");
+				Scenes[i].LoadTextures(LevelNameFromId(i));
 			}
 			foreach (Collectable col in Collectables)
 				col.LoadTextures();
 
-			InventoryHansel.SetupDeserialized();
-			InventoryGretel.SetupDeserialized();
+			InventoryHansel.LoadTextures();
+			InventoryGretel.LoadTextures();
 		}
 
 		#endregion

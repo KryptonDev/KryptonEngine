@@ -18,14 +18,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Key()
-			:base()
-		{
+		public Key() : base() { }
 
-		}
-
-		public Key(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Key(string pName)
+			: base(pName)
 		{
 
 		}

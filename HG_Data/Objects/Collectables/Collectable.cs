@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace HanselAndGretel.Data
 {
 	[Serializable]
-	public class Collectable : Sprite
+	public class Collectable : InteractiveObject
 	{
 		#region Properties
 
@@ -36,14 +36,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Collectable()
-			:base()
-		{
+		public Collectable() : base() { }
 
-		}
-
-		public Collectable(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Collectable(string pName)
+			:base(pName)
 		{
 
 		}
@@ -54,7 +50,7 @@ namespace HanselAndGretel.Data
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(mTextures[0], Position, Color.White);
+			spriteBatch.Draw(Textures[0], Position, Color.White);
 			if (this.ShowDescription)
 				spriteBatch.Draw(ShowTexture, Vector2.Zero, Color.White);
 

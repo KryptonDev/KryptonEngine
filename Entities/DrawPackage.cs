@@ -17,7 +17,7 @@ namespace KryptonEngine.Entities
 		protected float mPositionZ;
 		protected Rectangle mCollisionBox;
 		protected Color mDebugColor;
-		protected Texture2D mTexture;
+		protected Texture2D[] mTextures;
 		protected Skeleton mSkeleton;
 		protected bool mSpine;
 		protected float mAlpha;
@@ -38,31 +38,32 @@ namespace KryptonEngine.Entities
 		{
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
-			mTexture = TextureManager.Instance.GetElementByString("pixel");
+			mTextures = new Texture2D[1] { TextureManager.Instance.GetElementByString("pixel") };
 			mAlpha = pAlpha;
 			mSpine = false;
 			mOnlyDebug = true;
 		}
 
-		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D pTexture, float pAlpha = 1f)
+		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Texture2D[] pTextures, float pAlpha = 1f)
 		{
 			mPosition = pPosition;
 			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
-			mTexture = pTexture;
+			mTextures = pTextures;
 			mAlpha = pAlpha;
 			mSpine = false;
 			mOnlyDebug = false;
 		}
 
-		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton, float pAlpha = 1f)
+		public DrawPackage(Vector2 pPosition, float pPositionZ, Rectangle pCollisionBox, Color pDebugColor, Skeleton pSkeleton, Texture2D[] pTextures, float pAlpha = 1f)
 		{
 			mPosition = pPosition;
 			mPositionZ = pPositionZ;
 			mCollisionBox = pCollisionBox;
 			mDebugColor = pDebugColor;
 			mSkeleton = pSkeleton;
+			mTextures = pTextures;
 			mAlpha = pAlpha;
 			mSpine = true;
 			mOnlyDebug = false;
@@ -72,6 +73,7 @@ namespace KryptonEngine.Entities
 
 		#region Methods
 
+		/*
 		/// <summary>
 		/// Drawed den Package-Inhalt
 		/// </summary>
@@ -96,7 +98,7 @@ namespace KryptonEngine.Entities
 				pSkeletonRenderer.End();
 			}
 		}
-
+		*/
 		#endregion
 	}
 }

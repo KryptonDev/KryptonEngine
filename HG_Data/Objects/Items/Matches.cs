@@ -22,14 +22,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Matches()
-			:base()
-		{
-			Initialize();
-		}
+		public Matches() : base() { }
 
-		public Matches(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Matches(string pName)
+			:base(pName)
 		{
 			Initialize();
 		}

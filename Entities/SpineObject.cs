@@ -18,20 +18,24 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
+		[XmlIgnoreAttribute]
         private Skeleton mSkeleton;
-        private AnimationState mAnimationState;
-        private SkeletonBounds mBounds;
+		[XmlIgnoreAttribute]
+		private AnimationState mAnimationState;
+		[XmlIgnoreAttribute]
+		private SkeletonBounds mBounds;
 
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
 		[XmlIgnoreAttribute]
-		public Texture2D[] mTextures;
+		private Texture2D[] mTextures;
 
 		new protected Color mDebugColor = Color.Yellow;
 
         #region Getter & Setter
 
+		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
         public string Name { get { return mName; } }
         new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
 		new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
@@ -47,11 +51,15 @@ namespace KryptonEngine.Entities
 			return false;
 		} }
 
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Skeleton, mTextures); } }
+
         #endregion
 
         #endregion
 
         #region Constructor
+
+		public SpineObject() : base() { }
 
         public SpineObject(string pName)
         {
@@ -108,19 +116,24 @@ namespace KryptonEngine.Entities
         public override void LoadContent()
         {
             mBounds = new SkeletonBounds();
-			mTextures = new Texture2D[4];
-
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
             mAnimationState = SpineDataManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
+			
+			LoadTextures();
+        }
 
+		public void LoadTextures()
+		{
+			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
-        }
+		}
+
 
         #region Update
 

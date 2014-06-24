@@ -57,11 +57,11 @@ namespace HanselAndGretel.Data
 
 		#endregion
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, 0, CollisionBox, mDebugColor, Skeleton); } }
-
 		#endregion
 
 		#region Constructor
+
+		public Character() : base() { }
 
 		public Character(string pName)
 			:base(pName)

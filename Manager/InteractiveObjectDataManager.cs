@@ -42,8 +42,8 @@ namespace KryptonEngine.Manager
               reader = new StreamReader(f.FullName);
 				iObj = (InteractiveObject)xml.Deserialize(reader);
 				//Wird mit deserialisiert	iObj.Name = f.Name.Substring(0, f.Name.Length - 5);
-				iObj.mTextures = new Texture2D[4];
-              iObj.mTextures[0] = TextureManager.Instance.GetElementByString(iObj.Name);
+				iObj.Textures = new Texture2D[4];
+              iObj.Textures[0] = TextureManager.Instance.GetElementByString(iObj.Name);
               reader.Close();
 
 			  //if (!mRessourcen.ContainsKey(iObj.TextureName))

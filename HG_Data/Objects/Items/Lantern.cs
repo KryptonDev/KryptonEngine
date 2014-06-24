@@ -20,14 +20,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Lantern()
-			:base()
-		{
+		public Lantern() : base() { }
 
-		}
-
-		public Lantern(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Lantern(string pName)
+			:base(pName)
 		{
 
 		}

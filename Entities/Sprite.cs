@@ -17,19 +17,20 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-        protected String mTextureName;
+        private String mTextureName;
 		[XmlIgnoreAttribute]
-		protected Texture2D[] mTextures;
+		private Texture2D[] mTextures;
         protected Color mTint = Color.White;
-        protected int mWidth;
-        protected int mHeight;
+		private int mWidth;
+		private int mHeight;
 
         protected Vector2 mOrigin;
-        protected int mRotation = 0;
+		private int mRotation = 0;
         protected SpriteEffects mEffekt = SpriteEffects.None;
 
         #region Getter & Setter
 
+		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
         public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
 		[XmlIgnoreAttribute]
         public Color Tint { set { mTint = value; } }
@@ -41,7 +42,7 @@ namespace KryptonEngine.Entities
 		[XmlIgnoreAttribute]
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
 
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTextures[0]); } }
+		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTextures); } }
 
         #endregion
 
@@ -49,16 +50,13 @@ namespace KryptonEngine.Entities
 
         #region Constructor
 
-        public Sprite() { }
+		public Sprite() : base() { }
 
         public Sprite(Vector2 pPosition, String pTextureName, String pPathName)
             : base(pPosition)
         {
             TextureName = pTextureName;
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			LoadTextures();
             
             mWidth = mTextures[0].Width;
             mHeight = mTextures[0].Height;
@@ -71,13 +69,7 @@ namespace KryptonEngine.Entities
             : base(pPosition)
         {
             TextureName = pTextureName;
-
-			mTextures = new Texture2D[4];
-			
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			LoadTextures();
 			mWidth = mTextures[0].Width;
 			mHeight = mTextures[0].Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);
@@ -117,16 +109,20 @@ namespace KryptonEngine.Entities
 
 		public void LoadTextures()
 		{
+			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 		}
 
+		/*
+		 * direkt über Textures[index], ist dann überall einheitlich
 		public Texture2D GetTexture(int index)
 		{
 			return mTextures[index];
 		}
+		*/
 
         #endregion
     }

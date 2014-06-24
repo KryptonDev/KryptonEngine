@@ -45,12 +45,12 @@ namespace KryptonEngine.Entities
 
 		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			renderer.Draw(mTextures, new Vector3(Position, 1));
+			renderer.Draw(Textures, new Vector3(Position, 1));
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(mTextures[0], new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT), Color.White);
+			spriteBatch.Draw(Textures[0], new Rectangle(PositionX, PositionY, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT), Color.White);
 			//if (EngineSettings.IsDebug)
 			//	spriteBatch.Draw(mTexture, new Rectangle(PositionX, PositionY, mWidth, mHeight), mDebugColor);
 		}

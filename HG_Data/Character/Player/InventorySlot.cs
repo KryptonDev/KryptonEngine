@@ -33,7 +33,7 @@ namespace HanselAndGretel.Data
 
 		#region Methods
 
-		public void SetupDeserialized()
+		public void LoadTextures()
 		{
 			if (Item != null)
 				Item.LoadTextures();

@@ -18,14 +18,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Knife()
-			:base()
-		{
+		public Knife() : base() { }
 
-		}
-
-		public Knife(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Knife(string pName)
+			:base(pName)
 		{
 
 		}

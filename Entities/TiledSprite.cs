@@ -54,9 +54,9 @@ namespace KryptonEngine.Entities
             mSourceRectangleHeight = pRectangleHeight;
 
             int rectangleRows = //(mWidth % pRectangleHeight == 0) ? (int)(mWidth / pRectangleWidth) : (int)(mWidth / pRectangleWidth)
-                (int)(mWidth / pRectangleWidth);
+                (int)(Width / pRectangleWidth);
 
-            int rectangleColumns = (int)(mHeight / pRectangleHeight);
+            int rectangleColumns = (int)(Height / pRectangleHeight);
 
             mSourceRectangle = new Rectangle[rectangleColumns * rectangleRows];
 
@@ -83,8 +83,8 @@ namespace KryptonEngine.Entities
         public TiledSprite(Vector2 pPosition, String pTextureName)
             : base(pPosition, pTextureName)
         {
-            mSourceRectangleHeight = mTextures[0].Height;
-            mSourceRectangleWidth = mTextures[0].Width;
+            mSourceRectangleHeight = Textures[0].Height;
+            mSourceRectangleWidth = Textures[0].Width;
 
             mSourceRectangle = new Rectangle[1];
             mSourceRectangle[0] = new Rectangle(0, 0, mSourceRectangleWidth, mSourceRectangleHeight);
@@ -106,13 +106,13 @@ namespace KryptonEngine.Entities
 
         public Texture2D GetTileTexture2D(int pTile)
         {
-            Color[] imageData = new Color[mWidth * mHeight];
-            TextureManager.Instance.GetElementByString(mTextureName).GetData<Color>(imageData);
+            Color[] imageData = new Color[Width * Height];
+            TextureManager.Instance.GetElementByString(TextureName).GetData<Color>(imageData);
 
             Color[] color = new Color[mSourceRectangle[pTile].Width * mSourceRectangle[pTile].Height];
             for (int x = 0; x < mSourceRectangle[pTile].Width; x++)
                 for (int y = 0; y < mSourceRectangle[pTile].Height; y++)
-                  color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString(mTextureName).Width];
+                  color[x + y * mSourceRectangle[pTile].Width] = imageData[x + mSourceRectangle[pTile].X + (y + mSourceRectangle[pTile].Y) * TextureManager.Instance.GetElementByString(TextureName).Width];
 
             Texture2D subtexture = new Texture2D(EngineSettings.Graphics.GraphicsDevice, mSourceRectangle[pTile].Width, mSourceRectangle[pTile].Height);
             subtexture.SetData<Color>(color);

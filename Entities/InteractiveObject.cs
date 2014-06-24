@@ -79,8 +79,7 @@ namespace KryptonEngine.Entities
 		{
 			List<DrawPackage> TmpPackages = new List<DrawPackage>();
 			//Main Package
-			//TmpPackages.Add(new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
-			TmpPackages.Add(new DrawPackage(Position, DrawZ, new Rectangle(CollisionBox.Center.X - 100, CollisionBox.Center.Y - 100, 200, 200), mDebugColor, TextureManager.Instance.GetElementByString("pixel")));
+			TmpPackages.Add(DrawPackage);
 			//Debug Stuff
 			foreach (Rectangle rect in CollisionRectList) //Collision Rectangles
 				TmpPackages.Add(new DrawPackage(rect, Color.Red));
@@ -96,7 +95,9 @@ namespace KryptonEngine.Entities
 		#endregion
 
 		#region Constructor
-		
+
+		public InteractiveObject() : base() { }
+
 		public InteractiveObject(string pName) 
 			: base(pName) 
 		{

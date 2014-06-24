@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace HanselAndGretel.Data
 {
 	[Serializable, XmlInclude(typeof(Branch)), XmlInclude(typeof(Key)), XmlInclude(typeof(Knife)), XmlInclude(typeof(Lantern)), XmlInclude(typeof(Matches))]
-	public abstract class Item : Sprite
+	public abstract class Item : InteractiveObject
 	{
 		#region Properties
 
@@ -22,14 +22,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Item()
-			:base()
-		{
+		public Item() : base() { }
 
-		}
-
-		public Item(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Item(string pName)
+			:base(pName)
 		{
 
 		}

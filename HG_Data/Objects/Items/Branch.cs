@@ -18,14 +18,10 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Branch()
-			:base()
-		{
+		public Branch() : base() { }
 
-		}
-
-		public Branch(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Branch(string pName)
+			:base(pName)
 		{
 
 		}
