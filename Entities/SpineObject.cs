@@ -32,10 +32,16 @@ namespace KryptonEngine.Entities
 
         #region Getter & Setter
 
-        public string Name { get { return mName; } }
-        new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
-		new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
-		new public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
+		public string Name { get { return mName; } set { mName = value; } }
+		new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } 
+			set 
+			{
+				//mSkeleton.X = value.X; 
+				//mSkeleton.Y = value.Y; 
+			} 
+		}
+		//new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
+		//new public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
         public bool Flip { get { return mSkeleton.FlipX; } set { mSkeleton.FlipX = value; } }
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
         public Skeleton Skeleton { get { return mSkeleton; } }
@@ -46,12 +52,18 @@ namespace KryptonEngine.Entities
 				return true;
 			return false;
 		} }
+		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
 
         #endregion
 
         #endregion
 
         #region Constructor
+
+		public SpineObject() : base()
+		{
+
+		}
 
         public SpineObject(string pName)
         {
@@ -105,10 +117,9 @@ namespace KryptonEngine.Entities
 
         #endregion
 
-        public override void LoadContent()
+        public override void LoadContent() 
         {
             mBounds = new SkeletonBounds();
-			mTextures = new Texture2D[4];
 
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
@@ -116,6 +127,7 @@ namespace KryptonEngine.Entities
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
 
+			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");

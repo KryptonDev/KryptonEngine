@@ -77,17 +77,11 @@ namespace KryptonEngine.Entities
         {
 			mScale = 1.0f;
 			MoveCamera(mCameraOffset);
-			mTransform = GetTranslationMatrix();
         }
 
         #endregion
 
         #region Methods
-
-        public Matrix GetTranslationMatrix()
-        {
-			return mTransform;
-        }
 
 		/// <summary>
 		/// Updatet mTransform wenn sich 2 Spieler bewegen.

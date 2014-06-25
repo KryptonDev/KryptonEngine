@@ -38,6 +38,7 @@ namespace KryptonEngine
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
+			EngineSettings.TextureLoader = new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice);
 
             TextureManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();

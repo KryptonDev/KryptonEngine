@@ -101,6 +101,7 @@ namespace KryptonEngine.SceneManagement
         protected void DrawOnScene()
         {
             EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
+			//EngineSettings.Graphics.GraphicsDevice.Clear(Color.HotPink);
 
 			mRenderer.DrawRenderTargetOnScreen(mSpriteBatch, 0);
             mSpriteBatch.Begin();

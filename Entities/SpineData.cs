@@ -67,7 +67,7 @@ namespace KryptonEngine.Entities
         {
 			Initialize();
 			settings = pSettings;
-			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
+			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", EngineSettings.TextureLoader);
             json = new SkeletonJson(atlas);
         }
 

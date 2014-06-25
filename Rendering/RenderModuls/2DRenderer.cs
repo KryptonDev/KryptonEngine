@@ -314,7 +314,7 @@ namespace KryptonEngine.Rendering
             if (!isBegin) throw new Exception("Beginn muss vor Draw aufgerufen werden!");
             List<Slot> drawOrder = pSkeleton.DrawOrder;
             float x = pSkeleton.X, y = pSkeleton.Y;
-            int textId = this.mBatch.getTextureIndex(pTextureArray[0]);
+			int textId =  this.mBatch.AddTextures(pTextureArray);
             float orderDepth = 0.00000000001f;
             for (int i = 0, n = drawOrder.Count; i < n; i++)
             {
@@ -331,16 +331,16 @@ namespace KryptonEngine.Rendering
                     regionAttachment.ComputeWorldVertices(x, y, slot.Bone, vertices);
                     item.vertexTL.Position.X = vertices[RegionAttachment.X1];
                     item.vertexTL.Position.Y = vertices[RegionAttachment.Y1];
-                    item.vertexTL.Position.Z = pDepth - orderDepth*(n-(i+1));
+					item.vertexTL.Position.Z = pDepth;// -orderDepth * (n - (i + 1));
                     item.vertexBL.Position.X = vertices[RegionAttachment.X2];
                     item.vertexBL.Position.Y = vertices[RegionAttachment.Y2];
-                    item.vertexBL.Position.Z = pDepth - orderDepth * (n - (i + 1));
+					item.vertexBL.Position.Z = pDepth;// -orderDepth * (n - (i + 1));
                     item.vertexBR.Position.X = vertices[RegionAttachment.X3];
                     item.vertexBR.Position.Y = vertices[RegionAttachment.Y3];
-                    item.vertexBR.Position.Z = pDepth - orderDepth * (n - (i + 1));
+					item.vertexBR.Position.Z = pDepth;// -orderDepth * (n - (i + 1));
                     item.vertexTR.Position.X = vertices[RegionAttachment.X4];
                     item.vertexTR.Position.Y = vertices[RegionAttachment.Y4];
-                    item.vertexTR.Position.Z = pDepth - orderDepth * (n - (i + 1));
+					item.vertexTR.Position.Z = pDepth;// -orderDepth * (n - (i + 1));
 
                     float[] uvs = regionAttachment.UVs;
                     item.vertexTL.TextureCoordinate.X = uvs[RegionAttachment.X1];
@@ -352,9 +352,9 @@ namespace KryptonEngine.Rendering
                     item.vertexTR.TextureCoordinate.X = uvs[RegionAttachment.X4];
                     item.vertexTR.TextureCoordinate.Y = uvs[RegionAttachment.Y4];
 
-                    if (textId == -1)
+                    //if (textId == -1)
                     {
-                        textId = this.mBatch.AddTextures(pTextureArray);
+                        
                     }
 
                     item.TextureID = textId;

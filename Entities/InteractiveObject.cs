@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace KryptonEngine.Entities
 {
-	public class InteractiveObject : GameObject
+	public class InteractiveObject : SpineObject
 	{
 		#region Properties
 
@@ -21,7 +21,7 @@ namespace KryptonEngine.Entities
 		protected Vector2 mActionPosition2;
 
 		protected int mActionId;
-		protected Texture2D[] mTextures;
+		//protected Texture2D[] mTextures;
 		protected String mTextureName;
 
 		protected ActivityState mActivityState;
@@ -40,8 +40,8 @@ namespace KryptonEngine.Entities
 		public Activity Activity { get { return (Activity)ActionId; } }
 		[XmlIgnoreAttribute]
 		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-		[XmlIgnoreAttribute]
-		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
+		//[XmlIgnoreAttribute]
+		//public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
 		[XmlIgnoreAttribute]
 		public List<DrawPackage> DrawPackages { get
 		{
@@ -77,7 +77,7 @@ namespace KryptonEngine.Entities
 
 		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			renderer.Draw(mTextures, new Vector3(Position, NormalZ));
+			renderer.Draw(Skeleton, mTextures);
 		}
 
 		//public override void Draw(SpriteBatch spriteBatch)

@@ -130,8 +130,18 @@ namespace KryptonEngine.Manager
 		}
 	}
 
+
 		#endregion
 
+	public List<String> GetAllNames()
+	{
+		List<String> temp = new List<String>();
+
+		foreach (KeyValuePair<String,SpineData> pair in mRessourcen)
+			temp.Add(pair.Key);
+
+		return temp;
+	}
 	#endregion
 	}
 }
