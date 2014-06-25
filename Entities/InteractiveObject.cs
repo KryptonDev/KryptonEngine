@@ -119,10 +119,14 @@ namespace KryptonEngine.Entities
 
 		public void LoadTextures()
 		{
+			if (mTextures == null) mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+
+			Height = mTextures[0].Height;
+			Width = mTextures[0].Width;
 		}
 
 		public void CopyFrom(InteractiveObject io)
