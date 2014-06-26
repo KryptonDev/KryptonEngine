@@ -29,6 +29,8 @@ namespace KryptonEngine.Entities
 
 		#region Redirect Position to CollisionBox
 
+		//Zur Verschiebung bei z.B. PushRock.
+
 		[XmlIgnoreAttribute]
 		new public Vector2 Position
 		{
@@ -104,30 +106,6 @@ namespace KryptonEngine.Entities
 			Initialize();
 		}
 
-		#endregion
-
-		#region Override Methods
-
-		public override void Draw(Rendering.TwoDRenderer renderer)
-		{
-			base.Draw(renderer);
-		}
-
-		//public override void Draw(SpriteBatch spriteBatch)
-		//{
-		//	if (mTexture != null)
-		//	{
-		//		spriteBatch.Draw(mTexture, Position, Color.White);
-		//		if (EngineSettings.IsDebug)
-		//		{
-		//			foreach (Rectangle r in ActionRectList)
-		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
-		//			foreach (Rectangle r in CollisionRectList)
-		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
-		//			spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
-		//		}
-		//	}
-		//}
 		#endregion
 
 		#region Methods
