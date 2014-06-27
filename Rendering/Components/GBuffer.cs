@@ -79,7 +79,7 @@ namespace KryptonEngine.Rendering.Components
             }
         }
 
-        
+        public bool IsGBufferActive { get { return isGBufferSet; } }
 
         #endregion
 
