@@ -23,6 +23,8 @@ namespace KryptonEngine.Rendering
         private BlendState mLightMapBlendState;
         private BlendState mAlphaBlend;
         private DepthStencilState mDepthStencilState;
+        private DepthStencilState mNoDepthStencilState;
+
 
         private Effect mDraw,mMRTDraw,mSingelDraw;
         private Effect mLightShader;
@@ -94,6 +96,11 @@ namespace KryptonEngine.Rendering
             this.mDepthStencilState.DepthBufferWriteEnable = true;
             this.mDepthStencilState.DepthBufferEnable = true;
             this.mDepthStencilState.DepthBufferFunction = CompareFunction.GreaterEqual;
+
+            this.mNoDepthStencilState = new DepthStencilState();
+            this.mNoDepthStencilState.DepthBufferWriteEnable = false;
+            this.mNoDepthStencilState.DepthBufferEnable = false;
+            this.mNoDepthStencilState.DepthBufferFunction = CompareFunction.GreaterEqual;
 
            // this.mAlphaBlend = new BlendState();
 
@@ -375,7 +382,7 @@ namespace KryptonEngine.Rendering
             if (!this.isBegin) throw new InvalidOperationException("Beginn must called before End");
 
             if (this.mGBuffer.IsGBufferActive) this.mDraw = this.mMRTDraw;
-            else this.mDraw = this.mSingelDraw;
+            else { this.mDraw = this.mSingelDraw; this.mGraphicsDevice.DepthStencilState = this.mNoDepthStencilState; }
 
             this.mDraw.Parameters["World"].SetValue(this.mWorld);
             this.mDraw.Parameters["View"].SetValue(this.mTranslatetViewMatrix);
