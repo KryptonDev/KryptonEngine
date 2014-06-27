@@ -140,7 +140,8 @@ namespace KryptonEngine.Rendering
         {
             this.mLightShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Light");
             this.mCombineShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Combine");
-            this.mDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("MRT");
+            this.mSingelDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Singel");
+            this.mMRTDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("MRT");
 
             this.mGBuffer.LoadContent();
         }
