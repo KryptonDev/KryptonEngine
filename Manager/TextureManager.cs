@@ -67,7 +67,8 @@ namespace KryptonEngine.Manager
 				{
 					string fileName = f.Name.Substring(0, f.Name.Length - 4);
 					tex = EngineSettings.Content.Load<Texture2D>(@"spine\" + fileName);
-					mRessourcen.Add(fileName, tex);
+					if(!mRessourcen.ContainsKey(fileName))
+						mRessourcen.Add(fileName, tex);
 				}
 			}
 		}
