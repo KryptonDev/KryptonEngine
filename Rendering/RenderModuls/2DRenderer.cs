@@ -91,8 +91,8 @@ namespace KryptonEngine.Rendering
             this.mAlphaBlend = BlendState.AlphaBlend;
 
             this.mDepthStencilState = new DepthStencilState();
-            this.mDepthStencilState.DepthBufferWriteEnable = true;
-            this.mDepthStencilState.DepthBufferEnable = true;
+            this.mDepthStencilState.DepthBufferWriteEnable = false;
+            this.mDepthStencilState.DepthBufferEnable = false;
             this.mDepthStencilState.DepthBufferFunction = CompareFunction.GreaterEqual;
 
            // this.mAlphaBlend = new BlendState();
