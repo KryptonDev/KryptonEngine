@@ -407,7 +407,7 @@ namespace KryptonEngine.Rendering
             EngineSettings.Graphics.GraphicsDevice.BlendState = mLightMapBlendState;
 
             KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[0] = mGBuffer.RenderTargets[1];
-            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = mGBuffer.RenderTargets[3];
+            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = mGBuffer.RenderTargets[2];
 
 
             foreach (Light l in pLightList)
@@ -503,6 +503,15 @@ namespace KryptonEngine.Rendering
             batch.Draw(this.mGBuffer.RenderTargets[index], Vector2.Zero, Color.White);
             batch.End();
         }
+
+        public void DrawLightTargettOnScreen(SpriteBatch batch)
+        {
+            batch.Begin();
+            batch.Draw(mLightTarget, Vector2.Zero, Color.White);
+            batch.End();
+        }
+
+
         #endregion
     }
 }
