@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using KryptonEngine.Rendering.Components;
 using KryptonEngine.Rendering.Core;
+using KryptonEngine.HG_Data;
+using HanselAndGretel.Data;
 
 namespace KryptonEngine.Rendering
 {
@@ -30,8 +32,9 @@ namespace KryptonEngine.Rendering
         private Effect mLightShader;
         private Effect mCombineShader;
 
-        private RenderTarget2D mLightMap;
-        private RenderTarget2D mFinalMap;
+
+        private RenderTarget2D mLightTarget;
+        private RenderTarget2D mFinalTarget;
 
         private GBuffer mGBuffer;
 
@@ -49,10 +52,16 @@ namespace KryptonEngine.Rendering
         private float[] mSkeletonVertecies = new float[8];
 
         private FPSCounter mFPSCounter;
+
+
+        private AmbientLight mAmbientLight;
+
+
         #endregion
 
         #region Getter & Setter
         public int maxHeight { set { this.mPlaneHeight = value; } }
+        public AmbientLight AmbientLight { get { return this.mAmbientLight; } set { mAmbientLight = value; } }
         #endregion
 
         #region Constructor
@@ -68,7 +77,7 @@ namespace KryptonEngine.Rendering
             this.mGraphicsDevice = pGraphicsDevice;
             Initialize(pWidth, pHeight);
         }
-
+        
         #endregion
 
         #region Class Methods
@@ -113,14 +122,8 @@ namespace KryptonEngine.Rendering
             //this.mAlphaBlend.ColorBlendFunction = BlendFunction.Add;
             //this.mAlphaBlend.AlphaBlendFunction = BlendFunction.Add;
 
-
-
-
-           
-
-
-            this.mLightMap = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
-            this.mFinalMap = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
+            this.mLightTarget = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
+            this.mFinalTarget = new RenderTarget2D(this.mGraphicsDevice, pWidth, pHeight, false, SurfaceFormat.Color, DepthFormat.None);
 
             this.mView  = Matrix.CreateLookAt(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Zero, Vector3.Up);
             this.mTranslatetViewMatrix = this.mView;
@@ -394,6 +397,60 @@ namespace KryptonEngine.Rendering
         }
         #endregion
         #endregion
+
+        #region Light Methods
+        public void ProcessLight(List<Light> pLightList)
+        {
+            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mLightTarget);
+            EngineSettings.Graphics.GraphicsDevice.Clear(Color.Transparent);
+
+            EngineSettings.Graphics.GraphicsDevice.BlendState = mLightMapBlendState;
+
+            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[0] = mGBuffer.RenderTargets[1];
+            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = mGBuffer.RenderTargets[3];
+
+
+            foreach (Light l in pLightList)
+            {
+                if (!l.IsVisible) continue;
+
+               this.mLightShader.Parameters["intensity"].SetValue(l.Intensity);
+               this.mLightShader.Parameters["color"].SetValue(l.LightColor);
+               this.mLightShader.Parameters["position"].SetValue(new Vector3(l.Position, l.Depth));
+               this.mLightShader.Parameters["screen"].SetValue(new Vector2(EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight));
+
+               if (l.GetType() == typeof(PointLight))
+               {
+                   PointLight tempPl = (PointLight)l;
+
+                   mLightShader.Parameters["radius"].SetValue(tempPl.Radius);
+                   mLightShader.CurrentTechnique.Passes[0].Apply();
+               }
+                //directional Light!
+
+               QuadRenderer.Render(this.mGraphicsDevice);
+            }
+
+            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(null);
+        }
+        #endregion
+
+        public void ProcessFinalScene()
+        {
+            EngineSettings.Graphics.GraphicsDevice.SetRenderTarget(mFinalTarget);
+            EngineSettings.Graphics.GraphicsDevice.Clear(Color.Transparent);
+
+
+            EngineSettings.Graphics.GraphicsDevice.Textures[0] = this.mGBuffer.RenderTargets[0];
+            EngineSettings.Graphics.GraphicsDevice.Textures[1] = mLightTarget;
+
+            this.mCombineShader.Parameters["ambientColor"].SetValue(AmbientLight.LightColor);
+            this.mCombineShader.Parameters["ambientIntensity"].SetValue(AmbientLight.Intensity);
+
+            mCombineShader.CurrentTechnique.Passes[0].Apply();
+
+            QuadRenderer.Render(this.mGraphicsDevice);
+        }
 
         #region Function Methods
 

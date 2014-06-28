@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using KryptonEngine.HG_Data.Objects.Lights;
+using KryptonEngine.HG_Data;
 using KryptonEngine.Manager;
 using HanselAndGretel.Data;
 using KryptonEngine;
