@@ -40,7 +40,7 @@ namespace KryptonEngine.Pools
 
         protected override void CleanUpInstance(SpineObject pObject)
         {
-            pObject.CleanUp();
+            //pObject.CleanUp();
         }
 
         #endregion

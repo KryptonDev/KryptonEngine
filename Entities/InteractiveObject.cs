@@ -21,9 +21,6 @@ namespace KryptonEngine.Entities
 		protected Vector2 mActionPosition2;
 
 		protected int mActionId;
-		//protected Texture2D[] mTextures;
-		protected String mTextureName;
-
 		protected ActivityState mActivityState;
 		#endregion
 
@@ -38,10 +35,6 @@ namespace KryptonEngine.Entities
 		public int Width;
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
-		[XmlIgnoreAttribute]
-		public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-		//[XmlIgnoreAttribute]
-		//public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
 		[XmlIgnoreAttribute]
 		public List<DrawPackage> DrawPackages { get
 		{
@@ -81,26 +74,6 @@ namespace KryptonEngine.Entities
 
 		#region Override Methods
 
-		public override void Draw(Rendering.TwoDRenderer renderer)
-		{
-			renderer.Draw(Skeleton, mTextures);
-		}
-
-		//public override void Draw(SpriteBatch spriteBatch)
-		//{
-		//	if (mTexture != null)
-		//	{
-		//		spriteBatch.Draw(mTexture, Position, Color.White);
-		//		if (EngineSettings.IsDebug)
-		//		{
-		//			foreach (Rectangle r in ActionRectList)
-		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Yellow);
-		//			foreach (Rectangle r in CollisionRectList)
-		//				spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), r, Color.Blue);
-		//			spriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX, DrawZ, mTexture.Width, 1), Color.Red);
-		//		}
-		//	}
-		//}
 		#endregion
 
 		#region Methods
@@ -143,12 +116,12 @@ namespace KryptonEngine.Entities
 			this.ActionPosition2 = io.ActionPosition2;
 			this.DrawZ = io.DrawZ;
 			this.ActionId = io.ActionId;
-			this.mTextureName = io.TextureName;
+			this.Name = io.Name;
 			this.mTextures = new Texture2D[4];
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			mTextures[0] = TextureManager.Instance.GetElementByString(Name);
+			mTextures[1] = TextureManager.Instance.GetElementByString(Name + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(Name + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(Name + "Depth");
 
 			this.Position = io.Position;
 		}

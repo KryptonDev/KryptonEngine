@@ -104,19 +104,6 @@ namespace KryptonEngine.Entities
 
         #region Methods
 
-        #region Pool
-
-        public void CleanUp()
-        {
-            Position = Vector2.Zero;
-            Flip = false;
-            AnimationState.ClearTracks();
-            Skeleton.SetToSetupPose();
-            Skeleton.SetSkin("default");
-        }
-
-        #endregion
-
         public override void LoadContent() 
         {
             mBounds = new SkeletonBounds();
@@ -137,8 +124,6 @@ namespace KryptonEngine.Entities
 			mSkeleton.UpdateWorldTransform();
         }
 
-        #region Update
-
         public override void Update()
         {
             UpdateAnimation();
@@ -152,36 +137,10 @@ namespace KryptonEngine.Entities
             mAnimationState.Apply(mSkeleton);
         }
 
-        #endregion
-
 		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
 			renderer.Draw(mSkeleton, mTextures, DrawZ);
 		}
-
-		//public override void Draw(SpriteBatch spriteBatch)
-		//{
-		//	Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
-		//}
-
-		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
-		//{
-		//	Draw(pSpriteBatch, pCameraPosition, Vector2.Zero);
-		//}
-
-		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition, Vector2 pOffset)
-		//{
-		//	Vector2 TmpPosition = Position;
-		//	Position -= pCameraPosition - pOffset;
-		//	EngineSettings.SpineRenderer.Begin();
-		//	EngineSettings.SpineRenderer.Draw(mSkeleton);
-		//	EngineSettings.SpineRenderer.End();
-		//	Position = TmpPosition;
-		//	if (EngineSettings.IsDebug)
-		//		pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
-		//}
-
-		#region Animation
 
 		/// <summary>
 		/// Applyed eine Animation auf dieses SpineObject.
@@ -199,8 +158,6 @@ namespace KryptonEngine.Entities
 			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).ToString() != pAnimation || pForce)
 				AnimationState.SetAnimation(0, pAnimation, pLoop);
 		}
-
-		#endregion
 
         #endregion
     }
