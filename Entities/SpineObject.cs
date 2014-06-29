@@ -128,10 +128,13 @@ namespace KryptonEngine.Entities
             mSkeleton.Y = mInitPosition.Y;
 
 			mTextures = new Texture2D[4];
-			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
+			mTextures[0] = TextureManager.Instance.GetElementByString(mName + "-1");
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
+
+			mAnimationState.Apply(mSkeleton);
+			mSkeleton.UpdateWorldTransform();
         }
 
         #region Update
@@ -144,9 +147,9 @@ namespace KryptonEngine.Entities
         protected void UpdateAnimation()
         {
             mAnimationState.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
-            mAnimationState.Apply(mSkeleton);
 			Skeleton.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mSkeleton.UpdateWorldTransform();
+            mAnimationState.Apply(mSkeleton);
         }
 
         #endregion
