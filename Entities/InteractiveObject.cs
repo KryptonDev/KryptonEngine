@@ -68,7 +68,13 @@ namespace KryptonEngine.Entities
 		public InteractiveObject() 
 			: base() 
 		{
-			Initialize();
+
+		}
+
+		public InteractiveObject(String pName)
+			:base(pName)
+		{
+
 		}
 
 		#endregion
@@ -117,17 +123,17 @@ namespace KryptonEngine.Entities
 			return ((ActionPosition1 - pPosition).Length() > (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
 		}
 
-		public void LoadTextures()
-		{
-			if (mTextures == null) mTextures = new Texture2D[4];
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+		//public void LoadTextures()
+		//{
+		//	if (mTextures == null) mTextures = new Texture2D[4];
+		//	mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
+		//	mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
+		//	mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
+		//	mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 
-			Height = mTextures[0].Height;
-			Width = mTextures[0].Width;
-		}
+		//	Height = mTextures[0].Height;
+		//	Width = mTextures[0].Width;
+		//}
 
 		public void CopyFrom(InteractiveObject io)
 		{
@@ -145,45 +151,6 @@ namespace KryptonEngine.Entities
 			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 
 			this.Position = io.Position;
-		}
-
-		public override string GetInfo()
-		{
-			String tmp = base.GetInfo();
-			String actID = "";
-			switch(mActionId)
-			{
-				case 0: actID = "None";
-					break;
-				case 1: actID = "CaughtInCobweb";
-					break;
-				case 3: actID = "CaughtInSwamp";
-					break;
-				case 5: actID = "KnockOverTree";
-					break;
-				case 6: actID = "BalanceOverTree";
-					break;
-				case 7: actID = "PushRock";
-					break;
-				case 8: actID = "SlipThroughRock";
-					break;
-				case 9: actID = "JumpOverGap";
-					break;
-				case 10: actID = "LegUp";
-					break;
-				case 11: actID = "LegUpGrab";
-					break;
-				case 12: actID = "UseKey";
-					break;
-				case 13: actID = "PullDoor";
-					break;
-				case 14: actID = "UseChalk";
-					break;
-				case 15: actID = "UseWell";
-					break;
-			}
-			tmp += "\nActionID: " + actID;
-			return tmp;
 		}
 
 		#endregion

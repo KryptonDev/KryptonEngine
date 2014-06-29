@@ -363,11 +363,6 @@ namespace KryptonEngine.Rendering
                     item.vertexTR.TextureCoordinate.X = uvs[RegionAttachment.X4];
                     item.vertexTR.TextureCoordinate.Y = uvs[RegionAttachment.Y4];
 
-                    //if (textId == -1)
-                    {
-                        
-                    }
-
                     item.TextureID = textId;
                     orderDepth += 0.00001f;
                 }
