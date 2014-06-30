@@ -132,6 +132,15 @@ namespace HanselAndGretel.Data
 			return false;
 		}
 
+		public Item GetItemByType(Type pItemType)
+		{
+			foreach (InventorySlot slot in ItemSlots)
+				if (slot.Item != null && slot.Item.GetType() == pItemType)
+					return slot.Item;
+			return null;
+		}
+
+
 		public void LoadTextures()
 		{
 			foreach (InventorySlot slot in ItemSlots)

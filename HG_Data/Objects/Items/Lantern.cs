@@ -10,7 +10,7 @@ namespace HanselAndGretel.Data
 	{
 		#region Properties
 
-		//protected Light rLight;
+		protected Light rLight;
 
 		#endregion
 

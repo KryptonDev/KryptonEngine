@@ -34,25 +34,6 @@ namespace KryptonEngine.Entities
 	public class ActivityState : BaseObject
 	{
 		#region Properties
-		
-		public static Dictionary<Activity, String> ActivityInfo = new Dictionary<Activity, string>
-		{
-			{Activity.FreeFromCobweb, "Befreien [Netz]"},
-			{Activity.FreeFromSwamp, "Befreien [Sumpf]"},
-			{Activity.KnockOverTree, "Umwerfen [Baum]"},
-			{Activity.BalanceOverTree, "Balancieren [Baum]"},
-			{Activity.PushRock, "Drücken [Fels]"},
-			{Activity.SlipThroughRock, "Durch schlüpfen [Fels]"},
-			{Activity.JumpOverGap, "Springen [Abgrund]"},
-			{Activity.LegUp, "Räuberleiter"},
-			{Activity.LegUpGrab, "Hoch heben"},
-			{Activity.UseKey, "Schlüssel benutzen [Tür]"},
-			{Activity.PushDoor, "Drücken [Tür]"},
-			{Activity.PullDoor, "Ziehen [Tür]"},
-			{Activity.UseChalk, "Markieren [Kreide]"},
-			{Activity.UseWell, "Herablassen [Brunnen]"},
-			{Activity.BalanceOverBrokenTree, "Balancieren [Brüchiger Baum]"}
-		};
 
 		public InteractiveObject rIObj;
 		//protected Hansel rHansel;
