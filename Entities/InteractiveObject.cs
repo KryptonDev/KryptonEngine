@@ -8,6 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
+
+//******************************************************
+// Beim erstellen eines Spine/ InteractiveObject muss folgendes beachtet werden:
+// Zuerst wird das Object via Konstruktor normal erstellt.
+// Danach muss LoadContent() aufgerufen werden, um die benötigten Texturen zu laden.
+// Dann muss ApplySettings aufgerufen werden. Die Funktion sorft dafür, dass das Interactive Object einmal geupdatet wird
+// und passt dann die Collisions und ActionListen an.
+/*
+ *	InteractiveObject io = new InteractiveObject("InteractiveObjectName");
+ *	io.LoadContent();
+ *	io.ApplySettings();
+ */
+//******************************************************
 namespace KryptonEngine.Entities
 {
 	public class InteractiveObject : SpineObject
@@ -52,8 +65,8 @@ namespace KryptonEngine.Entities
 			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Blue));
 			return TmpPackages;
 		} }
+		[XmlIgnoreAttribute]
 		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
-
 		#endregion
 
 		#region Constructor
@@ -96,18 +109,6 @@ namespace KryptonEngine.Entities
 			return ((ActionPosition1 - pPosition).Length() > (ActionPosition2 - pPosition).Length()) ? ActionPosition1 : ActionPosition2;
 		}
 
-		//public void LoadTextures()
-		//{
-		//	if (mTextures == null) mTextures = new Texture2D[4];
-		//	mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-		//	mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-		//	mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-		//	mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
-
-		//	Height = mTextures[0].Height;
-		//	Width = mTextures[0].Width;
-		//}
-
 		public void CopyFrom(InteractiveObject io)
 		{
 			this.ActionRectList = new List<Rectangle>(io.ActionRectList);
@@ -126,6 +127,31 @@ namespace KryptonEngine.Entities
 			this.Position = io.Position;
 		}
 
+		// Muss nach laden der Texture/deserializierung einmalig ausgeführt werden
+		public override void ApplySettings()
+		{
+			base.ApplySettings();
+			MoveInteractiveObject(Vector2.Zero);
+		}
+
+		public void MoveInteractiveObject(Vector2 mDirection)
+		{
+			SkeletonPosition += mDirection;
+
+			for (int i = 0; i < mActionRectList.Count; i++)
+			{
+				Rectangle temp = mActionRectList[i];
+				temp.X += (int)(SkeletonPosition.X);
+				temp.Y += (int)(SkeletonPosition.Y);
+			}
+
+			for (int i = 0; i < mCollisionRectList.Count; i++)
+			{
+				Rectangle temp = mCollisionRectList[i];
+				temp.X += (int)(SkeletonPosition.X);
+				temp.Y += (int)(SkeletonPosition.Y);
+			}
+		}
 		#endregion
 	}
 }

@@ -43,8 +43,8 @@ namespace KryptonEngine
             TextureManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();
 			ShaderManager.Instance.LoadContent();
-            InteractiveObjectDataManager.Instance.LoadContent();
             SpineDataManager.Instance.LoadContent();
+            InteractiveObjectDataManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
         }
 

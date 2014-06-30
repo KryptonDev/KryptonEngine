@@ -25,36 +25,34 @@ namespace KryptonEngine.Entities
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
-		[XmlIgnoreAttribute]
 		protected Texture2D[] mTextures;
 
 		new protected Color mDebugColor = Color.Yellow;
 
-        #region Getter & Setter
+		#endregion
+
+		#region Getter & Setter
 
 		public string Name { get { return mName; } set { mName = value; } }
-		new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } 
-			set 
-			{
-				//mSkeleton.X = value.X; 
-				//mSkeleton.Y = value.Y; 
-			} 
-		}
-		//new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
-		//new public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
+		[XmlIgnoreAttribute]
         public bool Flip { get { return mSkeleton.FlipX; } set { mSkeleton.FlipX = value; } }
+		[XmlIgnoreAttribute]
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
+		[XmlIgnoreAttribute]
         public Skeleton Skeleton { get { return mSkeleton; } }
+		[XmlIgnoreAttribute]
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
+		[XmlIgnoreAttribute]
 		public bool AnimationComplete { get
 		{
 			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).Time >= AnimationState.GetCurrent(0).EndTime)
 				return true;
 			return false;
 		} }
+		[XmlIgnoreAttribute]
 		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
-
-        #endregion
+		[XmlIgnoreAttribute]
+		public Vector2 SkeletonPosition { set { Skeleton.x = value.X; Skeleton.y = value.Y; } get { return new Vector2(Skeleton.x, Skeleton.y); } }
 
         #endregion
 
@@ -119,9 +117,6 @@ namespace KryptonEngine.Entities
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
-
-			mAnimationState.Apply(mSkeleton);
-			mSkeleton.UpdateWorldTransform();
         }
 
         public override void Update()
@@ -139,7 +134,7 @@ namespace KryptonEngine.Entities
 
 		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			renderer.Draw(mSkeleton, mTextures, DrawZ);
+			renderer.Draw(mSkeleton, mTextures, mNormalZ);
 		}
 
 		/// <summary>
@@ -157,6 +152,13 @@ namespace KryptonEngine.Entities
 				AnimationState.ClearTracks();
 			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).ToString() != pAnimation || pForce)
 				AnimationState.SetAnimation(0, pAnimation, pLoop);
+		}
+
+		public virtual void ApplySettings()
+		{
+			SkeletonPosition = mPosition;
+			mAnimationState.Apply(mSkeleton);
+			mSkeleton.UpdateWorldTransform();
 		}
 
         #endregion
