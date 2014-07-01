@@ -31,6 +31,7 @@ namespace HanselAndGretel.Data
 		public List<Rectangle> MoveArea;
 		public List<Waypoint> Waypoints;
 
+		public List<GameObject> BackgroundSprites;
 		[XmlIgnoreAttribute]
 		public Sprite BackgroundTexture;
 

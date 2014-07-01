@@ -123,13 +123,11 @@ namespace KryptonEngine.Entities
 			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
 		}
 
-		/*
-		 * direkt über Textures[index], ist dann überall einheitlich
+		//direkt über Textures[index], ist dann überall einheitlich
 		public Texture2D GetTexture(int index)
 		{
 			return mTextures[index];
 		}
-		*/
 
         #endregion
     }
