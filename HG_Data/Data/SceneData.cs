@@ -71,6 +71,8 @@ namespace HanselAndGretel.Data
 			MoveArea = new List<Rectangle>();
 			Waypoints = new List<Waypoint>();
 
+			BackgroundSprites = new List<GameObject>();
+
 			BackgroundTexture = new Sprite();
 
 			InteractiveObjects = new List<InteractiveObject>();
@@ -100,6 +102,7 @@ namespace HanselAndGretel.Data
 			Items.Clear();
 			Lights.Clear();
 			Events.Clear();
+			BackgroundSprites.Clear();
 		}
 
 		// Laden Texturen usw. von Manager das nicht mitserialisiert wird
