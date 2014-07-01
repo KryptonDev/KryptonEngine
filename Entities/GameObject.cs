@@ -16,7 +16,7 @@ using KryptonEngine.Rendering;
 
 namespace KryptonEngine.Entities
 {
-	[Serializable, XmlInclude(typeof(Sprite)), XmlInclude(typeof(InteractiveObject))]
+	[Serializable, XmlInclude(typeof(Sprite)), XmlInclude(typeof(InteractiveObject)), XmlInclude(typeof(Character)), XmlInclude(typeof(Enemy)), XmlInclude(typeof(Wolf))]
     public class GameObject : BaseObject
     {
         #region Properties

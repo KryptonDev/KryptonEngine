@@ -20,8 +20,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Spider(Vector2 pPosition)
-			:base(pPosition)
+		public Spider(String name, Vector2 pPosition)
+			: base(name, pPosition)
 		{
 
 		}

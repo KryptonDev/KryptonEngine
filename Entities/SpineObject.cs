@@ -113,10 +113,13 @@ namespace KryptonEngine.Entities
             mSkeleton.Y = mInitPosition.Y;
 
 			mTextures = new Texture2D[4];
-			mTextures[0] = TextureManager.Instance.GetElementByString(mName + "-1");
+			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
+
+			mSkeleton.FlipY = true;
+			mSkeleton.SetSkin("front");
         }
 
         public override void Update()

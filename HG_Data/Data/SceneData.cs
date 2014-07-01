@@ -45,7 +45,6 @@ namespace HanselAndGretel.Data
 		public AmbientLight SceneAmbientLight;
 		public DirectionLight SceneDirectionLight;
 
-		[XmlIgnoreAttribute]
 		public List<Enemy> Enemies;
 		//public List<Emitter> Emitter;
 		//public List<SoundAreas> SoundAreas;

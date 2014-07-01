@@ -35,8 +35,6 @@ namespace HanselAndGretel.Data
 			mInput = InputHelper.Player1;
 			mCollisionBox.Width = 50;
 			mCollisionBox.Height = 50;
-			SkeletonOffset = new Vector2(0, 50);
-			mModel = new SpineObject("ashbrett");
 			mHandicaps.Add(Activity.SlipThroughRock);
 			mHandicaps.Add(Activity.UseChalk);
 		}

@@ -77,25 +77,25 @@ namespace KryptonEngine.Entities
 		/// </summary>
 		/// <param name="pSpriteBatch">SpriteBatch zum drawen von Texturen</param>
 		/// <param name="pSkeletonRenderer">SkeletonRenderer zum drawen von Texturen</param>
-		public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
-		{
-			if (EngineSettings.IsDebug)
-			{
-				pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor * mAlpha);
-			}
-			if (mOnlyDebug)
-				return;
-			if (!mSpine)
-			{
-				pSpriteBatch.Draw(mTexture, mPosition, new Color(mAlpha, mAlpha, mAlpha, mAlpha));
-			}
-			else
-			{
-				pSkeletonRenderer.Begin();
-				pSkeletonRenderer.Draw(mSkeleton);
-				pSkeletonRenderer.End();
-			}
-		}
+		//public void Draw(SpriteBatch pSpriteBatch, SkeletonRenderer pSkeletonRenderer)
+		//{
+		//	if (EngineSettings.IsDebug)
+		//	{
+		//		pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), mCollisionBox, mDebugColor * mAlpha);
+		//	}
+		//	if (mOnlyDebug)
+		//		return;
+		//	if (!mSpine)
+		//	{
+		//		pSpriteBatch.Draw(mTexture, mPosition, new Color(mAlpha, mAlpha, mAlpha, mAlpha));
+		//	}
+		//	else
+		//	{
+		//		pSkeletonRenderer.Begin();
+		//		pSkeletonRenderer.Draw(mSkeleton);
+		//		pSkeletonRenderer.End();
+		//	}
+		//}
 
 		#endregion
 	}

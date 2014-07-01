@@ -46,6 +46,7 @@ namespace KryptonEngine.Entities
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
 		public int Height;
 		public int Width;
+
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
 		[XmlIgnoreAttribute]

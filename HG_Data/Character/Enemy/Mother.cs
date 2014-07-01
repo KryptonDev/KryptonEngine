@@ -20,8 +20,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Mother(Vector2 pPosition)
-			:base(pPosition)
+		public Mother(String name, Vector2 pPosition)
+			:base(name, pPosition)
 		{
 
 		}

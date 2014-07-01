@@ -37,8 +37,6 @@ namespace HanselAndGretel.Data
 			mInput = InputHelper.Player2;
 			mCollisionBox.Width = 50;
 			mCollisionBox.Height = 50;
-			SkeletonOffset = new Vector2(0, 50);
-			mModel = new SpineObject("sweetcheeks");
 			mHandicaps.Add(Activity.JumpOverGap);
 		}
 

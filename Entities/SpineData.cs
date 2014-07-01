@@ -54,7 +54,6 @@ namespace KryptonEngine.Entities
 
         #region Properties
 
-        public SkeletonRenderer skeletonRenderer;
         public Atlas atlas;
         public SkeletonJson json;
 		public SpineDataSettings settings;
@@ -70,12 +69,6 @@ namespace KryptonEngine.Entities
 			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", EngineSettings.TextureLoader);
             json = new SkeletonJson(atlas);
         }
-
-		public override void Initialize()
-		{
-			skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
-			skeletonRenderer.PremultipliedAlpha = true;
-		}
 
         #endregion
     }

@@ -18,7 +18,6 @@ namespace KryptonEngine.Entities
         #region Properties
 
         protected String mTextureName;
-		[XmlIgnoreAttribute]
 		protected Texture2D[] mTextures;
         protected Color mTint = Color.White;
         protected int mWidth;
@@ -31,17 +30,16 @@ namespace KryptonEngine.Entities
         #region Getter & Setter
 
         public String TextureName { get { return mTextureName; } set { mTextureName = value; } }
-		[XmlIgnoreAttribute]
-        public Color Tint { set { mTint = value; } }
 		public int Width { get { return mWidth; } set { mWidth = value; } }
 		public int Height { get { return mHeight; } set { mHeight = value; } }
-
         public Vector2 Origin { get { return mOrigin; } }
         public int Rotation { get { return mRotation; } set { mRotation = value; } }
 		[XmlIgnoreAttribute]
         public SpriteEffects Effect { get { return mEffekt; } set { mEffekt = value; } }
-
+		[XmlIgnoreAttribute]
 		public DrawPackage DrawPackage { get { return new DrawPackage(Position, mDrawZ, CollisionBox, mDebugColor, mTextures[0]); } }
+		[XmlIgnoreAttribute]
+        public Color Tint { set { mTint = value; } }
 
         #endregion
 

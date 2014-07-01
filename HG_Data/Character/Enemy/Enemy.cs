@@ -24,8 +24,8 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Enemy(Vector2 pPosition)
-			:base(pPosition)
+		public Enemy(String name, Vector2 pPosition)
+			:base(name, pPosition)
 		{
 
 		}

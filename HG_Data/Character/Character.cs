@@ -7,15 +7,13 @@ using Microsoft.Xna.Framework;
 using KryptonEngine;
 using KryptonEngine.Manager;
 using KryptonEngine.Physics;
+using System.Xml.Serialization;
 
 namespace HanselAndGretel.Data
 {
-	public class Character : GameObject
+	public class Character : InteractiveObject
 	{
 		#region Properties
-
-		public SpineObject mModel;
-		protected Vector2 SkeletonOffset;
 		protected float mSpeed;
 
 		//References
@@ -24,55 +22,45 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Getter & Setter
-
+		[XmlIgnoreAttribute]
 		public float Speed { get { return mSpeed; } }
 
 		#region Redirect Position to Skeleton
 
-		new public Vector2 Position
-		{
-			set
-			{
-				mPosition = value;
-				mCollisionBox.X = (int)value.X;
-				mCollisionBox.Y = (int)value.Y;
+		// Zum Bewegen MoveInteractiveObject aufrufen !!!
 
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-				mModel.Position = value + SkeletonOffset;
-			}
-			get { return mPosition; }
-		}
-		new public int PositionX
-		{
-			set
-			{
-				mPosition.X = value;
-				mCollisionBox.X = value;
-
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-				mModel.PositionX = value + (int)SkeletonOffset.X;
-			}
-			get { return (int)mPosition.X; }
-		}
-		new public int PositionY
-		{
-			set
-			{
-				mPosition.Y = value;
-				mCollisionBox.Y = value;
-				// Später löschen abfrage für Editor da noch keine Models da sind !!!
-				if (mModel == null) return;
-
-				mModel.PositionY = value + (int)SkeletonOffset.Y;
-			}
-			get { return (int)mPosition.Y; }
-		}
-
+		/*new public Vector2 Position
+		//{
+		//	set
+		//	{
+		//		mPosition = value;
+		//		mCollisionBox.X = (int)value.X;
+		//		mCollisionBox.Y = (int)value.Y;
+		//	}
+		//	get { return mPosition; }
+		//}
+		//new public int PositionX
+		//{
+		//	set
+		//	{
+		//		mPosition.X = value;
+		//		mCollisionBox.X = value;
+		//	}
+		//	get { return (int)mPosition.X; }
+		//}
+		//new public int PositionY
+		//{
+		//	set
+		//	{
+		//		mPosition.Y = value;
+		//		mCollisionBox.Y = value;
+		//	}
+		//	get { return (int)mPosition.Y; }
+		//}
+		*/
 		#endregion
-
-		public DrawPackage DrawPackage { get { return new DrawPackage(Position + SkeletonOffset, 0, CollisionBox, mDebugColor, mModel.Skeleton); } }
+		[XmlIgnoreAttribute]
+		public DrawPackage DrawPackage { get { return new DrawPackage(SkeletonPosition, 0, CollisionBox, mDebugColor, Skeleton); } }
 
 		#endregion
 
@@ -83,9 +71,16 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Character(Vector2 pPosition)
-			:base(pPosition)
+		public Character(String name)
+			:base(name)
 		{
+
+		}
+
+		public Character(String name, Vector2 pPosition)
+			:base(name)
+		{
+			this.Position = pPosition;
 		}
 
 		#endregion
@@ -96,16 +91,6 @@ namespace HanselAndGretel.Data
 		{
 			base.Initialize();
 			mDebugColor = Color.LightYellow;
-		}
-
-		public override void LoadContent()
-		{
-			mModel.LoadContent();
-		}
-
-		public override void Update()
-		{
-			mModel.Update();
 		}
 
 		#endregion
@@ -144,8 +129,8 @@ namespace HanselAndGretel.Data
 		/// </summary>
 		public void AnimCutToIdle()
 		{
-			mModel.AnimationState.ClearTracks();
-			mModel.AnimationState.SetAnimation(0, "idle", true);
+			this.AnimationState.ClearTracks();
+			this.AnimationState.SetAnimation(0, "idle", true);
 		}
 
 		/// <summary>
@@ -156,7 +141,7 @@ namespace HanselAndGretel.Data
 		{
 			if (pMovement == Vector2.Zero)
 			{
-				mModel.SetAnimation();
+				this.SetAnimation();
 				return;
 			}
 			string TmpAnimation;
@@ -164,9 +149,9 @@ namespace HanselAndGretel.Data
 			TmpMovement.Normalize();
 			//Flip?
 			if (TmpMovement.X > 0)
-				mModel.Flip = true;
+				this.Flip= true;
 			else if (TmpMovement.X < 0)
-				mModel.Flip = false;
+				this.Flip = false;
 			//Get correct Animation
 			//if (TmpMovement.Y > Math.Sin(67.5)) //Hoch
 			//	TmpAnimation = "walkUp";
@@ -179,7 +164,7 @@ namespace HanselAndGretel.Data
 			//else //Runter
 			//	TmpAnimation = "WalkDown";
 			TmpAnimation = "idle";
-			mModel.SetAnimation(TmpAnimation);
+			this.SetAnimation(TmpAnimation);
 		}
 
 		#endregion

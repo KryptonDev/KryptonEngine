@@ -20,8 +20,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
-		public Witch(Vector2 pPosition)
-			:base(pPosition)
+		public Witch(String name, Vector2 pPosition)
+			:base(name, pPosition)
 		{
 
 		}

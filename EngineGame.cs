@@ -29,7 +29,6 @@ namespace KryptonEngine
 
         protected override void Initialize()
         {
-			EngineSettings.SpineRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             SceneManager.Instance.Initialize();
 			EngineSettings.Randomizer = new Random();
 			base.Initialize();

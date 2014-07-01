@@ -26,7 +26,7 @@ namespace KryptonEngine.Rendering
         private BlendState mAlphaBlend;
         private DepthStencilState mDepthStencilState;
         private DepthStencilState mNoDepthStencilState;
-
+		private SamplerState mSamplerState;
 
         private Effect mDraw,mMRTDraw,mSingelDraw;
         private Effect mLightShader;
@@ -97,7 +97,7 @@ namespace KryptonEngine.Rendering
             this.mLightMapBlendState.AlphaDestinationBlend = Blend.One;
             this.mLightMapBlendState.AlphaBlendFunction = BlendFunction.Add;
 
-
+			this.mSamplerState = SamplerState.LinearClamp;
 
             this.mAlphaBlend = BlendState.AlphaBlend;
 
@@ -177,6 +177,7 @@ namespace KryptonEngine.Rendering
             this.mGraphicsDevice.RasterizerState = this.mRasterizerState;
             this.mGraphicsDevice.BlendState = this.mAlphaBlend;
             this.mGraphicsDevice.DepthStencilState = this.mDepthStencilState;
+			this.mGraphicsDevice.SamplerStates[0] = this.mSamplerState;
 
             this.mTranslatetViewMatrix = Matrix.Multiply(mView, pTranslation);
             this.mProjection = Matrix.CreateOrthographicOffCenter(0, this.mGraphicsDevice.Viewport.Width, this.mGraphicsDevice.Viewport.Height, 0, 1f, 0f);
