@@ -18,48 +18,53 @@ namespace KryptonEngine.Entities
     {
         #region Properties
 
-		[XmlIgnoreAttribute]
         private Skeleton mSkeleton;
-		[XmlIgnoreAttribute]
 		private AnimationState mAnimationState;
-		[XmlIgnoreAttribute]
 		private SkeletonBounds mBounds;
 
         private string mName;
         private Vector2 mInitPosition;
         private float mScale;
-		[XmlIgnoreAttribute]
-		private Texture2D[] mTextures;
+		protected Texture2D[] mTextures;
 
 		new protected Color mDebugColor = Color.Yellow;
 
-        #region Getter & Setter
+		#endregion
 
-		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
-        public string Name { get { return mName; } }
-        new public Vector2 Position { get { return new Vector2(mSkeleton.X, mSkeleton.Y); } set { mSkeleton.X = value.X; mSkeleton.Y = value.Y; } }
-		new public int PositionX { set { mSkeleton.X = value; } get { return (int)mSkeleton.X; } }
-		new public int PositionY { set { mSkeleton.Y = value; } get { return (int)mSkeleton.Y; } }
+		#region Getter & Setter
+
+		public string Name { get { return mName; } set { mName = value; } }
+		[XmlIgnoreAttribute]
         public bool Flip { get { return mSkeleton.FlipX; } set { mSkeleton.FlipX = value; } }
+		[XmlIgnoreAttribute]
         public bool FlipY { get { return mSkeleton.FlipY; } set { mSkeleton.FlipY = value; } }
+		[XmlIgnoreAttribute]
         public Skeleton Skeleton { get { return mSkeleton; } }
+		[XmlIgnoreAttribute]
         public AnimationState AnimationState { get { return mAnimationState; } }//set { mAnimationState = value; } }
+		[XmlIgnoreAttribute]
 		public bool AnimationComplete { get
 		{
 			if (AnimationState.GetCurrent(0) == null || AnimationState.GetCurrent(0).Time >= AnimationState.GetCurrent(0).EndTime)
 				return true;
 			return false;
 		} }
-
+		[XmlIgnoreAttribute]
+		public Texture2D[] Textures { get { return mTextures; } set { mTextures = value; } }
+		[XmlIgnoreAttribute]
+		public Vector2 SkeletonPosition { set { Skeleton.x = value.X; Skeleton.y = value.Y; } get { return new Vector2(Skeleton.x, Skeleton.y); } }
+		
+		[XmlIgnoreAttribute]
 		public DrawPackage DrawPackage { get { return new DrawPackage(Position, DrawZ, CollisionBox, mDebugColor, Skeleton, mTextures); } }
-
-        #endregion
 
         #endregion
 
         #region Constructor
 
-		public SpineObject() : base() { }
+		public SpineObject() : base()
+		{
+
+		}
 
         public SpineObject(string pName)
         {
@@ -72,40 +77,25 @@ namespace KryptonEngine.Entities
 
         #region Methods
 
-        #region Pool
-
-        public void CleanUp()
-        {
-            Position = Vector2.Zero;
-            Flip = false;
-            AnimationState.ClearTracks();
-            Skeleton.SetToSetupPose();
-            Skeleton.SetSkin("default");
-        }
-
-        #endregion
-
-        public override void LoadContent()
+        public override void LoadContent() 
         {
             mBounds = new SkeletonBounds();
+
             mSkeleton = SpineDataManager.Instance.NewSkeleton(mName, mScale); //Fixed Scale from here. Main instanciation.
             mSkeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
             mAnimationState = SpineDataManager.Instance.NewAnimationState(mSkeleton.Data);
             mSkeleton.X = mInitPosition.X;
             mSkeleton.Y = mInitPosition.Y;
-			LoadTextures();
-        }
 
-		protected void LoadTextures()
-		{
 			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(mName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(mName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(mName + "AO");
 			mTextures[3] = TextureManager.Instance.GetElementByString(mName + "Depth");
-		}
 
-        #region Update
+			mSkeleton.FlipY = true;
+			mSkeleton.SetSkin("front");
+        }
 
         public override void Update()
         {
@@ -115,56 +105,15 @@ namespace KryptonEngine.Entities
         protected void UpdateAnimation()
         {
             mAnimationState.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
-            mAnimationState.Apply(mSkeleton);
 			Skeleton.Update(EngineSettings.Time.ElapsedGameTime.Milliseconds / 1000f);
             mSkeleton.UpdateWorldTransform();
+            mAnimationState.Apply(mSkeleton);
         }
-
-        #endregion
 
 		public override void Draw(Rendering.TwoDRenderer renderer)
 		{
-			renderer.Draw(mSkeleton, mTextures, DrawZ);
+			renderer.Draw(mSkeleton, mTextures, mNormalZ);
 		}
-
-		//public override void Draw(SpriteBatch spriteBatch)
-		//{
-		//	Draw(spriteBatch, Vector2.Zero, Vector2.Zero);
-		//}
-
-		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition)
-		//{
-		//	Draw(pSpriteBatch, pCameraPosition, Vector2.Zero);
-		//}
-
-		//public void Draw(SpriteBatch pSpriteBatch, Vector2 pCameraPosition, Vector2 pOffset)
-		//{
-		//	Vector2 TmpPosition = Position;
-		//	Position -= pCameraPosition - pOffset;
-		//	EngineSettings.SpineRenderer.Begin();
-		//	EngineSettings.SpineRenderer.Draw(mSkeleton);
-		//	EngineSettings.SpineRenderer.End();
-		//	Position = TmpPosition;
-		//	if (EngineSettings.IsDebug)
-		//		pSpriteBatch.Draw(TextureManager.Instance.GetElementByString("pixel"), new Rectangle(PositionX + (int)pOffset.X, PositionY + (int)pOffset.Y, 10, 10), mDebugColor);
-		//}
-
-		public void CopyFrom(SpineObject spine)
-		{
-			this.mAnimationState = spine.mAnimationState;
-			this.mBounds = spine.mBounds;
-			this.mCollisionBox = spine.mCollisionBox;
-			this.mDebugColor = spine.mDebugColor;
-			this.mDrawZ = spine.mDrawZ;
-			this.mInitPosition = spine.mInitPosition;
-			this.mName = spine.mName;
-			this.Position = spine.Position;
-			this.mScale = spine.mScale;
-			this.mSkeleton = spine.mSkeleton;
-			this.mVisible = spine.mVisible;
-		}
-
-		#region Animation
 
 		/// <summary>
 		/// Applyed eine Animation auf dieses SpineObject.
@@ -183,7 +132,12 @@ namespace KryptonEngine.Entities
 				AnimationState.SetAnimation(0, pAnimation, pLoop);
 		}
 
-		#endregion
+		public virtual void ApplySettings()
+		{
+			SkeletonPosition = mPosition;
+			mAnimationState.Apply(mSkeleton);
+			mSkeleton.UpdateWorldTransform();
+		}
 
         #endregion
     }

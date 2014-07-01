@@ -8,6 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
+
+//******************************************************
+// Beim erstellen eines Spine/ InteractiveObject muss folgendes beachtet werden:
+// Zuerst wird das Object via Konstruktor normal erstellt.
+// Danach muss LoadContent() aufgerufen werden, um die benötigten Texturen zu laden.
+// Dann muss ApplySettings aufgerufen werden. Die Funktion sorft dafür, dass das Interactive Object einmal geupdatet wird
+// und passt dann die Collisions und ActionListen an.
+/*
+ *	InteractiveObject io = new InteractiveObject("InteractiveObjectName");
+ *	io.LoadContent();
+ *	io.ApplySettings();
+ */
+//******************************************************
 namespace KryptonEngine.Entities
 {
 	public class InteractiveObject : SpineObject
@@ -27,46 +40,6 @@ namespace KryptonEngine.Entities
 
 		#region Getter & Setter
 
-		#region Redirect Position to CollisionBox
-
-		//Zur Verschiebung bei z.B. PushRock.
-
-		[XmlIgnoreAttribute]
-		new public Vector2 Position
-		{
-			set
-			{
-				mPosition = value;
-				for (int i = 0; i < mCollisionRectList.Count; ++i)
-					mCollisionRectList[i] = new Rectangle((int)value.X, (int)value.Y, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
-			}
-			get { return mPosition; }
-		}
-		[XmlIgnoreAttribute]
-		new public int PositionX
-		{
-			set
-			{
-				mPosition.X = value;
-				for (int i = 0; i < mCollisionRectList.Count; ++i)
-					mCollisionRectList[i] = new Rectangle(value, mCollisionRectList[i].Y, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
-			}
-			get { return (int)mPosition.X; }
-		}
-		[XmlIgnoreAttribute]
-		new public int PositionY
-		{
-			set
-			{
-				mPosition.Y = value;
-				for (int i = 0; i < mCollisionRectList.Count; ++i)
-					mCollisionRectList[i] = new Rectangle(mCollisionRectList[i].X, value, mCollisionRectList[i].Width, mCollisionRectList[i].Height);
-			}
-			get { return (int)mPosition.Y; }
-		}
-
-		#endregion
-
 		public List<Rectangle> ActionRectList { get { return mActionRectList; } set { mActionRectList = value; } }
 		public List<Rectangle> CollisionRectList { get { return mCollisionRectList; } set { mCollisionRectList = value; } }
 		public Vector2 ActionPosition1 { get { return mActionPosition1; } set { mActionPosition1 = value; } }
@@ -74,6 +47,7 @@ namespace KryptonEngine.Entities
 		public int ActionId { get { return mActionId; } set { mActionId = value; } }
 		public int Height;
 		public int Width;
+
 		[XmlIgnoreAttribute]
 		public Activity Activity { get { return (Activity)ActionId; } }
 		[XmlIgnoreAttribute]
@@ -92,18 +66,22 @@ namespace KryptonEngine.Entities
 			TmpPackages.Add(new DrawPackage(new Rectangle((int)ActionPosition2.X-5, (int)ActionPosition2.Y-5, 10, 10), Color.Blue));
 			return TmpPackages;
 		} }
+		[XmlIgnoreAttribute]
 		public ActivityState ActivityState { get { return mActivityState; } set { mActivityState = value; } }
-
 		#endregion
 
 		#region Constructor
-
-		public InteractiveObject() : base() { }
-
-		public InteractiveObject(string pName) 
-			: base(pName) 
+		
+		public InteractiveObject() 
+			: base() 
 		{
-			Initialize();
+
+		}
+
+		public InteractiveObject(String pName)
+			:base(pName)
+		{
+
 		}
 
 		#endregion
@@ -130,53 +108,47 @@ namespace KryptonEngine.Entities
 
 		public void CopyFrom(InteractiveObject io)
 		{
-			base.CopyFrom(io);
 			this.ActionRectList = new List<Rectangle>(io.ActionRectList);
 			this.CollisionRectList = new List<Rectangle>(io.CollisionRectList);
 			this.ActionPosition1 = io.ActionPosition1;
 			this.ActionPosition2 = io.ActionPosition2;
 			this.ActionId = io.ActionId;
+
+			this.Name = io.Name;
+			this.mTextures = new Texture2D[4];
+			mTextures[0] = TextureManager.Instance.GetElementByString(Name);
+			mTextures[1] = TextureManager.Instance.GetElementByString(Name + "Normal");
+			mTextures[2] = TextureManager.Instance.GetElementByString(Name + "AO");
+			mTextures[3] = TextureManager.Instance.GetElementByString(Name + "Depth");
+
+			this.Position = io.Position;
 		}
 
-		public override string GetInfo()
+		// Muss nach laden der Texture/deserializierung einmalig ausgeführt werden
+		public override void ApplySettings()
 		{
-			String tmp = base.GetInfo();
-			String actID = "";
-			switch(mActionId)
-			{
-				case 0: actID = "None";
-					break;
-				case 1: actID = "CaughtInCobweb";
-					break;
-				case 3: actID = "CaughtInSwamp";
-					break;
-				case 5: actID = "KnockOverTree";
-					break;
-				case 6: actID = "BalanceOverTree";
-					break;
-				case 7: actID = "PushRock";
-					break;
-				case 8: actID = "SlipThroughRock";
-					break;
-				case 9: actID = "JumpOverGap";
-					break;
-				case 10: actID = "LegUp";
-					break;
-				case 11: actID = "LegUpGrab";
-					break;
-				case 12: actID = "UseKey";
-					break;
-				case 13: actID = "PullDoor";
-					break;
-				case 14: actID = "UseChalk";
-					break;
-				case 15: actID = "UseWell";
-					break;
-			}
-			tmp += "\nActionID: " + actID;
-			return tmp;
+			base.ApplySettings();
+			MoveInteractiveObject(Vector2.Zero);
 		}
 
+		public void MoveInteractiveObject(Vector2 mDirection)
+		{
+			SkeletonPosition += mDirection;
+
+			for (int i = 0; i < mActionRectList.Count; i++)
+			{
+				Rectangle temp = mActionRectList[i];
+				temp.X += (int)(SkeletonPosition.X);
+				temp.Y += (int)(SkeletonPosition.Y);
+			}
+
+			for (int i = 0; i < mCollisionRectList.Count; i++)
+			{
+				Rectangle temp = mCollisionRectList[i];
+				temp.X += (int)(SkeletonPosition.X);
+				temp.Y += (int)(SkeletonPosition.Y);
+			}
+		}
 		#endregion
 	}
 }

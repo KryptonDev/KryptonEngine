@@ -120,8 +120,8 @@ namespace KryptonEngine.Rendering
            int vertexCount = count*4;
            int indexCount  = count*2;
 
-           int vertexOffset = offset * 4;
-           int indexOffset  = offset * 6;
+           //int vertexOffset = offset * 4;
+          // int indexOffset  = offset * 6;
 
            
            mGraphicsDevice.Textures[1] = mDiffuseTextureBuffer[TextureID];

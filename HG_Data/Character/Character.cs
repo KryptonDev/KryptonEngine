@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using KryptonEngine;
 using KryptonEngine.Manager;
 using KryptonEngine.Physics;
+using System.Xml.Serialization;
 
 namespace HanselAndGretel.Data
 {
@@ -22,40 +23,8 @@ namespace HanselAndGretel.Data
 		#endregion
 
 		#region Getter & Setter
-
+		[XmlIgnoreAttribute]
 		public float Speed { get { return mSpeed; } }
-
-		#region Redirect Position to CollisionBox
-
-		new public Vector2 Position
-		{
-			set
-			{
-				mPosition = value;
-				mCollisionRectList[0] = new Rectangle((int)value.X, (int)value.Y, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
-			}
-			get { return mPosition; }
-		}
-		new public int PositionX
-		{
-			set
-			{
-				mPosition.X = value;
-				mCollisionRectList[0] = new Rectangle(value, mCollisionRectList[0].Y, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
-			}
-			get { return (int)mPosition.X; }
-		}
-		new public int PositionY
-		{
-			set
-			{
-				mPosition.Y = value;
-				mCollisionRectList[0] = new Rectangle(mCollisionRectList[0].X, value, mCollisionRectList[0].Width, mCollisionRectList[0].Height);
-			}
-			get { return (int)mPosition.Y; }
-		}
-
-		#endregion
 
 		#endregion
 
@@ -69,6 +38,11 @@ namespace HanselAndGretel.Data
 
 		}
 
+		public Character(String pName, Vector2 pPosition)
+			:base(pName)
+		{
+			this.Position = pPosition;
+		}
 
 		#endregion
 
@@ -78,16 +52,6 @@ namespace HanselAndGretel.Data
 		{
 			base.Initialize();
 			mDebugColor = Color.LightYellow;
-		}
-
-		public override void LoadContent()
-		{
-			base.LoadContent();
-		}
-
-		public override void Update()
-		{
-			base.Update();
 		}
 
 		#endregion

@@ -9,7 +9,7 @@ using KryptonEngine.Manager;
 using System.Xml.Serialization;
 using System.IO;
 using KryptonEngine;
-using KryptonEngine.HG_Data.Objects.Lights;
+using KryptonEngine.HG_Data;
 
 namespace HanselAndGretel.Data
 {
@@ -105,13 +105,19 @@ namespace HanselAndGretel.Data
 		public void LoadContent(string pBackgroundTextureName)
 		{
 			BackgroundTexture.TextureName = pBackgroundTextureName;
-			BackgroundTexture.LoadTextures();
+			BackgroundTexture.LoadContent();
 			foreach (InteractiveObject iObj in InteractiveObjects)
+			{
 				iObj.LoadContent();
+				iObj.ApplySettings();
+			}
 			foreach (Item item in Items)
 				item.LoadContent();
 			foreach (Collectable col in Collectables)
+			{
 				col.LoadContent();
+				col.ApplySettings();
+			}
 		}
 
 		public void SetupRenderList(Hansel pHansel, Gretel pGretel)

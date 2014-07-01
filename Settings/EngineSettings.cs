@@ -92,7 +92,7 @@ namespace KryptonEngine
 
         public static Keys Exitkey = Keys.F12;
 
-		public static SkeletonRenderer SpineRenderer;
+		public static XnaTextureLoader TextureLoader;
 
         #region Resolution
 

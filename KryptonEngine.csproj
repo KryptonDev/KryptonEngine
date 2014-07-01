@@ -149,7 +149,9 @@
     <Compile Include="Spine\csharp\Attachments\AttachmentLoader.cs" />
     <Compile Include="Spine\csharp\Attachments\AttachmentType.cs" />
     <Compile Include="Spine\csharp\Attachments\BoundingBoxAttachment.cs" />
+    <Compile Include="Spine\csharp\Attachments\MeshAttachment.cs" />
     <Compile Include="Spine\csharp\Attachments\RegionAttachment.cs" />
+    <Compile Include="Spine\csharp\Attachments\SkinnedMeshAttachment.cs" />
     <Compile Include="Spine\csharp\Bone.cs" />
     <Compile Include="Spine\csharp\BoneData.cs" />
     <Compile Include="Spine\csharp\Event.cs" />
@@ -162,8 +164,10 @@
     <Compile Include="Spine\csharp\Skin.cs" />
     <Compile Include="Spine\csharp\Slot.cs" />
     <Compile Include="Spine\csharp\SlotData.cs" />
-    <Compile Include="Spine\xna\SkeletonRenderer.cs" />
-    <Compile Include="Spine\xna\SpriteBatcher.cs" />
+    <Compile Include="Spine\xna\MeshBatcher.cs" />
+    <Compile Include="Spine\xna\RegionBatcher.cs" />
+    <Compile Include="Spine\xna\SkeletonMeshRenderer.cs" />
+    <Compile Include="Spine\xna\SkeletonRegionRenderer.cs" />
     <Compile Include="Spine\xna\Util.cs" />
     <Compile Include="Spine\xna\XnaTextureLoader.cs" />
   </ItemGroup>

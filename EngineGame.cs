@@ -29,7 +29,6 @@ namespace KryptonEngine
 
         protected override void Initialize()
         {
-			EngineSettings.SpineRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
             SceneManager.Instance.Initialize();
 			EngineSettings.Randomizer = new Random();
 			base.Initialize();
@@ -38,12 +37,13 @@ namespace KryptonEngine
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(EngineSettings.Graphics.GraphicsDevice);
+			EngineSettings.TextureLoader = new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice);
 
             TextureManager.Instance.LoadContent();
             FontManager.Instance.LoadContent();
 			ShaderManager.Instance.LoadContent();
-            InteractiveObjectDataManager.Instance.LoadContent();
             SpineDataManager.Instance.LoadContent();
+            InteractiveObjectDataManager.Instance.LoadContent();
             SceneManager.Instance.LoadContent();
         }
 

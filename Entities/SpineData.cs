@@ -54,7 +54,6 @@ namespace KryptonEngine.Entities
 
         #region Properties
 
-        public SkeletonRenderer skeletonRenderer;
         public Atlas atlas;
         public SkeletonJson json;
 		public SpineDataSettings settings;
@@ -67,35 +66,9 @@ namespace KryptonEngine.Entities
         {
 			Initialize();
 			settings = pSettings;
-			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", new XnaTextureLoader(EngineSettings.Graphics.GraphicsDevice));
+			atlas = new Atlas(EngineSettings.DefaultPathSpine + "\\" + pSkeletonName + ".atlas", EngineSettings.TextureLoader);
             json = new SkeletonJson(atlas);
         }
-
-		public override void Initialize()
-		{
-			skeletonRenderer = new SkeletonRenderer(EngineSettings.Graphics.GraphicsDevice);
-			skeletonRenderer.PremultipliedAlpha = true;
-		}
-
-		public override void LoadContent()
-		{
-			settings.Scaling = 1.0f;
-			settings.AnimationFading.Add(new AnimationMix("attack", "die"));
-			settings.AnimationFading.Add(new AnimationMix("attack", "die"));
-			settings.AnimationFading.Add(new AnimationMix("attack", "smash_die"));
-			settings.AnimationFading.Add(new AnimationMix("attack", "idle"));
-			settings.AnimationFading.Add(new AnimationMix("attack", "walk"));
-
-			settings.AnimationFading.Add(new AnimationMix("idle", "die"));
-			settings.AnimationFading.Add(new AnimationMix("idle", "smash_die"));
-			settings.AnimationFading.Add(new AnimationMix("idle", "attack"));
-			settings.AnimationFading.Add(new AnimationMix("idle", "walk"));
-
-			settings.AnimationFading.Add(new AnimationMix("walk", "die"));
-			settings.AnimationFading.Add(new AnimationMix("walk", "smash_die"));
-			settings.AnimationFading.Add(new AnimationMix("walk", "attack"));
-			settings.AnimationFading.Add(new AnimationMix("walk", "idle"));
-		}
 
         #endregion
     }

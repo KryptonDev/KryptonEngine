@@ -55,6 +55,22 @@ namespace KryptonEngine.Manager
 					mRessourcen.Add(fileName, tex);
 				}
 			}
+
+			environmentPath = new DirectoryInfo(Environment.CurrentDirectory + @"\Content\spine\");
+
+			if (!environmentPath.Exists)
+				return;
+
+			foreach (FileInfo f in environmentPath.GetFiles())
+			{
+				if (f.Name.Contains(".xnb"))
+				{
+					string fileName = f.Name.Substring(0, f.Name.Length - 4);
+					tex = EngineSettings.Content.Load<Texture2D>(@"spine\" + fileName);
+					if(!mRessourcen.ContainsKey(fileName))
+						mRessourcen.Add(fileName, tex);
+				}
+			}
 		}
 
 		/// <summary>
