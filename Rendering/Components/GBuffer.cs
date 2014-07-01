@@ -49,6 +49,7 @@ namespace KryptonEngine.Rendering.Components
 
         private RenderTarget2D mColorTarget;
         private RenderTarget2D mNormalTarget;
+        private RenderTarget2D mAoTarget;
         private RenderTarget2D mDepthTarget;
 
         private Texture2D[] mRenderTargetTextureArray;
@@ -73,7 +74,8 @@ namespace KryptonEngine.Rendering.Components
             {
                 this.mRenderTargetTextureArray[0] = (Texture2D)this.mColorTarget;
                 this.mRenderTargetTextureArray[1] = (Texture2D)this.mNormalTarget;
-                this.mRenderTargetTextureArray[2] = (Texture2D)this.mDepthTarget;
+                this.mRenderTargetTextureArray[2] = (Texture2D)this.mAoTarget;
+                this.mRenderTargetTextureArray[3] = (Texture2D)this.mDepthTarget;
 
                 return this.mRenderTargetTextureArray;
             }
@@ -92,10 +94,11 @@ namespace KryptonEngine.Rendering.Components
             int width = this.mGraphicsDevice.Viewport.Width;
             int height = this.mGraphicsDevice.Viewport.Height;
 
-            this.mRenderTargetTextureArray = new Texture2D[3];
+            this.mRenderTargetTextureArray = new Texture2D[4];
 
             this.mColorTarget = new RenderTarget2D(this.mGraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
             this.mNormalTarget = new RenderTarget2D(this.mGraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None);
+            this.mAoTarget = new RenderTarget2D(this.mGraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None);
             this.mDepthTarget = new RenderTarget2D(this.mGraphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None);
         }
         #endregion
@@ -105,7 +108,7 @@ namespace KryptonEngine.Rendering.Components
 
         public void SetGBuffer()
         {
-            RenderTargetBinding[] renderTargets = new RenderTargetBinding[] { this.mColorTarget, this.mNormalTarget ,this.mDepthTarget};
+            RenderTargetBinding[] renderTargets = new RenderTargetBinding[] { this.mColorTarget, this.mNormalTarget,this.mAoTarget ,this.mDepthTarget};
             this.mGraphicsDevice.SetRenderTargets(renderTargets);
             isGBufferSet = true;
         }
