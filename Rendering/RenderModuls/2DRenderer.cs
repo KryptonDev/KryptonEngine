@@ -149,7 +149,7 @@ namespace KryptonEngine.Rendering
         public void LoadContent()
         {
             this.mLightShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Light");
-            this.mCombineShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Combine");
+            this.mCombineShader = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("CombineShader");
             this.mSingelDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("Singel");
             this.mMRTDraw = KryptonEngine.Manager.ShaderManager.Instance.GetElementByString("MRT");
 
@@ -403,23 +403,23 @@ namespace KryptonEngine.Rendering
             EngineSettings.Graphics.GraphicsDevice.BlendState = mLightMapBlendState;
 
             KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[0] = mGBuffer.RenderTargets[1];
-            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = mGBuffer.RenderTargets[2];
+            KryptonEngine.EngineSettings.Graphics.GraphicsDevice.Textures[1] = mGBuffer.RenderTargets[3];
 
 
             foreach (Light l in pLightList)
             {
                 if (!l.IsVisible) continue;
 
-               this.mLightShader.Parameters["intensity"].SetValue(l.Intensity);
-               this.mLightShader.Parameters["color"].SetValue(l.LightColor);
-               this.mLightShader.Parameters["position"].SetValue(new Vector3(l.Position, l.Depth));
+               this.mLightShader.Parameters["LightIntensity"].SetValue(l.Intensity);
+               this.mLightShader.Parameters["LightColor"].SetValue(l.LightColor);
+               this.mLightShader.Parameters["LightPosition"].SetValue(new Vector3(l.Position, l.Depth));
                this.mLightShader.Parameters["screen"].SetValue(new Vector2(EngineSettings.VirtualResWidth, EngineSettings.VirtualResHeight));
 
                if (l.GetType() == typeof(PointLight))
                {
                    PointLight tempPl = (PointLight)l;
 
-                   mLightShader.Parameters["radius"].SetValue(tempPl.Radius);
+                   mLightShader.Parameters["LightRadius"].SetValue(tempPl.Radius);
                    mLightShader.CurrentTechnique.Passes[0].Apply();
                }
                 //directional Light!
@@ -483,7 +483,7 @@ namespace KryptonEngine.Rendering
             batch.Draw(this.mGBuffer.RenderTargets[0], new Rectangle(smallWidth * 0, height - smallHeigth, smallWidth, smallHeigth), Color.White);
             batch.Draw(this.mGBuffer.RenderTargets[1], new Rectangle(smallWidth * 1, height - smallHeigth, smallWidth, smallHeigth), Color.White);
             batch.Draw(this.mGBuffer.RenderTargets[2], new Rectangle(smallWidth * 2, height - smallHeigth, smallWidth, smallHeigth), Color.White);
-           // batch.Draw(this.mGraphicsDevice., new Rectangle(smallWidth * 3, height - smallHeigth, smallWidth, smallHeigth), Color.White);
+            batch.Draw(this.mGBuffer.RenderTargets[3], new Rectangle(smallWidth * 3, height - smallHeigth, smallWidth, smallHeigth), Color.White);
 
             batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"),this.mFPSCounter.FPS.ToString() + " FPS", Vector2.Zero, Color.White);
             batch.DrawString(KryptonEngine.Manager.FontManager.Instance.GetElementByString("font"), this.mBatch.mDiffuseTextureBuffer.Count.ToString() + " Textures", new Vector2(0,20), Color.White);
@@ -507,6 +507,12 @@ namespace KryptonEngine.Rendering
             batch.End();
         }
 
+        public void DrawFinalTargettOnScreen(SpriteBatch batch)
+        {
+            batch.Begin();
+            batch.Draw(mFinalTarget, Vector2.Zero, Color.White);
+            batch.End();
+        }
 
         #endregion
     }
