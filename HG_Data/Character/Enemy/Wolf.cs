@@ -21,6 +21,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
+		public Wolf() { }
+
 		public Wolf(string pName)
 			:base(pName)
 		{

@@ -20,6 +20,8 @@ namespace HanselAndGretel.Data
 
 		#region Constructor
 
+		public Mother() { }
+
 		public Mother(string pName)
 			:base(pName)
 		{
