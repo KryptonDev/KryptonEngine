@@ -26,8 +26,8 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Lantern(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Lantern(string pTextureName)
+			:base(pTextureName)
 		{
 
 		}

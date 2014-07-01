@@ -28,8 +28,8 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Item(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Item(String pTextureName)
+			:base(pTextureName)
 		{
 
 		}

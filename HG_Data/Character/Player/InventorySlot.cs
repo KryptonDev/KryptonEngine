@@ -36,7 +36,9 @@ namespace HanselAndGretel.Data
 		public void SetupDeserialized()
 		{
 			if (Item != null)
-				Item.LoadTextures();
+			{
+				Item.LoadContent();
+			}
 		}
 
 		#endregion

@@ -24,8 +24,8 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Key(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Key(string pTextureName)
+			:base(pTextureName)
 		{
 
 		}

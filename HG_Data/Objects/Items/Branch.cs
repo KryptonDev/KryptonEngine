@@ -24,8 +24,8 @@ namespace HanselAndGretel.Data
 
 		}
 
-		public Branch(Vector2 pPosition, string pTextureName)
-			:base(pPosition, pTextureName)
+		public Branch(string pTextureName)
+			:base(pTextureName)
 		{
 
 		}

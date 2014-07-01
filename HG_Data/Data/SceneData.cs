@@ -141,11 +141,19 @@ namespace HanselAndGretel.Data
 		public void SetupDeserialized()
 		{
 			foreach (InteractiveObject iObj in InteractiveObjects)
+			{
 				iObj.LoadContent();
+				iObj.ApplySettings();
+			}
 			foreach (Item item in Items)
-				item.LoadTextures();
+			{
+				item.LoadContent();
+			}
 			foreach (Collectable col in Collectables)
-				col.LoadTextures();
+			{
+				col.LoadContent();
+				col.ApplySettings();
+			}
 		}
 		#endregion
 	}

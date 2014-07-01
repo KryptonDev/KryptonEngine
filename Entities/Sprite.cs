@@ -49,14 +49,20 @@ namespace KryptonEngine.Entities
 
         public Sprite() { }
 
+		public Sprite(String pTextureName)
+		{
+			mTextureName = pTextureName;
+			LoadContent();
+			mWidth = mTextures[0].Width;
+			mHeight = mTextures[0].Height;
+			mOrigin = new Vector2(mWidth / 2, mHeight / 2);
+		}
+
         public Sprite(Vector2 pPosition, String pTextureName, String pPathName)
             : base(pPosition)
         {
-            TextureName = pTextureName;
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+            mTextureName = pTextureName;
+			LoadContent();
             
             mWidth = mTextures[0].Width;
             mHeight = mTextures[0].Height;
@@ -70,12 +76,7 @@ namespace KryptonEngine.Entities
         {
             TextureName = pTextureName;
 
-			mTextures = new Texture2D[4];
-			
-			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
-			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
-			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
-			mTextures[3] = TextureManager.Instance.GetElementByString(TextureName + "Depth");
+			LoadContent();
 			mWidth = mTextures[0].Width;
 			mHeight = mTextures[0].Height;
             mOrigin = new Vector2(mWidth / 2, mHeight / 2);
@@ -113,8 +114,9 @@ namespace KryptonEngine.Entities
 		//	spriteBatch.Draw(mDepthTexture, new Rectangle(PositionX + (int)mOrigin.X, PositionY + (int)mOrigin.Y, mWidth, mHeight), new Rectangle(0, 0, mWidth, mHeight), mTint, MathHelper.ToRadians(mRotation), mOrigin, mEffekt, 0.0f);
 		//}
 
-		public void LoadTextures()
+		public override void LoadContent()
 		{
+			mTextures = new Texture2D[4];
 			mTextures[0] = TextureManager.Instance.GetElementByString(TextureName);
 			mTextures[1] = TextureManager.Instance.GetElementByString(TextureName + "Normal");
 			mTextures[2] = TextureManager.Instance.GetElementByString(TextureName + "AO");
