@@ -13,9 +13,13 @@ namespace HanselAndGretel.Data
 	{
 		#region Properties
 
+		protected bool mIsHidden;
+
 		#endregion
 
 		#region Getter & Setter
+
+		public bool IsHidden { get { return mIsHidden; } set { mIsHidden = value; } }
 
 		#endregion
 
